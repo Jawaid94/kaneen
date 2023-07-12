@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="import_records" model="ir.ui.view">
+        <field name="name">Import Product Records</field>
+        <field name="model">data.upload</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="data_file" placeholder="Choose a file to import"/>
+                </group>
+                <footer>
+                    <button string="Ok" name="import_data" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="data_upload_action" name="Records Imported" res_model="data.upload" view_mode="form" target="new"/>
+
+    <menuitem id="data_upload_root" name="Automatic PO" sequence="50" action="data_upload_action"/>
+
+</odoo>

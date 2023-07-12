@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_order_form_view_kaneen" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button type="object" string="Return" name="open_return"
+                        attrs="{'invisible':[('state', 'in', ['done'])]}"/>
+            </xpath>
+            <xpath expr="//header/button[@name='action_cancel']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale', 'processing',
+                    'ready_to_ship', 'shipped', 'delivered', 'item_returned', 'damaged_item']), ('id', '=', False)]}
+                </attribute>
+<!--                <attribute name="context">{'sale_id': id}</attribute>-->
+            </xpath>
+            <field name="payment_term_id" position="after">
+                <field name="payment_status"/>
+            </field>
+
+            <xpath expr="//button[@name='action_view_invoice']" position="after">
+                <button type="object" name="open_damaged" class="oe_stat_button" icon="fa-undo"
+                        attrs="{'invisible': [('state', '!=', 'damaged_item')]}">
+                    <field name="damage_count" widget="statinfo" string="Returned Items"/>
+                </button>
+            </xpath>
+
+            <!--            <xpath expr="//form/sheet/notebook/page[@name='order_lines']/field/form/group/group[1]/field[@name='product_id']"-->
+            <!--                   position="after">-->
+            <!--                <field name="product_quality"/>-->
+            <!--                <field name="product_quality_comment_id" widget="many2many_tags"-->
+            <!--                       attrs="{'readonly': [('product_quality', '=', 'original')]}"/>-->
+            <!--            </xpath>-->
+            <!--            <xpath expr="//form/sheet/notebook/page[@name='order_lines']/field/tree/field[@name='product_id']"-->
+            <!--                   position="after">-->
+            <!--                <field name="product_quality"/>-->
+            <!--                <field name="product_quality_comment_id" widget="many2many_tags"-->
+            <!--                       attrs="{'readonly': [('product_quality', '=', 'original')]}"/>-->
+            <!--            </xpath>-->
+        </field>
+    </record>
+
+    <record id="sale_order_tree_view_kaneen" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="invoice_status" position="after">
+                <field name="payment_status" optional="show" widget="badge"
+                       decoration-success="payment_status == 'paid'" decoration-info="payment_status == 'not_paid'"
+                       decoration-warning="payment_status == 'partial'"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_order_tree_quotation_view_kaneen" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <field name="invoice_status" position="after">
+                <field name="payment_status" optional="show" widget="badge"
+                       decoration-success="payment_status == 'paid'" decoration-info="payment_status == 'not_paid'"
+                       decoration-warning="payment_status == 'partial'"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+        <field name="context">{}</field>
+    </record>
+
+    <!--    <record id="mo_kaneen_sale_report_search_view" model="ir.ui.view">-->
+    <!--        <field name="name">mo.mo_kaneen_sale_report_search_view</field>-->
+    <!--        <field name="model">sale.report</field>-->
+    <!--        <field name="inherit_id" ref="sale.view_order_product_search"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <xpath expr="//filter[@name='filter_date']" position="before">-->
+    <!--                <separator/>-->
+    <!--                <filter name="original" string="Product Quality: Original"-->
+    <!--                        domain="[('product_quality','=', 'original')]"/>-->
+    <!--                <filter name="semi_damaged" string="Product Quality: Semi-Damaged"-->
+    <!--                        domain="[('product_quality','=', 'semi-damaged')]"/>-->
+    <!--                <filter name="damaged" string="Product Quality: Damaged" domain="[('product_quality','=', 'damaged')]"/>-->
+    <!--                <separator/>-->
+    <!--            </xpath>-->
+
+    <!--            <xpath expr="//field[@name='industry_id']" position="after">-->
+    <!--                <field name="product_quality"/>-->
+    <!--            </xpath>-->
+
+    <!--            <xpath expr="//filter[@name='status']" position="after">-->
+    <!--                <filter name="group_product_quality" string="Product quality"-->
+    <!--                        context="{'group_by': 'product_quality'}"/>-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--    </record>-->
+</odoo>

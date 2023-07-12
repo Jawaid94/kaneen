@@ -1,0 +1,23 @@
+<odoo>
+    <record id="ir_cron_export_to_magento_product" model="ir.cron">
+        <field name="name">Export to Magento Products</field>
+        <field name="model_id" ref="model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">model.export_to_mangento_cron()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">False</field>
+    </record>
+
+    <record id="ir_cron_export_to_magento_order_status" model="ir.cron">
+        <field name="name">Export to Magento Order Status</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">model.onchange_state_cron()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

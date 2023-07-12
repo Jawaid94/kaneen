@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_import_quant_from_shatha" model="ir.actions.server">
+            <field name="name">Import Quants From Shatha</field>
+            <field name="model_id" ref="model_stock_quant"/>
+            <field name="binding_model_id" ref="model_stock_quant"/>
+            <field name="state">code</field>
+            <field name="code">
+                model.import_quant_from_shatha()
+            </field>
+        </record>
+
+        <record id="action_import_product_from_shatha" model="ir.actions.server">
+            <field name="name">Update Products From Shatha</field>
+            <field name="model_id" ref="model_product_template"/>
+            <field name="binding_model_id" ref="model_product_template"/>
+            <field name="state">code</field>
+            <field name="code">
+                model.import_product_from_shatha()
+            </field>
+        </record>
+
+        <menuitem action="action_import_quant_from_shatha" id="menu_import_quant_from_shatha"
+                  parent="stock.menu_stock_warehouse_mgmt"
+                  sequence="99"/>
+
+        <menuitem action="action_import_product_from_shatha" id="menu_import_product_from_shatha"
+                  parent="stock.menu_stock_warehouse_mgmt"
+                  sequence="98"/>
+
+    </data>
+</odoo>

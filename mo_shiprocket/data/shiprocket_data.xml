@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="product_product_delivery_shiprocket" model="product.product">
+            <field name="name">Shiprocket</field>
+            <field name="default_code">Delivery_shiprocket</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="delivery.product_category_deliveries"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+            <field name="invoice_policy">order</field>
+        </record>
+        <record id="delivery_carrier_ups_be" model="delivery.carrier">
+            <field name="name">Shiprocket</field>
+            <field name="product_id" ref="delivery_ups.product_product_delivery_shiprocket"/>
+            <field name="delivery_type">shiprocket</field>
+        </record>
+
+    </data>
+</odoo>

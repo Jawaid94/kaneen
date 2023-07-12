@@ -1,0 +1,1 @@
+from . import set_available_in_magento

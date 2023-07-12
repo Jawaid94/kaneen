@@ -1,0 +1,8 @@
+@font-face {
+    font-display: swap;
+    font-family: 'Hacen Maghreb';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/lbs_arabic_font/static/src/fonts/HacenMaghrebLt/HacenMaghrebLtRegular.ttf')
+        format('ttf');
+}

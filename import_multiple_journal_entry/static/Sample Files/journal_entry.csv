@@ -1,0 +1,20 @@
+date,Ref,Journal,name,Vendor,analytic_account_id,analytic_tag_ids,account,date_maturity,debit,credit,amount_currency,currency
+2/15/2019,BILL/2019/0002,Vendor Bills,/,ASUSTeK,Department,IT,600000,3/31/2019,0,5749.99,,USD
+2/15/2019,BILL/2019/0002,Vendor Bills,Coffee Machine with huge 'employee's performances boosting perk',ASUSTeK,Department,"IT,Sales & Marketing",600000,2/15/2019,4999.99,0,,USD
+2/15/2019,BILL/2019/0002,Vendor Bills,Tax 15.00%,ASUSTeK,Department,"IT,Sales & Marketing",600000,2/15/2019,750,0,,USD
+2/8/2019,INV/2019/0002,Bank,/,Agrolait,Department,"IT,Sales & Marketing",101404,3/10/2019,650,0,,USD
+2/8/2019,INV/2019/0002,Bank,[CONS_DEL03] Basic Computer,Agrolait,Department,"IT,Sales & Marketing",101404,2/8/2019,0,150,,USD
+2/8/2019,INV/2019/0002,Bank,[CONS_DEL01] Server,Agrolait,Department,"IT,Sales & Marketing",101404,2/8/2019,0,500,,USD
+2/8/2019,INV/2019/0003,Bank,/,Agrolait,Department,"IT,Sales & Marketing",101404,3/10/2019,525,0,,USD
+2/8/2019,INV/2019/0003,Bank,[CONS_DEL01] Server,Agrolait,Department,"IT,Sales & Marketing",101404,2/8/2019,0,450,,USD
+2/8/2019,INV/2019/0003,Bank,[CONS_DEL03] Basic Computer,Agrolait,Department,"IT,Sales & Marketing",101404,2/8/2019,0,75,,USD
+2/1/2019,INV/2019/0001,Bank,/,Camptocamp,Department ,IT,101404,3/31/2019,4610,0,,USD
+2/1/2019,INV/2019/0001,Bank,[CONS_DEL02] Little server,Camptocamp,Department,IT,101404,2/1/2019,0,3210,,USD
+2/1/2019,INV/2019/0001,Bank,[CONS_DEL03] Basic Computer,Camptocamp,Department,IT,101404,2/1/2019,0,1400,,USD
+2/1/2019,BILL/2019/0001,Vendor Bills,/,Camptocamp,Department,IT,600000,3/31/2019,0,10000,,USD
+2/1/2019,BILL/2019/0001,Vendor Bills,CEO wages,Camptocamp,Department,IT,600000,2/1/2019,10000,0,,USD
+1/17/2019,INV/2019/0004,Bank,/,Agrolait,Department,Sales & Marketing,101404,1/17/2019,4610,0,,USD
+1/17/2019,INV/2019/0004,Bank,[CONS_DEL02] Little server,Agrolait,Department,Sales & Marketing,101404,1/17/2019,0,3210,,USD
+1/17/2019,INV/2019/0004,Bank,[CONS_DEL03] Basic Computer,Agrolait,Department,Sales & Marketing,101404,1/17/2019,0,1400,,USD
+1/1/2019,BNK1/2019/0001,Bank,Last Year Interests,,Department,Sales & Marketing,101404,1/1/2019,102.78,0,,USD
+1/1/2019,BNK1/2019/0001,Bank,Last Year Interests,,Department,Sales & Marketing,101404,1/1/2019,0,102.78,,USD

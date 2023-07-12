@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="import_product_wizard_form" model="ir.ui.view">
+        <field name="name">Import product</field>
+        <field name="model">import.product</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="sale_tax_id" widget="many2many_tags" required="1"/>
+                    <field name="purchase_tax_id" widget="many2many_tags" required="1"/>
+                    <field name="pricelist_id" required="1"/>
+                    <field name="start_date_for_price" required="1"/>
+                    <field name="file" required="1"/>
+                </group>
+                <footer>
+                    <button string="Set" name="import_file_new" type="object"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_open_import_product_wizard_form" model="ir.actions.act_window">
+        <field name="name">Import product</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">import.product</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="import_product_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="stock_import_product"
+        name="Import products"
+        action="action_open_import_product_wizard_form"
+        parent="stock.menu_stock_warehouse_mgmt"
+        sequence="99"
+        />
+</odoo>

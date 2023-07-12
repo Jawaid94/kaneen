@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mo_inherit_product_template_form" model="ir.ui.view">
+        <field name="name">mo.product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button type="object" name="export_to_mangento" string="Export to Magento"
+                        attrs="{'invisible': [('available_in_magento', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="tranlate_field" invisible="1"/>
+                <field name="available_in_magento"/>
+                <field name="instance_ids" widget="many2many_tags"
+                       attrs="{'invisible': [('available_in_magento', '=', False)],'required': [('available_in_magento', '!=', False)]}"/>
+            </xpath>
+            <xpath expr="//form/sheet/div[@name='options']/span[2]" position="after">
+                <span class="d-inline-block">
+                    <field name="published_web_status" readonly="1"/>
+                    <label for="published_web_status"/>
+                </span>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_search_view_kaneen" model="ir.ui.view">
+        <field name="name">product.product.search.kaneen</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='filter_to_purchase']" position="after">
+                <filter string="Published On Web Status" name="published_web_status"
+                        domain="[('published_web_status', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mo_disable_in_magento" model="ir.actions.server">
+        <field name="name">Disable in Magento</field>
+        <field name="model_id" ref="model_product_template"/>
+        <field name="state">code</field>
+        <field name="binding_view_types">list</field>
+        <field name="code">
+            action = records.disable_in_magento()
+        </field>
+    </record>
+
+    <record id="mo_available_in_magento" model="ir.actions.server">
+        <field name="name">Available in Magento</field>
+        <field name="model_id" ref="model_product_template"/>
+        <field name="state">code</field>
+        <field name="binding_view_types">list</field>
+        <field name="code">
+            action = records.available_in_magento_func()
+        </field>
+    </record>
+
+    <record id="mo_export_to_mangento" model="ir.actions.server">
+        <field name="name">Export to Magento</field>
+        <field name="model_id" ref="model_product_template"/>
+        <field name="state">code</field>
+        <field name="binding_view_types">list</field>
+        <field name="code">
+            action = records.export_to_mangento_cron()
+        </field>
+    </record>
+</odoo>

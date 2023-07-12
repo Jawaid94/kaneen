@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mo_res_config_settings_view" model="ir.ui.view">
+        <field name="name">mo.res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="15"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Shatha" string="Shatha" data-key="mo_shatha">
+                    <h2>Data for Shatha</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted content-group mt16">
+                                    <label for="xml_url" string='Url'
+                                           style="width:100%"/>
+                                    <field name='xml_url' style="width:100%"/>
+                                    <label for="xml_dbname" string='DataBase Name'
+                                           style="width:100%"/>
+                                    <field name='xml_dbname' style="width:100%" password="True"/>
+                                    <label for="xml_username" string='DataBase User'
+                                           style="width:100%"/>
+                                    <field name='xml_username' style="width:100%"/>
+                                    <label for="xml_password" string='DataBase Password'
+                                           style="width:100%"/>
+                                    <field name='xml_password' style="width:100%" password="True"/>
+                                    <label for="shatha_remote_stock_location_id" string='Remote Stock Location'
+                                           style="width:100%"/>
+                                    <field name='shatha_remote_stock_location_id' style="width:100%"/>
+                                    <label for="responsible_user_id" string='Responsible'
+                                           style="width:100%"/>
+                                    <field name='responsible_user_id' style="width:100%"/>
+                                    <label for="shatha_remote_contact_id" string='Shatha Remote Contact ID'
+                                           style="width:100%"/>
+                                    <field name='shatha_remote_contact_id' style="width:100%"/>
+                                    <label for="shatha_location_id" string='Shatha Location'
+                                           style="width:100%"/>
+                                    <field name='shatha_location_id' style="width:100%"/>
+                                    <label for="test_connect" string='Test Connection'
+                                           style="width:100%"/>
+                                    <button name="test_connect" string="Test Connection" type="object"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

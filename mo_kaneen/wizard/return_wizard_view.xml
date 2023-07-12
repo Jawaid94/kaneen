@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="return_wizard_form" model="ir.ui.view">
+        <field name="name">Return wizard</field>
+        <field name="model">return.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="file" required="1"/>
+                </group>
+                <footer>
+                    <button string="Set" name="import_file" type="object"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_open_return_wizard_form" model="ir.actions.act_window">
+        <field name="name">Return wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">return.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="return_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            id="stock_return_wizard"
+            name="Return orders"
+            action="action_open_return_wizard_form"
+            parent="mo_kaneen.return_root"
+            sequence="1"
+    />
+</odoo>

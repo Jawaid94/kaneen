@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mo_damaged_item_filter" model="ir.ui.view">
+        <field name="name">mo_damaged_item.list.select</field>
+        <field name="model">mo.damaged.item</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="sale_id"/>
+                <field name="product_id"/>
+                <field name="product_quality"/>
+                <field name="product_quality_comment_id"/>
+                <field name="return_comment"/>
+                <separator/>
+                <!--                 <filter name="original" string="Product Quality: Original"-->
+                <!--                        domain="[('product_quality','=', 'original')]"/>-->
+                <filter name="semi_damaged" string="Product Quality: Semi-Damaged"
+                        domain="[('product_quality','=', 'semi-damaged')]"/>
+                <filter name="damaged" string="Product Quality: Damaged" domain="[('product_quality','=', 'damaged')]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Sale" name="sale_group" domain="[]" context="{'group_by': 'sale_id'}"/>
+                    <filter string="Product" name="product_group" domain="[]" context="{'group_by': 'product_id'}"/>
+                    <filter string="Product Quality" name="quality_group" domain="[]"
+                            context="{'group_by': 'product_quality'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="mo_damaged_item_tree" model="ir.ui.view">
+        <field name="name">mo_damaged_item_tree.tree</field>
+        <field name="model">mo.damaged.item</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sale_id"/>
+                <field name="product_id"/>
+                <field name="product_quality"/>
+                <field name="product_quality_comment_id" widget="many2many_tags"/>
+                <field name="return_comment"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mo_damaged_item_action" model="ir.actions.act_window">
+        <field name="name">Returned Items</field>
+        <field name="res_model">mo.damaged.item</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="mo_damaged_item_filter"/>
+        <field name="context">{'search_default_product_group':1, 'search_default_quality_group':1}
+        </field>
+        <field name="help" type="html">
+            <p>
+                No damaged items
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="return_root" name="Returns" parent="sale.sale_order_menu" sequence="99"/>
+
+    <menuitem id="menu_returned_items_sale"
+              name="Returned items"
+              parent="sale.menu_sale_report"
+              sequence="99"
+              action="mo_damaged_item_action"
+    />
+    <menuitem id="menu_returned_items_stock"
+              name="Returned items"
+              parent="stock.menu_warehouse_report"
+              sequence="999"
+              action="mo_damaged_item_action"
+    />
+
+</odoo>

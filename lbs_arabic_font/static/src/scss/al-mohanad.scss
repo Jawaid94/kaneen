@@ -1,0 +1,16 @@
+// ------------------------------------------------------------------
+// AL-Mohanad
+// ------------------------------------------------------------------
+$almohanad-font-path: '../fonts/AL-Mohanad';
+
+@font-face {
+    font-family: 'almohanad';
+    src: url('#{$almohanad-font-path}/AL-Mohanad.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'almohanadbold';
+    src: url('#{$almohanad-font-path}/AL-Mohanad Bold.ttf') format('truetype');
+    font-weight: bold;
+}

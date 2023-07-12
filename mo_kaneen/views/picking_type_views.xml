@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mo_inherit_view_picking_type_form" model="ir.ui.view">
+        <field name="name">mo.view_picking_type_form</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <field name="return_picking_type_id" position="after">
+                <field name="visible_putaway" invisible="1"/>
+                <field name="picking_type_for_putaway" attrs="{'invisible': [('visible_putaway', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

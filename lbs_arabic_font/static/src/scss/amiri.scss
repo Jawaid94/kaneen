@@ -1,0 +1,16 @@
+// ------------------------------------------------------------------
+// amiri
+// ------------------------------------------------------------------
+$amiri-font-path: '../fonts/Amiri';
+
+@font-face {
+    font-family: 'Amiri Regular';
+    src: url('#{$amiri-font-path}/Amiri-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Amiri Bold';
+    src: url('#{$amiri-font-path}/Amiri-Bold.ttf') format('truetype');
+    font-weight: bold;
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mo_inherit_magento_instance_form" model="ir.ui.view">
+        <field name="name">mo.magento.instance.form</field>
+        <field name="model">magento.instance</field>
+        <field name="inherit_id" ref="odoo_magento2_ept.view_magento_instance_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='shipping_product_id']" position="after">
+                <field name="payment_fee_product_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

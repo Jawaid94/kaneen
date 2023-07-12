@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="available_magnet_wizard_form" model="ir.ui.view">
+        <field name="name">Available magneto</field>
+        <field name="model">available.magneto</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="instance_ids" widget="many2many_tags" required="1"/>
+                </group>
+                <footer>
+                    <button string="Set" name="set_available" type="object"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
