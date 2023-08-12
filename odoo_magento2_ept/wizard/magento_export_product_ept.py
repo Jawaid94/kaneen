@@ -6,7 +6,7 @@ Describes product import export process.
 import time
 import logging
 from datetime import datetime, timedelta
-from odoo import fields, models, api, _
+from odoo import fields, models, api, _,registry
 from odoo.exceptions import UserError
 from ..models.api_request import req
 from ..python_library.php import Php
@@ -579,8 +579,15 @@ class MagentoExportProductEpt(models.TransientModel):
             self.export_product_stock_magento(instance, product_ids, log)
             if log and not log.log_lines:
                 log.unlink()
-            instance.write({'last_update_stock_time': datetime.now()})
-            self._cr.commit()
+
+            cr = registry(instance._cr.dbname).cursor()
+            new_self = instance.with_env(instance.env(cr=cr))
+            sql = f"update magento_instance set last_update_stock_time = '{datetime.utcnow().replace(tzinfo=None)}' where id = {instance.id}"
+            new_self.env.cr.execute(sql)
+            cr.commit()
+            cr.close()
+            # instance.write({'last_update_stock_time': datetime.now()})
+            # self._cr.commit()
         return True
 
     @staticmethod

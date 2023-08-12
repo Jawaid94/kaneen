@@ -7,11 +7,14 @@
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <button type="object" name="send_order_to_shatha" string="Export to Shatha"
-                        attrs="{'invisible': ['|', ('send_status', '=', 'sent'), ('state', '!=', 'purchase')]}"/>
-                 <button type="object" name="resend_order_to_shatha" string="Reexport to Shatha"
-                        attrs="{'invisible': ['|', ('send_status', '!=', 'sent'), ('state', '!=', 'purchase')]}"/>
+                        attrs="{'invisible': ['|', ('send_status', '=', 'sent'), '|', ('state', '!=', 'purchase'), ('visible_order_send_to_shatha', '=', False)]}"/>
+                <button type="object" name="resend_order_to_shatha" string="Reexport to Shatha"
+                        attrs="{'invisible': ['|', ('send_status', '!=', 'sent'), '|', ('state', '!=', 'purchase'), ('visible_order_send_to_shatha', '=', False)]}"/>
                 <button type="object" name="recount_price" string="Recount Price"/>
                 <field name="send_status" readonly="1" widget="statusbar"/>
+            </xpath>
+            <xpath expr="//div[@name='reminder']" position="after">
+                <field name="visible_order_send_to_shatha" invisible="1"/>
             </xpath>
         </field>
     </record>

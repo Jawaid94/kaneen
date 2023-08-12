@@ -27,9 +27,9 @@
                                     <label for="xml_password" string='DataBase Password'
                                            style="width:100%"/>
                                     <field name='xml_password' style="width:100%" password="True"/>
-                                    <label for="shatha_remote_stock_location_id" string='Remote Stock Location'
-                                           style="width:100%"/>
-                                    <field name='shatha_remote_stock_location_id' style="width:100%"/>
+<!--                                    <label for="shatha_remote_stock_location_id" string='Remote Stock Location'-->
+<!--                                           style="width:100%"/>-->
+<!--                                    <field name='shatha_remote_stock_location_id' style="width:100%"/>-->
                                     <label for="responsible_user_id" string='Responsible'
                                            style="width:100%"/>
                                     <field name='responsible_user_id' style="width:100%"/>

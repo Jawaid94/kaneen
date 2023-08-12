@@ -159,14 +159,14 @@ class gen_journal_entry(models.TransientModel):
         return values
 
     def find_date(self, date):
-        DATETIME_FORMAT = "%m/%d/%Y"
+        DATETIME_FORMAT = "%d/%m/%Y"
         if date:
             new_date = date.split(' ')
             try:
                 p_date = datetime.strptime(new_date[0], DATETIME_FORMAT)
                 return p_date
             except Exception:
-                raise ValidationError(_('Wrong Date Format. Date Should be in format YYYY-MM-DD.'))
+                raise ValidationError(_('Wrong Date Format. Date Should be in format DD-MM-YYYY.'))
         else:
             raise ValidationError(_('Please add Date field in sheet.'))
 

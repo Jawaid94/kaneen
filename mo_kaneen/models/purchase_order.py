@@ -3,6 +3,18 @@ from .xml_rpc_request import connect
 from odoo.exceptions import ValidationError
 
 
+def get_standard_price(self, sku_shatha):
+    url = self.env['ir.config_parameter'].sudo().get_param('mo_kaneen.xml_url')
+    username = self.env['ir.config_parameter'].sudo().get_param('mo_kaneen.xml_username')
+    db = self.env['ir.config_parameter'].sudo().get_param('mo_kaneen.xml_dbname')
+    password = self.env['ir.config_parameter'].sudo().get_param('mo_kaneen.xml_password')
+    uid, models = connect(url, db, username, password)
+    shatha_standard_price = \
+    models.execute_kw(db, uid, password, 'product.product', 'search_read', [[['default_code', '=', sku_shatha]]],
+                      {'fields': ['standard_price']})[-1]['standard_price']
+    return shatha_standard_price
+
+
 class Purchase(models.Model):
     _inherit = 'purchase.order'
 
@@ -10,6 +22,14 @@ class Purchase(models.Model):
                                     ('sent', 'Sent'),
                                     ('error', 'Error')], default='not_sent')
     message_send = fields.Boolean()
+    visible_order_send_to_shatha = fields.Boolean('Send order to shatha visible?',
+                                                  compute='_compute_visible_order_send_to_shatha')
+
+    @api.depends('order_line')
+    def _compute_visible_order_send_to_shatha(self):
+        for purchase_order in self:
+            purchase_order.visible_order_send_to_shatha = any(
+                map(lambda x: x if x is False else eval(x), purchase_order.order_line.product_id.mapped('sku_shatha')))
 
     def get_rpc_params(self):
         url = self.env['ir.config_parameter'].sudo().get_param('mo_kaneen.xml_url')
@@ -210,3 +230,16 @@ class Purchase(models.Model):
             sales_picking = sales.search(
                 [('name', 'in', self.origin.split(', '))]).picking_ids.filtered(lambda x: x.show_in_purchase)
         return self._get_action_view_picking(self.picking_ids + sales_picking)
+
+
+class PurchaseOrderLine(models.Model):
+    _inherit = 'purchase.order.line'
+
+    @api.model
+    def _prepare_purchase_order_line(self, product_id, product_qty, product_uom, company_id, supplier, po):
+        res = super(PurchaseOrderLine, self)._prepare_purchase_order_line(product_id, product_qty, product_uom,
+                                                                          company_id, supplier, po)
+        if eval(product_id.sku_shatha):
+            shatha_standard_price = get_standard_price(self, product_id.sku_shatha)
+            res['price_unit'] = shatha_standard_price + 5
+        return res

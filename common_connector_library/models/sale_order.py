@@ -170,15 +170,29 @@ class SaleOrder(models.Model):
 
             if order.invoice_status and order.invoice_status == 'invoiced':
                 continue
-            if work_flow_process_record.validate_order:
-                order.validate_order_ept()
+            if order.magento_order_status == 'processing':
+                if work_flow_process_record.validate_order:
+                    order.validate_order_ept()
 
-            order_lines = order.mapped('order_line').filtered(lambda l: l.product_id.invoice_policy == 'order')
-            if not order_lines.filtered(lambda l: l.product_id.type == 'product') and len(
-                order.order_line) != len(order_lines.filtered(lambda l: l.product_id.type in ['service', 'consu'])):
-                continue
+                order_lines = order.mapped('order_line').filtered(lambda l: l.product_id.invoice_policy == 'order')
+                if not order_lines.filtered(lambda l: l.product_id.type == 'product') and len(order.order_line) != len(
+                        order_lines.filtered(lambda l: l.product_id.type in ['service', 'consu'])):
+                    continue
 
-            order.validate_and_paid_invoices_ept(work_flow_process_record)
+                order.validate_and_paid_invoices_ept(work_flow_process_record)
+
+            elif order.magento_order_status == 'pending' and order.magento_payment_method_id.payment_method_code == 'cashondelivery':
+                if work_flow_process_record.validate_order:
+                    order.validate_order_ept()
+            # if work_flow_process_record.validate_order:
+            #     order.validate_order_ept()
+
+            # order_lines = order.mapped('order_line').filtered(lambda l: l.product_id.invoice_policy == 'order')
+            # if not order_lines.filtered(lambda l: l.product_id.type == 'product') and len(
+            #     order.order_line) != len(order_lines.filtered(lambda l: l.product_id.type in ['service', 'consu'])):
+            #     continue
+            #
+            # order.validate_and_paid_invoices_ept(work_flow_process_record)
         return True
 
     def validate_and_paid_invoices_ept(self, work_flow_process_record):

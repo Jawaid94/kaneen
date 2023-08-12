@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="module_ywt_import_stock_inventory" model="ir.module.category">
+            <field name="name">Import Stock Inventory Adjustment From CSV/Xlsx/Xls</field>
+            <field name="description">Import Stock Inventory Adjustment Which Help You To Adjust Your Inventory
+                Adjustments With In Few Minutes.
+            </field>
+            <field name="sequence">99</field>
+        </record>
+        <record id="ywt_import_stock_inventory_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="module_ywt_import_stock_inventory"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        <record id="ywt_import_stock_inventory_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="module_ywt_import_stock_inventory"/>
+            <field name="implied_ids" eval="[(4, ref('ywt_import_stock_inventory_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+    </data>
+</odoo>

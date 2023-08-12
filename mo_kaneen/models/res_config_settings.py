@@ -17,7 +17,7 @@ class ResConfigSettings(models.TransientModel):
     shatha_write_date_quant = fields.Datetime(config_parameter='mo_kaneen.shatha_write_date_quant')
     shatha_location_id = fields.Many2one('stock.location', config_parameter='mo_kaneen.shatha_location_id')
     shatha_remote_contact_id = fields.Integer(config_parameter='mo_kaneen.shatha_remote_contact_id')
-    shatha_remote_stock_location_id = fields.Integer(string="Shatha Remote Stock Location", config_parameter='mo_kaneen.shatha_remote_stock_location_id')
+    # shatha_remote_stock_location_id = fields.Integer(string="Shatha Remote Stock Location", config_parameter='mo_kaneen.shatha_remote_stock_location_id')
 
     def test_connect(self):
         uid, models = connect(self.xml_url, self.xml_dbname, self.xml_username, self.xml_password)

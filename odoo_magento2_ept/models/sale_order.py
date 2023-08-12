@@ -109,6 +109,7 @@ class SaleOrder(models.Model):
         search="_search_magento_order_ids",
         copy=False
     )
+    magento_order_status = fields.Char()
 
     _sql_constraints = [('_magento_sale_order_unique_constraint',
                          'unique(magento_order_id,magento_instance_id,magento_order_reference)',
@@ -307,6 +308,7 @@ class SaleOrder(models.Model):
             'is_exported_to_magento_shipment_status': False,
             'magento_order_id': item.get('entity_id'),
             'magento_order_reference': item.get('increment_id'),
+            'magento_order_status': item.get('status'),
             'order_transaction_id': self.__find_transaction_id(payment_info),
             'analytic_account_id': instance.magento_analytic_account_id and instance.magento_analytic_account_id.id or False,
         })
@@ -509,6 +511,10 @@ class SaleOrder(models.Model):
             sale_order = self.search([('magento_instance_id', '=', instance.id),
                         ('magento_order_id', '=', str(order_id))], limit=1)
             if sale_order:
+                sale_order.magento_order_status = order.get('status')
+                # if sale_order.purchase_order_count:
+                #     purchase_orders = sale_order._get_purchase_orders()
+                #     purchase_orders.button_cancel()
                 sale_order.sudo().cancel_order_from_magento()
         return True
 

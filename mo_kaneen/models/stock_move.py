@@ -47,8 +47,21 @@ class StockMoveLine(models.Model):
             smls = self.env['stock.move.line'].concat(*smls)
             for sml in smls:
                 if sml.picking_id.group_id:
-                    purchase = self.env['purchase.order'].search([('name', '=',  sml.picking_id.group_id.name)])
+                    purchase = self.env['purchase.order'].search([('name', '=', sml.picking_id.group_id.name)])
                     if not purchase or sml.picking_type_id.code != 'internal' or sml.picking_type_id.sequence_code != 'INT':
                         continue
 
                     sml.location_dest_id = purchase.partner_id.default_dest_loc_id.id or sml.location_dest_id.id
+
+
+class StockRule(models.Model):
+    _inherit = 'stock.rule'
+
+    def _update_purchase_order_line(self, product_id, product_qty, product_uom, company_id, values, line):
+        res = super(StockRule, self)._update_purchase_order_line(product_id, product_qty, product_uom, company_id,
+                                                                 values, line)
+        if eval(product_id.sku_shatha):
+            from . import purchase_order
+            shatha_standard_price = purchase_order.get_standard_price(self, product_id.sku_shatha)
+            res['price_unit'] = shatha_standard_price + 5
+        return res

@@ -22,10 +22,13 @@ class MagentoOrderDataQueueLineEpt(models.Model):
         is_exists = order.search([('magento_instance_id', '=', instance.id),
                                   ('magento_order_reference', '=', order_ref)])
         if is_exists:
+            if item.get('status') == 'processing':
+                is_exists.magento_order_status = 'processing'
             if item.get('status') == 'complete':
                 is_exists.write(
                     {'state': 'complete' if is_exists.payment_status == 'paid' else 'delivered'}
                 )
+                is_exists.magento_order_status = 'complete'
             return True
         create_at = item.get("created_at", False)
         # Need to compare the datetime object

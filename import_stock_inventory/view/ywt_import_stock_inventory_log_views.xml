@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ywt_import_stock_inventory_log_tree_view" model="ir.ui.view">
+            <field name="name">ywt.import.stock.inventory.log.view.tree</field>
+            <field name="model">ywt.import.stock.inventory.log</field>
+            <field name="arch" type="xml">
+                <tree default_order="name desc" create="false">
+                    <field name="name"/>
+                    <field name="operation"/>
+                    <field name="log_date"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ywt_import_stock_inventory_log_form_view" model="ir.ui.view">
+            <field name="name">ywt.import.stock.inventory.log.view.form</field>
+            <field name="model">ywt.import.stock.inventory.log</field>
+            <field name="arch" type="xml">
+                <form string="Import Inventory Log" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="log_date"/>
+                            </group>
+                            <group>
+                                <field name="operation"/>
+                            </group>
+                            <group colspan="4" string="Log Lines">
+                                <field name="log_line_ids" nolabel="1">
+                                    <tree string="Import Stock Inventory Log Line" create="1">
+                                        <field name="log_id"/>
+                                        <field name="message"/>
+                                        <field name="log_type"/>
+                                    </tree>
+
+                                </field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="ywt_import_stock_inventory_log_action" model="ir.actions.act_window">
+            <field name="name">Import Inventory Log</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ywt.import.stock.inventory.log</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="ywt_import_stock_inventory_log_menu" action="ywt_import_stock_inventory_log_action"
+                  parent="import_stock_inventory.ywt_import_stock_inventory_main_menu" sequence="2"
+                  name="Import Stock Inventory Log"/>
+    </data>
+</odoo>

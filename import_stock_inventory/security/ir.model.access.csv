@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ywt_import_inventory_log_user,ywt.import.inventory.log.user,model_ywt_import_stock_inventory_log,stock.group_stock_user,1,1,1,0
+access_ywt_import_inventory_log_manager,ywt.import.inventory.log.manager,model_ywt_import_stock_inventory_log,stock.group_stock_manager,1,1,1,1
+access_ywt_import_inventory_log_line_user,ywt.import.inventory.log.line.user,model_ywt_import_stock_inventory_log_line,stock.group_stock_user,1,1,1,0
+access_ywt_import_inventory_log_line_manager,ywt.import.inventory.log.line.manager,model_ywt_import_stock_inventory_log_line,stock.group_stock_manager,1,1,1,1
+access_ywt_import_stock_inventory_adjustments_user,ywt.import.stock.inventory.adjustments.user,model_ywt_import_stock_inventory_adjustments,ywt_import_stock_inventory_user,1,1,1,0
+access_ywt_import_stock_inventory_adjustments_manager,ywt.import.stock.inventory.adjustments.manager,model_ywt_import_stock_inventory_adjustments,ywt_import_stock_inventory_manager,1,1,1,1

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="ywt_import_stock_inventory_main_menu" parent="stock.menu_stock_root" name="Import Stock Inventory"
+                  sequence="3"/>
+    </data>
+</odoo>
