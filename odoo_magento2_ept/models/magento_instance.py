@@ -784,7 +784,7 @@ class MagentoInstance(models.Model):
                 to_date=to_date,
                 status='complete',
             )
-            instance.last_order_import_date = datetime.now()
+            instance.last_order_import_date = to_date
 
     @api.model
     def _scheduler_import_unshipped_sale_orders(self, args=None):
@@ -812,7 +812,7 @@ class MagentoInstance(models.Model):
                 to_date=to_date,
                 status=order_status,
             )
-            instance.last_unshipped_order_import_date = datetime.now()
+            instance.last_unshipped_order_import_date = to_date
 
     @api.model
     def _scheduler_import_cancel_sale_orders(self, args=None):
@@ -839,7 +839,7 @@ class MagentoInstance(models.Model):
                 to_date=to_date,
                 status='canceled'
             )
-            instance.last_cancel_order_import_date = datetime.now()
+            instance.last_cancel_order_import_date = to_date
 
     @api.model
     def _scheduler_import_product(self, args=None):
