@@ -131,7 +131,8 @@ class ProductProduct(models.Model):
         @author: Maulik Barad on Date 21-Oct-2020.
         Migration done by Haresh Mori on September 2021
         """
-        locations = self.env['stock.location'].search([('location_id', 'child_of', warehouse.lot_stock_id.ids)])
+        #warehouse.lot_stock_id 13-Aug-2023
+        locations = self.env['stock.location'].search([('location_id', 'child_of', warehouse.view_location_id.ids)])
         location_ids = ','.join(str(e) for e in locations.ids)
         product_ids = ','.join(str(e) for e in product_list)
         return location_ids, product_ids
