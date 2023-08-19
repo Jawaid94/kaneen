@@ -372,7 +372,7 @@ class SaleOrder(models.Model):
             if 'apply_shipping_on_prices' in item.get('extension_attributes'):
                 ext_attrs = item.get('extension_attributes')
                 tax_details = self.__find_shipping_tax_percent(tax_details, ext_attrs)
-            #else:
+            # else:
             for line in item.get('items'):
                 tax_percent = line.get('tax_percent', 0.0)
                 parent_item = line.get('parent_item', {})
@@ -509,9 +509,14 @@ class SaleOrder(models.Model):
         for order in orders['items']:
             order_id = order.get('entity_id', 0)
             sale_order = self.search([('magento_instance_id', '=', instance.id),
-                        ('magento_order_id', '=', str(order_id))], limit=1)
+                                      ('magento_order_id', '=', str(order_id))], limit=1)
             if sale_order:
                 sale_order.magento_order_status = order.get('status')
+                if order['status_histories']:
+                    sale_order.message_post(
+                        body=_(f"Magento - "
+                               f"{[d for d in order['status_histories'] if d['status'] == 'canceled'][0]['comment']}"
+                               ))
                 # if sale_order.purchase_order_count:
                 #     purchase_orders = sale_order._get_purchase_orders()
                 #     purchase_orders.button_cancel()

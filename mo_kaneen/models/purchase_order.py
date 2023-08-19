@@ -56,7 +56,7 @@ class Purchase(models.Model):
         if len(partner) > 1:
             raise ValidationError("Can not identify remote Kaneen buyer")
 
-        for line in self.order_line:
+        for line in self.order_line.filtered(lambda pol: pol.display_type not in ('line_section', 'line_note')):
             barcodes = []
             if line.product_id.barcode:
                 barcodes.append(line.product_id.barcode)
