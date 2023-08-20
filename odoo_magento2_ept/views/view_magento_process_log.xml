@@ -59,4 +59,24 @@
               parent="menu_magento_log" name="Log Lines"
               action="odoo_magento2_ept.action_magento_process_log_lines_ept"
               sequence="5"/>
+
+    <record id="order_cancelled_log_view_tree" model="ir.ui.view">
+        <field name="name">order.cancelled.log.tree</field>
+        <field name="model">order.cancelled.log</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="order_nos"/>
+                <field name="from_date"/>
+                <field name="to_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_open_cancelled_order_log" model="ir.actions.act_window">
+        <field name="name">Order Cancelled Log</field>
+        <field name="res_model">order.cancelled.log</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_cancelled_order_log" name="Order Cancelled Log" action="action_open_cancelled_order_log" parent="menu_magento_log"/>
 </odoo>

@@ -521,7 +521,14 @@ class SaleOrder(models.Model):
                 #     purchase_orders = sale_order._get_purchase_orders()
                 #     purchase_orders.button_cancel()
                 sale_order.sudo().cancel_order_from_magento()
-        return True
+        if orders['items']:
+            self.env['order.cancelled.log'].create({
+                'from_date': kwargs['from_date'],
+                'to_date': kwargs['to_date'],
+                'order_nos': ', '.join(vals['increment_id'] for vals in orders['items'])
+            })
+            instance.last_cancel_order_import_date = kwargs['to_date']
+        # return True jawaid 20/8/2023
 
     def cancel_order_in_magento(self):
         """

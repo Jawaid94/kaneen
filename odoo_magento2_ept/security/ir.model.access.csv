@@ -48,3 +48,4 @@ access_magento_export_product_ept,model_magento_export_product_ept,model_magento
 access_magento_tax_class,model_magento_tax_class,model_magento_tax_class,,1,1,1,0
 access_magento_export_credit_memo,user_magento_export_credit_memo,model_magento_export_credit_memo,,1,1,1,1
 access_magento_notification_ept,user_magento_notification_ept,model_magento_notification_ept,,1,1,1,1
+access_order_cancelled_log,order.cancelled.log,model_order_cancelled_log,,1,1,1,1

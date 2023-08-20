@@ -129,10 +129,10 @@ class MagentoInstance(models.Model):
                                              help="Last Shipped Orders import date")
 
     last_unshipped_order_import_date = fields.Datetime(string="Last Unshipped Orders import date",
-                                             help="Last Unshipped Orders import date")
+                                                       help="Last Unshipped Orders import date")
 
     last_cancel_order_import_date = fields.Datetime(string="Last Cancel Orders import date",
-                                             help="Last Cancel Orders import date")
+                                                    help="Last Cancel Orders import date")
 
     last_update_stock_time = fields.Datetime(string="Last Update Product Stock Time",
                                              help="Last Update Stock Time")
@@ -159,10 +159,10 @@ class MagentoInstance(models.Model):
                                              help="This Field relocate auto import shipped sale orders.")
 
     auto_import_unshipped_sale_orders = fields.Boolean(string="Auto Import Unshipped Sale Orders?", default=False,
-                                             help="This Field relocate auto import unshipped sale orders.")
+                                                       help="This Field relocate auto import unshipped sale orders.")
 
     auto_import_cancel_sale_orders = fields.Boolean(string="Auto Import Cancel Sale Orders?", default=False,
-                                             help="This Field relocate auto import sale orders.")
+                                                    help="This Field relocate auto import sale orders.")
     auto_import_product = fields.Boolean(string='Auto import product?',
                                          help="Auto Automatic Import Product")
     auto_export_product_stock = fields.Boolean(string='Auto Export Product Stock?',
@@ -839,7 +839,7 @@ class MagentoInstance(models.Model):
                 to_date=to_date,
                 status='canceled'
             )
-            instance.last_cancel_order_import_date = to_date
+            # instance.last_cancel_order_import_date = to_date jawaid 20/8/2023
 
     @api.model
     def _scheduler_import_product(self, args=None):
@@ -1764,3 +1764,11 @@ class MagentoInstance(models.Model):
             'log_line_type': 'fail',
             'order_ref': kwargs.get('order_ref', '')
         })
+
+
+class OrderCancelledLog(models.Model):
+    _name = 'order.cancelled.log'
+
+    from_date = fields.Datetime()
+    to_date = fields.Datetime()
+    order_nos = fields.Text()
