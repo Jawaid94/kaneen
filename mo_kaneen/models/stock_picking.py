@@ -198,60 +198,62 @@ class Picking(models.Model):
                                                                   line.lot_id, line.package_id, line.owner_id,
                                                                   strict=True)
 
-    # jawaid 28/8/2023
-    def _action_done(self):
-        # self._check_damaged()
-
-        super(Picking, self)._action_done()
-        for picking in self:
-            sale_order = picking.sale_id
-            if sale_order:
-                if sale_order.state in ['damaged_item', 'item_returned']:
-                    continue
-
-                pickings_pick = sale_order.picking_ids.filtered(lambda x: x.picking_type_code == 'internal' and x.state not in ['cancel'])
-                pickings_out = sale_order.picking_ids.filtered(lambda x: x.picking_type_code == 'outgoing' and x.state not in ['cancel'])
-                # jawaid 29/8/2023
-                # payload = {
-                #     "entity": {
-                #         "entity_id": sale_order.magento_order_id,
-                #         "status": "shipped",
-                #         "status_histories": [
-                #             {
-                #                 "comment": "Order status updated by Odoo",
-                #                 "entity_name": "order",
-                #                 "is_customer_notified": 0,
-                #                 "is_visible_on_front": 0,
-                #                 "parent_id": sale_order.magento_order_id,
-                #                 "status": "shipped"
-                #             }
-                #         ]
-                #     }
-                # }
-                # jawaid 29/8/2023
-                if all(picking.state == 'done' for picking in pickings_out) and sale_order.state != 'shipped':
-                    sale_order.sudo().write({
-                        'state': 'shipped'
-                    })
-                    # request = req(self.magento_instance_id, '/all/V1/orders', 'POST', payload, is_raise=True) jawaid 29/8/2023
-                    continue
-                if all(picking.state == 'done' for picking in pickings_pick) and sale_order.state not in \
-                        ['shipped', 'ready_to_ship', 'item_returned']:
-                    sale_order.sudo().write({
-                        'state': 'ready_to_ship'
-                    })
-                    # jawaid 29/8/2023
-                    # payload['entity'].update(
-                    #     {
-                    #         "status": "ready_to_ship",
-                    #     })
-                    # payload['entity']['status_histories'].update(
-                    #     {
-                    #         "status": "ready_to_ship",
-                    #     })
-                    # request = req(self.magento_instance_id, '/all/V1/orders', 'POST', payload, is_raise=True) jawaid 29/8/2023
-
-    #     jawaid 28/8/2023
+    # jawaid 30/8/2023 all comment
+    # # jawaid 28/8/2023
+    # def _action_done(self):
+    #     # self._check_damaged()
+    #
+    #     super(Picking, self)._action_done()
+    #     for picking in self:
+    #         sale_order = picking.sale_id
+    #         if sale_order:
+    #             if sale_order.state in ['damaged_item', 'item_returned']:
+    #                 continue
+    #
+    #             pickings_pick = sale_order.picking_ids.filtered(lambda x: x.picking_type_code == 'internal' and x.state not in ['cancel'])
+    #             pickings_out = sale_order.picking_ids.filtered(lambda x: x.picking_type_code == 'outgoing' and x.state not in ['cancel'])
+    #             # jawaid 29/8/2023
+    #             # payload = {
+    #             #     "entity": {
+    #             #         "entity_id": sale_order.magento_order_id,
+    #             #         "status": "shipped",
+    #             #         "status_histories": [
+    #             #             {
+    #             #                 "comment": "Order status updated by Odoo",
+    #             #                 "entity_name": "order",
+    #             #                 "is_customer_notified": 0,
+    #             #                 "is_visible_on_front": 0,
+    #             #                 "parent_id": sale_order.magento_order_id,
+    #             #                 "status": "shipped"
+    #             #             }
+    #             #         ]
+    #             #     }
+    #             # }
+    #             # jawaid 29/8/2023
+    #             if all(picking.state == 'done' for picking in pickings_out) and sale_order.state != 'shipped':
+    #                 sale_order.sudo().write({
+    #                     'state': 'shipped'
+    #                 })
+    #                 # request = req(self.magento_instance_id, '/all/V1/orders', 'POST', payload, is_raise=True) jawaid 29/8/2023
+    #                 continue
+    #             if all(picking.state == 'done' for picking in pickings_pick) and sale_order.state not in \
+    #                     ['shipped', 'ready_to_ship', 'item_returned']:
+    #                 sale_order.sudo().write({
+    #                     'state': 'ready_to_ship'
+    #                 })
+    #                 # jawaid 29/8/2023
+    #                 # payload['entity'].update(
+    #                 #     {
+    #                 #         "status": "ready_to_ship",
+    #                 #     })
+    #                 # payload['entity']['status_histories'].update(
+    #                 #     {
+    #                 #         "status": "ready_to_ship",
+    #                 #     })
+    #                 # request = req(self.magento_instance_id, '/all/V1/orders', 'POST', payload, is_raise=True) jawaid 29/8/2023
+    #
+    # #     jawaid 28/8/2023
+    # jawaid 30/8/2023 all comment
 
     def _check_return(self):
         pickings = self.filtered(lambda x: x.picking_type_code == 'incoming' and x.picking_type_id.name == 'Returns')
