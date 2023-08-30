@@ -6,7 +6,8 @@
     'author': 'LBS Company',
 
     # Dependencies
-    'depends': ['sale_management', 'account', 'product_multiple_barcodes', 'stock_barcode', 'stock', 'account_bank_statement_import'],
+    'depends': ['sale_management', 'account', 'product_multiple_barcodes', 'stock_barcode', 'stock',
+                'account_bank_statement_import'],
     # Views
     'data': [
         'data/ir.cron.xml',
@@ -35,6 +36,10 @@
     'assets': {
         'web.assets_backend': [
             'mo_kaneen/static/src/js/lazy_barcode_cache.js',
+            'mo_kaneen/static/src/models/message/message.js',
+        ],
+        'web.assets_qweb': [
+            'mo_kaneen/static/src/components/message/message.xml',
         ],
     },
 
