@@ -38,6 +38,7 @@ class StockReturnPicking(models.TransientModel):
         if stock_picking:
             sale_order_id = self.env['sale.order'].browse(self._context.get('sale_order_id', False))
             purchase_order_id = self.env['purchase.order'].search([('origin', 'like', sale_order_id.name)])
+            # sale_order_id._get_purchase_orders()
 
             if sale_order_id and sale_order_id.state != 'waiting_for_ret':
                 sale_order_id.sudo().write({

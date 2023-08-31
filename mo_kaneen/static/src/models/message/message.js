@@ -1,11 +1,8 @@
 /** @odoo-module **/
 
 
-import { registerNewModel } from '@mail/model/model_core';
-import { attr, one2one } from '@mail/model/model_field';
-import { htmlToTextContentInline } from '@mail/js/utils';
-
-import { registerInstancePatchModel } from '@mail/model/model_core';
+import { registerInstancePatchModel, registerFieldPatchModel } from '@mail/model/model_core';
+import { attr } from '@mail/model/model_field';
 
 registerInstancePatchModel('mail.message', 'mo_kaneen/static/src/models/message/message.js', {
 	/**
@@ -20,6 +17,14 @@ registerInstancePatchModel('mail.message', 'mo_kaneen/static/src/models/message/
         }
         return moment(this.date).format('MMM D, YYYY hh:mm:ss A');
     },
+});
 
+registerFieldPatchModel('mail.message', 'mo_kaneen/static/src/models/message/message.js', {
+	/**
+		* @override
+	*/
 
+	formattedDate: attr({
+        compute: '_computeFormattedDate',
+    }),
 });

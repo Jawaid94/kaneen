@@ -5,7 +5,7 @@
         <xpath expr="//*[hasclass('o_Message_headerDate')]" position="replace">
 
             <div class="o_Message_date o_Message_headerDate" t-att-class="{ 'o-message-selected': isSelected }" t-att-title="datetime">
-                - <t t-esc="messageView.message._computeFormattedDate()"/>
+                - <t t-esc="messageView.message.formattedDate"/>
             </div>
 
         </xpath>
