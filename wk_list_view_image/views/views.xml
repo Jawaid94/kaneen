@@ -1,0 +1,94 @@
+<odoo>
+    <record id="wk_move_tree_image_added" model="ir.ui.view">
+        <field name="name">move.wk_stock_move_tree_image_added</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page/field[@name='move_ids_without_package']/tree/field[@name='product_id']"
+                   position="after">
+                <field name="image_256" widget="image" class="wk_img" string="Product Image"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="wk_product_product_tree_image_added" model="ir.ui.view">
+        <field name="name">product.product.tree.image.added</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="default_code" position="after">
+                <field name="image_512" widget="image" class="wk_img" string="Product Image"/>
+            </field>
+        </field>
+    </record>
+    <record id="wk_product_template_tree_image_added" model="ir.ui.view">
+        <field name="name">product.template.tree.image.added</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+
+                <field name="image_512" widget="image" class="wk_img" string="Product Image"/>
+
+            </field>
+        </field>
+    </record>
+    <record id="wk_purchase_order_image_added" model="ir.ui.view">
+        <field name="name">purchase.order.wk_purchase_order_image_added</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                <field name="image_256" widget="image" class="wk_img" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="wk_sale_order_image_added" model="ir.ui.view">
+        <field name="name">sale.order.wk_sale_order_image_added</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/form/group/group/field[@name='product_id']"
+                   position="after">
+                <field name="image_256" widget="image" class="wk_img" readonly="1"/>
+            </xpath>
+
+            <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                <field name="image_256" widget="image" class="wk_img" readonly="1"/>
+                <field name="barcode"/>
+                <field name="location"/>
+            </xpath>
+        </field>
+    </record>
+    <template id="report_saleorder_document_inherit_wk_list_view_image" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//table[hasclass('table','table-sm', 'o_main_table')]/thead/tr/th[@name='th_description']"
+               position="after">
+            <th name="th_image" class="text-left">Product Image</th>
+        </xpath>
+        <xpath expr="//tbody//td[@name='td_name']" position="after">
+            <td name="td_image">
+                <div t-field="line.product_id.image_128" t-options="{'widget': 'image'}"/>
+            </td>
+        </xpath>
+    </template>
+    <template id="wk_list_view_image_purchaseorder_inherit" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//table[hasclass('table', 'table-sm')]/thead/tr/th[@name='th_description']" position="after">
+            <th name="th_image" class="text-left">Product Image</th>
+        </xpath>
+        <xpath expr="//table[hasclass('table')]//tbody/t/tr//td[1]" position="after">
+            <td name="td_image">
+                <div t-field="line.product_id.image_128" t-options="{'widget': 'image'}"/>
+            </td>
+        </xpath>
+    </template>
+    <template id="wk_list_view_image_report_purchaseorder_template_inherit"
+              inherit_id="purchase.report_purchasequotation_document">
+        <xpath expr="//table[hasclass('table', 'table-sm')]/thead/tr/th[@name='th_description']" position="after">
+            <th name="th_image" class="text-left">Product Image</th>
+        </xpath>
+        <xpath expr="//table[hasclass('table')]//tbody/t/tr//td[1]" position="after">
+            <td name="td_image">
+                <div t-field="order_line.product_id.image_128" t-options="{'widget': 'image'}"/>
+            </td>
+        </xpath>
+    </template>
+</odoo>
