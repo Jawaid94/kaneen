@@ -11,6 +11,16 @@ class SaleOrder(models.Model):
 
     export_shipped = fields.Boolean()
 
+    def _create_order_invoice(self, kwargs):
+        if not self.invoice_ids:
+            order_lines = self.order_line.filtered(lambda l: l.product_id.invoice_policy == 'order')
+            if not order_lines.filtered(lambda l: l.product_id.type == 'product') and len(self.order_line) != len(
+                    order_lines.filtered(lambda l: l.product_id.type in ['service', 'consu'])):
+                pass
+            work_flow_process_record = self.auto_workflow_process_id
+            self.validate_and_paid_invoices_ept(work_flow_process_record)
+        self.state = self.magento_order_status = kwargs.get('status')
+
     def action_cancel(self):
         res = super(SaleOrder, self).action_cancel()
         request = req(self.magento_instance_id, '/all/V1/orders/' + self.magento_order_id, 'GET',

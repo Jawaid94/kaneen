@@ -146,7 +146,7 @@ def create_filter(field, value, condition_type='eq'):
     elif isinstance(value, str) and condition_type == "like":
         filter_dict['condition_type'] = 'like'
     elif isinstance(value, str) and condition_type == "nin":
-        filter_dict['condition_type'] = 'nlike'
+        filter_dict['condition_type'] = 'neq'
     else:
         filter_dict['condition_type'] = condition_type
     filter_dict['value'] = value

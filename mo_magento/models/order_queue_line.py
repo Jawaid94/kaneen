@@ -23,20 +23,13 @@ class MagentoOrderDataQueueLineEpt(models.Model):
                                   ('magento_order_reference', '=', order_ref)])
         if is_exists:
             if item.get('status') == 'processing':
-                is_exists.magento_order_status = 'processing'
+
+                is_exists._create_order_invoice(item)
+
             if item.get('status') == 'complete':
-                if not is_exists.invoice_ids:
-                    order_lines = is_exists.order_line.filtered(lambda l: l.product_id.invoice_policy == 'order')
-                    if not order_lines.filtered(lambda l: l.product_id.type == 'product') and len(
-                            is_exists.order_line) != len(
-                            order_lines.filtered(lambda l: l.product_id.type in ['service', 'consu'])):
-                        pass
-                    work_flow_process_record = is_exists.auto_workflow_process_id
-                    is_exists.validate_and_paid_invoices_ept(work_flow_process_record)
-                # is_exists.write(
-                #     {'state': 'complete' if is_exists.payment_status == 'paid' else 'delivered'}
-                # )
-                is_exists.state = is_exists.magento_order_status = 'complete'
+
+                is_exists._create_order_invoice(item)
+
             return True
         create_at = item.get("created_at", False)
         # Need to compare the datetime object

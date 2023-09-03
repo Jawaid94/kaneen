@@ -179,6 +179,12 @@ class MagentoOrderDataQueueEpt(models.Model):
                 'in': kwargs.get('status')
             }
         }
+        if kwargs.get('status') != 'canceled':
+            filters.update({
+                'status': {
+                    'nin': 'shipped' if kwargs.get('status') == 'complete' else 'ready_to_ship'
+                },
+            })
         return create_search_criteria(filters, **kwargs)
 
     def import_specific_order(self, instance, order_reference_lists):
