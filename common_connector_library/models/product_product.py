@@ -88,11 +88,17 @@ class ProductProduct(models.Model):
         if mrp_module:
             result = self.get_product_movement_of_bom_product(date, company)
 
-        qry = ("""select product_id from stock_move where date >= '%s' and company_id = %d and
-                 state in ('partially_available','assigned','done')""" % (date, company.id))
-        self._cr.execute(qry)
-        result += self._cr.dictfetchall()
-        product_ids = [product_id.get('product_id') for product_id in result]
+        # jawaid 7/9/2023
+        # qry = ("""select product_id from stock_move where date >= '%s' and company_id = %d and
+        #          state in ('partially_available','assigned','done')""" % (date, company.id))
+        # self._cr.execute(qry)
+        # result += self._cr.dictfetchall()
+        # product_ids = [product_id.get('product_id') for product_id in result]
+        # jawaid 7/9/2023
+        stock_moves = self.env['stock.move'].search([
+            ('date', '>=', date), ('company_id', '=', company.id),
+            ('state', 'in', ('partially_available', 'assigned', 'done')), ('product_id.sku_shatha', '=', 'None')])
+        product_ids = stock_moves.product_id.ids
 
         return list(set(product_ids))
 
@@ -131,7 +137,7 @@ class ProductProduct(models.Model):
         @author: Maulik Barad on Date 21-Oct-2020.
         Migration done by Haresh Mori on September 2021
         """
-        #warehouse.lot_stock_id 13-Aug-2023
+        # warehouse.lot_stock_id 13-Aug-2023
         locations = self.env['stock.location'].search([('location_id', 'child_of', warehouse.view_location_id.ids)])
         location_ids = ','.join(str(e) for e in locations.ids)
         product_ids = ','.join(str(e) for e in product_list)
@@ -281,7 +287,7 @@ class ProductProduct(models.Model):
             bom_products = self.with_context(warehouse=warehouse.ids).browse(bom_product_ids)
             for product in bom_products:
                 actual_stock = getattr(product, 'free_qty') + getattr(product, 'incoming_qty')
-                forcasted_qty.update({product.id:actual_stock})
+                forcasted_qty.update({product.id: actual_stock})
 
         simple_product_list = list(set(product_list) - set(bom_product_ids))
         simple_product_list_ids = ','.join(str(e) for e in simple_product_list)
@@ -290,5 +296,5 @@ class ProductProduct(models.Model):
             self._cr.execute(qry)
             result = self._cr.dictfetchall()
             for i in result:
-                forcasted_qty.update({i.get('product_id'):i.get('stock')})
+                forcasted_qty.update({i.get('product_id'): i.get('stock')})
         return forcasted_qty
