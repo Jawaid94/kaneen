@@ -251,50 +251,36 @@ class StockPicking(models.Model):
                 if sale_order.state in ['damaged_item', 'item_returned']:
                     continue
 
-                pickings_pick = sale_order.picking_ids.filtered(lambda x: x.picking_type_code == 'internal' and x.state not in ['cancel'])
-                pickings_out = sale_order.picking_ids.filtered(lambda x: x.picking_type_code == 'outgoing' and x.state not in ['cancel'])
-                payload = {
-                    "entity": {
-                        "entity_id": sale_order.magento_order_id,
-                        "status_histories": [
-                            {
-                                "comment": "Order status updated by Odoo.",
-                                "entity_name": "order",
-                                "is_customer_notified": 0,
-                                "is_visible_on_front": 0,
-                                "parent_id": sale_order.magento_order_id
-                            }
-                        ]
+                pickings = sale_order.picking_ids.filtered(
+                    lambda p: p.picking_type_code == 'outgoing' and p.state not in ['cancel'])
+                if sale_order.magento_order_id:
+                    payload = {
+                        "entity": {
+                            "entity_id": sale_order.magento_order_id,
+                            "status_histories": [
+                                {
+                                    "comment": "Order status updated by Odoo.",
+                                    "entity_name": "order",
+                                    "is_customer_notified": 0,
+                                    "is_visible_on_front": 0,
+                                    "parent_id": sale_order.magento_order_id
+                                }
+                            ]
+                        }
                     }
-                }
-                if all(picking.state == 'done' for picking in pickings_out) and sale_order.state != 'shipped':
-                    sale_order.sudo().write({
-                        'state': 'shipped'
-                    })
-                    payload['entity'].update(
-                        {
-                            "status": "shipped",
+                    if all(picking.state == 'done' for picking in pickings) and sale_order.state != 'shipped':
+                        sale_order.sudo().write({
+                            'state': 'shipped'
                         })
-                    payload['entity']['status_histories'][0].update(
-                        {
-                            "status": "shipped",
+                        payload['entity'].update(
+                            {
+                                "status": "shipped",
+                            })
+                        payload['entity']['status_histories'][0].update(
+                            {
+                                "status": "shipped",
+                            })
+                        req(self.magento_instance_id, '/all/V1/orders', 'POST', payload, is_raise=True)
+                        sale_order.sudo().write({
+                            'export_shipped': True
                         })
-                    req(self.magento_instance_id, '/all/V1/orders', 'POST', payload, is_raise=True)
-                    sale_order.sudo().write({
-                        'export_shipped': True
-                    })
-                    continue
-                if all(picking.state == 'done' for picking in pickings_pick) and sale_order.state not in \
-                        ['shipped', 'ready_to_ship', 'item_returned']:
-                    sale_order.sudo().write({
-                        'state': 'ready_to_ship'
-                    })
-                    payload['entity'].update(
-                        {
-                            "status": "ready_to_ship",
-                        })
-                    payload['entity']['status_histories'][0].update(
-                        {
-                            "status": "ready_to_ship",
-                        })
-                    req(self.magento_instance_id, '/all/V1/orders', 'POST', payload, is_raise=True)
