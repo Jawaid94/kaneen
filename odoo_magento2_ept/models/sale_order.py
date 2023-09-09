@@ -519,9 +519,11 @@ class SaleOrder(models.Model):
                     comment_vals = sorted(comment_vals, key=lambda comment_val: comment_val['created_at'])
                     for comment_val in comment_vals:
                         sale_order.message_post(body=_(f"Magento -> {comment_val['comment']}"))
-                if sale_order.purchase_order_count:
-                    purchase_orders = sale_order._get_purchase_orders()
-                    purchase_orders.button_cancel()
+                # jawaid 9/9/2023
+                # if sale_order.purchase_order_count:
+                #     purchase_orders = sale_order._get_purchase_orders()
+                #     purchase_orders.button_cancel()
+                # jawaid 9/9/2023
                 sale_order.sudo().cancel_order_from_magento()
         if orders['total_count'] > 0 and order_nos:
             self.env['order.cancelled.log'].create({
