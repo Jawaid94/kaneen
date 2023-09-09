@@ -157,6 +157,8 @@ class MagentoOrderDataQueueEpt(models.Model):
     def _get_order_response(self, instance, kwargs, get_pages=False):
         if get_pages:
             kwargs.update({'fields': ['total_count']})
+        # if kwargs['status'] == 'canceled':
+        # items[increment_id, entity_id, status, status_histories[status, created_at, comment]], total_count
         filters = self._prepare_order_filter(**kwargs)
         query_string = Php.http_build_query(filters)
         req_path = '/V1/orders?{}'.format(query_string)

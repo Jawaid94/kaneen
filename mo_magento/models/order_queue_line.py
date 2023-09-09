@@ -24,6 +24,9 @@ class MagentoOrderDataQueueLineEpt(models.Model):
         if is_exists:
             if item.get('status') == 'processing':
 
+                if is_exists.state == 'draft':
+                    is_exists.validate_order_ept()
+
                 is_exists._create_order_invoice(item)
 
             if item.get('status') == 'complete':
