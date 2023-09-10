@@ -37,7 +37,6 @@
         'wizard_views/magento_queue_process_wizard_view.xml',
         'views/res_partner_view.xml',
         'views/sale_order_view.xml',
-        'views/sale_order_cancel_view.xml',
         'views/order_queue.xml',
         'views/order_queue_line.xml',
         'views/product_queue.xml',
