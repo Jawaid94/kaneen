@@ -505,6 +505,10 @@ class SaleOrder(models.Model):
         """
         instance = kwargs.get('instance')
         order_queue = self.env['magento.order.data.queue.ept']
+        kwargs.update(
+            {'fields': [
+                'items[increment_id,entity_id,status,status_histories[status,created_at,comment]],total_count'
+            ]})
         orders = order_queue._get_order_response(instance, kwargs, False)
         order_nos = []
         for order in orders['items']:
