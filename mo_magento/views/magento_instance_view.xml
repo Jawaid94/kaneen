@@ -5,6 +5,9 @@
         <field name="model">magento.instance</field>
         <field name="inherit_id" ref="odoo_magento2_ept.view_magento_instance_form"/>
         <field name="arch" type="xml">
+            <field name="magento_admin_url" position="after">
+                <field name="auto_create_product"/>
+            </field>
             <xpath expr="//field[@name='shipping_product_id']" position="after">
                 <field name="payment_fee_product_id"/>
             </xpath>
