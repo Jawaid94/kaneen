@@ -139,6 +139,12 @@ class MagentoOrderDataQueueEpt(models.Model):
         page = page if kwargs.get('is_manual') else instance.magento_import_order_page_count
         for page in range(1, page + 1):
             kwargs.update({'page': page, 'page_size': page_size})
+            # jawaid 10/9/2023
+            # items[increment_id,status,created_at,extension_attributes[is_invoice,is_shipment,shipping_assignments,order_response,ept_option_title],items[extension_attributes,product_id,product_type,sku,product_id,line_product,parent_item,item_id],order_currency_code,store_id,customer_is_guest,customer_firstname,customer_lastname,customer_email,billing_address[firstname,lastname,street,city,postcode,company,customer_address_id,entity_id,region_code,country_id,telephone,address_type],extension_attributes[shipping_assignments],store_view,website,parent_id,invoice,delivery,website,workflow_id,price_list_id,payment_term_id,delivery_carrier_id,payment_gateway,magento_carrier_id,entity_id,sale_order_id,base_total_due,base_total_paid,base_discount_amount,base_subtotal_incl_tax,base_shipping_incl_tax,discount_amount,discount_tax,shipping_incl_tax,shipping_amount,shipping_tax],
+            # kwargs.update(
+            #     {'fields': [
+            #         'items[id,increment_id,status,created_at,sale_order_id,payment[method],extension_attributes[simple_parent_id,shipping_assignments],product_id,items[product_type,sku,product_id,store_id],customer_firstname,customer_lastname,customer_email,customer_is_guest,customer_id,billing_address[firstname,lastname]]'
+            #     ]})
             orders = self._get_order_response(instance, kwargs)
             if orders.get('items'):
                 queue = self._create_order_queue(instance)
@@ -182,7 +188,7 @@ class MagentoOrderDataQueueEpt(models.Model):
         if kwargs.get('status') != 'canceled':
             filters.update({
                 'status': {
-                    'nin': 'shipped' if kwargs.get('status') == 'complete' else 'ready_to_ship'
+                    'nin': ['ready_to_ship', 'shipped']
                 },
             })
         return create_search_criteria(filters, **kwargs)

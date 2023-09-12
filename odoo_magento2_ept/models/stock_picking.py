@@ -253,6 +253,10 @@ class StockPicking(models.Model):
 
                 pickings = sale_order.picking_ids.filtered(
                     lambda p: p.picking_type_code == 'outgoing' and p.state not in ['cancel'])
+                if all(picking.state == 'done' for picking in pickings) and sale_order.state != 'shipped':
+                    sale_order.sudo().write({
+                        'state': 'shipped'
+                    })
                 if sale_order.magento_order_id:
                     payload = {
                         "entity": {
@@ -268,19 +272,15 @@ class StockPicking(models.Model):
                             ]
                         }
                     }
-                    if all(picking.state == 'done' for picking in pickings) and sale_order.state != 'shipped':
-                        sale_order.sudo().write({
-                            'state': 'shipped'
+                    payload['entity'].update(
+                        {
+                            "status": "shipped",
                         })
-                        payload['entity'].update(
-                            {
-                                "status": "shipped",
-                            })
-                        payload['entity']['status_histories'][0].update(
-                            {
-                                "status": "shipped",
-                            })
-                        req(self.magento_instance_id, '/all/V1/orders', 'POST', payload, is_raise=True)
-                        sale_order.sudo().write({
-                            'export_shipped': True
+                    payload['entity']['status_histories'][0].update(
+                        {
+                            "status": "shipped",
                         })
+                    req(self.magento_instance_id, '/all/V1/orders', 'POST', payload, is_raise=True)
+                    sale_order.sudo().write({
+                        'export_shipped': True
+                    })
