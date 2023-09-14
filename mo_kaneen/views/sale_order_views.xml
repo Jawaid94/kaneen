@@ -5,10 +5,12 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//header" position="inside">
-                <button type="object" string="Return" name="open_return"
-                        attrs="{'invisible':[('state', 'in', ['done'])]}"/>
-            </xpath>
+<!--            jawaid 14/9/2023-->
+<!--            <xpath expr="//header" position="inside">-->
+<!--                <button type="object" string="Return" name="open_return"-->
+<!--                        attrs="{'invisible':[('state', 'in', ['done'])]}"/>-->
+<!--            </xpath>-->
+<!--            jawaid 14/9/2023-->
             <xpath expr="//header/button[@name='action_cancel']" position="attributes">
                 <attribute name="attrs">{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale', 'processing',
                     'ready_to_ship', 'shipped', 'delivered', 'item_returned', 'damaged_item']), ('id', '=', False)]}
@@ -38,6 +40,9 @@
             <!--                <field name="product_quality_comment_id" widget="many2many_tags"-->
             <!--                       attrs="{'readonly': [('product_quality', '=', 'original')]}"/>-->
             <!--            </xpath>-->
+            <xpath expr="//field[@name='order_line']" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', 'in', ('done','sale','cancel','processing','shipped','complete'))]}</attribute>
+            </xpath>
         </field>
     </record>
 
