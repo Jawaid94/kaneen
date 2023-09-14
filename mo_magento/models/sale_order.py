@@ -23,28 +23,29 @@ class SaleOrder(models.Model):
 
     def action_cancel(self):
         res = super(SaleOrder, self).action_cancel()
-        request = req(self.magento_instance_id, '/all/V1/orders/' + self.magento_order_id, 'GET',
-                      {"entity_id": self.magento_order_id}, is_raise=True, return_text=True)
-        if request.get('status') == 'canceled':
-            return
-        data = {
-            "entity": {
-                "entity_id": self.magento_order_id,
-                "status": 'canceled'
-            }
-        }
-        request = req(self.magento_instance_id, '/all/V1/orders', 'POST', data, is_raise=True)
-        if 'message' in request:
-            _logger.info("Can not send status to magento {} {}".format(self.name, request['message']))
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'type': 'warning',
-                    'message': request['message'],
-                    'sticky': True,
+        if self.magento_order_id:
+            request = req(self.magento_instance_id, f'/all/V1/orders/{self.magento_order_id}?fields=status', 'GET',
+                          is_raise=True, return_text=True)
+            if request.get('status') == 'canceled':
+                return
+            data = {
+                "entity": {
+                    "entity_id": self.magento_order_id,
+                    "status": 'canceled'
                 }
             }
+            request = req(self.magento_instance_id, '/all/V1/orders', 'POST', data, is_raise=True)
+            if 'message' in request:
+                _logger.info("Can not send status to magento {} {}".format(self.name, request['message']))
+                return {
+                    'type': 'ir.actions.client',
+                    'tag': 'display_notification',
+                    'params': {
+                        'type': 'warning',
+                        'message': request['message'],
+                        'sticky': True,
+                    }
+                }
         return res
 
     # jawaid 30/8/2023
