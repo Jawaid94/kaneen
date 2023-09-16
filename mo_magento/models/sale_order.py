@@ -1,7 +1,5 @@
-from odoo import models, fields, api
-from .api_request import req
+from odoo import models, fields
 import logging
-import requests
 
 _logger = logging.getLogger(__name__)
 
@@ -20,74 +18,6 @@ class SaleOrder(models.Model):
             work_flow_process_record = self.auto_workflow_process_id
             self.validate_and_paid_invoices_ept(work_flow_process_record)
         self.state = self.magento_order_status = kwargs.get('status')
-
-    def action_cancel(self):
-        res = super(SaleOrder, self).action_cancel()
-        if self.magento_order_id:
-            request = req(self.magento_instance_id, f'/all/V1/orders/{self.magento_order_id}?fields=status', 'GET',
-                          is_raise=True, return_text=True)
-            if request.get('status') == 'canceled':
-                return
-            data = {
-                "entity": {
-                    "entity_id": self.magento_order_id,
-                    "status": 'canceled'
-                }
-            }
-            request = req(self.magento_instance_id, '/all/V1/orders', 'POST', data, is_raise=True)
-            if 'message' in request:
-                _logger.info("Can not send status to magento {} {}".format(self.name, request['message']))
-                return {
-                    'type': 'ir.actions.client',
-                    'tag': 'display_notification',
-                    'params': {
-                        'type': 'warning',
-                        'message': request['message'],
-                        'sticky': True,
-                    }
-                }
-        return res
-
-    # jawaid 30/8/2023
-    # @api.onchange('state')
-    # def onchange_state(self):
-    #     if self.state == 'shipped' and self.export_shipped:
-    #         return
-    #
-    #     if self.state == 'ready_to_ship' or self.state == 'shipped':
-    #         request = req(self.magento_instance_id, '/all/V1/orders/' + self.magento_order_id, 'GET',
-    #                       {"entity_id": self.magento_order_id}, is_raise=True, return_text=True)
-    #         if request.get('status') == 'complete' or request.get('status') == 'cancel':
-    #             return
-    #         data = {
-    #             "entity": {
-    #                 "entity_id": self.magento_order_id,
-    #                 "status": self.state
-    #             }
-    #         }
-    #         request = req(self.magento_instance_id, '/all/V1/orders', 'POST', data, is_raise=True)
-    #         if 'message' in request:
-    #             _logger.info("Can not send status to magento {} {}".format(self.name, request['message']))
-    #             return {
-    #                 'type': 'ir.actions.client',
-    #                 'tag': 'display_notification',
-    #                 'params': {
-    #                     'type': 'warning',
-    #                     'message': request['message'],
-    #                     'sticky': True,
-    #                 }
-    #             }
-    #
-    #         if self.state == 'shipped':
-    #             self.sudo().write({
-    #                 'export_shipped': True
-    #             })
-    # jawaid 30/8/2023
-
-    def onchange_state_cron(self):
-        records = self.search([('state', 'in', ['ready_to_ship', 'shipped']), ('magento_order_id', '!=', False)])
-        for record in records:
-            record.onchange_state()
 
     def create_sale_order_ept(self, item, instance, log, line_id):
         is_processed = self._find_price_list(item, log, line_id)
