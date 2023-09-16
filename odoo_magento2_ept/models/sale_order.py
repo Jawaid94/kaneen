@@ -523,11 +523,9 @@ class SaleOrder(models.Model):
                     comment_vals = sorted(comment_vals, key=lambda comment_val: comment_val['created_at'])
                     for comment_val in comment_vals:
                         sale_order.message_post(body=_(f"Magento -> {comment_val['comment']}"))
-                # jawaid 9/9/2023
-                # if sale_order.purchase_order_count:
-                #     purchase_orders = sale_order._get_purchase_orders()
-                #     purchase_orders.button_cancel()
-                # jawaid 9/9/2023
+                if sale_order.purchase_order_count:
+                    purchase_orders = sale_order._get_purchase_orders()
+                    purchase_orders.button_cancel()
                 sale_order.sudo().cancel_order_from_magento()
         if orders['total_count'] > 0 and order_nos:
             self.env['order.cancelled.log'].create({
@@ -547,9 +545,25 @@ class SaleOrder(models.Model):
         magento_order_id = self.magento_order_id
         if magento_order_id:
             magento_instance = self.magento_instance_id
+            request = req(magento_instance, f'/all/V1/orders/{magento_order_id}?fields=status', 'GET', is_raise=True)
+            if request.get('status') == 'canceled':
+                return
             try:
                 api_url = '/V1/orders/%s/cancel' % magento_order_id
                 result = req(magento_instance, api_url, 'POST')
+                if result:
+                    self.magento_order_status = 'canceled'
+                    payload = {
+                        "statusHistory": {
+                            "comment": f"Order status updated by {self.env.user.name} from Odoo.",
+                            "entity_name": "order",
+                            "is_customer_notified": 0,
+                            "is_visible_on_front": 0,
+                            "parent_id": magento_order_id,
+                            "status": "canceled"
+                        }
+                    }
+                    req(magento_instance, f'/all/V1/orders/{magento_order_id}/comments', 'POST', payload, is_raise=True)
             except Exception:
                 raise UserError("Error while requesting cancel order")
         return result

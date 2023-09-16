@@ -264,7 +264,7 @@ class StockPicking(models.Model):
                             "entity_id": sale_order.magento_order_id,
                             "status_histories": [
                                 {
-                                    "comment": "Order status updated by Odoo.",
+                                    "comment": f"Order status updated by {self.env.user.name} from Odoo.",
                                     "entity_name": "order",
                                     "is_customer_notified": 0,
                                     "is_visible_on_front": 0,
