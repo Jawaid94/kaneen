@@ -493,6 +493,9 @@ class SaleOrder(models.Model):
 
         if self.company_id.operation_type == 'cancel':
             self.sudo().write({'state': 'cancel'})
+            if self.purchase_order_count:
+                purchase_orders = self._get_purchase_orders()
+                purchase_orders.sh_cancel()
         elif self.company_id.operation_type == 'cancel_draft':
             self.sudo().write({'state': 'draft'})
         elif self.company_id.operation_type == 'cancel_delete':
