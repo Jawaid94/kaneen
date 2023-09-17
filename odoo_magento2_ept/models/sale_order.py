@@ -510,30 +510,31 @@ class SaleOrder(models.Model):
                 'items[increment_id,entity_id,status,status_histories[status,created_at,comment]],total_count'
             ]})
         orders = order_queue._get_order_response(instance, kwargs, False)
-        order_nos = []
-        for order in orders['items']:
-            order_id = order.get('entity_id', 0)
-            sale_order = self.search([('magento_instance_id', '=', instance.id),
-                                      ('magento_order_id', '=', str(order_id))], limit=1)
-            if sale_order:
-                order_nos.append(order['increment_id'])
-                sale_order.magento_order_status = order.get('status')
-                if order['status_histories']:
-                    comment_vals = [d for d in order['status_histories'] if d['status'] == 'canceled']
-                    comment_vals = sorted(comment_vals, key=lambda comment_val: comment_val['created_at'])
-                    for comment_val in comment_vals:
-                        sale_order.message_post(body=_(f"Magento -> {comment_val['comment']}"))
-                if sale_order.purchase_order_count:
-                    purchase_orders = sale_order._get_purchase_orders()
-                    purchase_orders.button_cancel()
-                sale_order.sudo().cancel_order_from_magento()
-        if orders['total_count'] > 0 and order_nos:
-            self.env['order.cancelled.log'].create({
-                'from_date': kwargs['from_date'],
-                'to_date': kwargs['to_date'],
-                'order_nos': ', '.join(order_nos)
-            })
-            instance.last_cancel_order_import_date = kwargs['to_date']
+        if orders['items'] is not None:
+            order_nos = []
+            for order in orders['items']:
+                order_id = order.get('entity_id', 0)
+                sale_order = self.search(
+                    [('magento_instance_id', '=', instance.id), ('magento_order_id', '=', str(order_id))], limit=1)
+                if sale_order:
+                    order_nos.append(order['increment_id'])
+                    sale_order.magento_order_status = order.get('status')
+                    if order['status_histories']:
+                        comment_vals = [d for d in order['status_histories'] if d['status'] == 'canceled']
+                        comment_vals = sorted(comment_vals, key=lambda comment_val: comment_val['created_at'])
+                        for comment_val in comment_vals:
+                            sale_order.message_post(body=_(f"Magento -> {comment_val['comment']}"))
+                    if sale_order.purchase_order_count:
+                        purchase_orders = sale_order._get_purchase_orders()
+                        purchase_orders.sh_cancel()
+                    sale_order.sudo().cancel_order_from_magento()
+            if orders['total_count'] > 0 and order_nos:
+                self.env['order.cancelled.log'].create({
+                    'from_date': kwargs['from_date'],
+                    'to_date': kwargs['to_date'],
+                    'order_nos': ', '.join(order_nos)
+                })
+                instance.last_cancel_order_import_date = kwargs['to_date']
         # return True jawaid 20/8/2023
 
     def cancel_order_in_magento(self):

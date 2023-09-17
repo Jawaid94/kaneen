@@ -62,7 +62,11 @@ class MagentoOrderDataQueueEpt(models.Model):
         Computes state from different states of queue lines.
         """
         for record in self:
-            if record.total_count == record.done_count + record.cancel_count:
+            # jawaid 16/9/2023
+            # if record.total_count == record.done_count + record.cancel_count:
+            #     record.state = "completed"
+            # jawaid 16/9/2023
+            if len(self.line_ids) == record.done_count:
                 record.state = "completed"
             elif record.total_count == record.draft_record:
                 record.state = "draft"
@@ -233,8 +237,10 @@ class MagentoOrderDataQueueEpt(models.Model):
             cron_name = f"{queue._module}.magento_ir_cron_parent_to_process_order_queue_data"
             process_cron_time = queue.instance_id.get_magento_cron_execution_time(cron_name)
             # To maintain that current queue has started to process.
-            queue.write({'is_process_queue': True})
-            self._cr.commit()
+            # jawaid 16/9/2023
+            # queue.write({'is_process_queue': True})
+            # self._cr.commit()
+            # jawaid 16/9/2023
             log = queue.log_book_id
             if not log:
                 log = queue.instance_id.create_log_book(model=queue._name)
@@ -255,6 +261,9 @@ class MagentoOrderDataQueueEpt(models.Model):
                     line.write({'state': 'done', 'processed_at': datetime.now()})
                 else:
                     line.write({'state': 'failed', 'processed_at': datetime.now()})
+                self._cr.commit()
+            if queue.done_count == len(lines):
+                queue.write({'is_process_queue': True})
                 self._cr.commit()
             message = "Order Queue #{} Processed!!".format(queue.name)
             queue.instance_id.show_popup_notification(message)
