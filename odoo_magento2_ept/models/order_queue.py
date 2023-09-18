@@ -233,7 +233,10 @@ class MagentoOrderDataQueueEpt(models.Model):
     def process_order_queues(self, is_manual=False):
         start = time.time()
         domain = ['draft', 'cancel', 'failed']
-        for queue in self.filtered(lambda q: q.state not in ['completed']):
+        # jawaid 18/9/2023
+        # self.filtered(lambda q: q.state not in ['completed'])
+        # jawaid 18/9/2023
+        for queue in self:
             cron_name = f"{queue._module}.magento_ir_cron_parent_to_process_order_queue_data"
             process_cron_time = queue.instance_id.get_magento_cron_execution_time(cron_name)
             # To maintain that current queue has started to process.

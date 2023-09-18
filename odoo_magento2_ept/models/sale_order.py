@@ -517,6 +517,8 @@ class SaleOrder(models.Model):
                 sale_order = self.search(
                     [('magento_instance_id', '=', instance.id), ('magento_order_id', '=', str(order_id))], limit=1)
                 if sale_order:
+                    if sale_order.magento_order_status == 'canceled':
+                        continue
                     order_nos.append(order['increment_id'])
                     sale_order.magento_order_status = order.get('status')
                     if order['status_histories']:
