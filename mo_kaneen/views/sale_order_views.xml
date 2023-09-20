@@ -67,6 +67,12 @@
                        decoration-success="payment_status == 'paid'" decoration-info="payment_status == 'not_paid'"
                        decoration-warning="payment_status == 'partial'"/>
             </field>
+            <field name="state" position="attributes">
+                <attribute name="decoration-danger">state == 'cancel'</attribute>
+                <attribute name="decoration-success">state == 'shipped' or state == 'complete'</attribute>
+                <attribute name="decoration-primary">state == 'processing'</attribute>
+                <attribute name="decoration-warning">state == 'sale'</attribute>
+            </field>
         </field>
     </record>
 
