@@ -97,7 +97,9 @@ class ProductProduct(models.Model):
         # jawaid 7/9/2023
         stock_moves = self.env['stock.move'].search([
             ('date', '>=', date), ('company_id', '=', company.id),
-            ('state', 'in', ('partially_available', 'assigned', 'done')), ('product_id.sku_shatha', '=', 'None')])
+            ('state', 'in', ('partially_available', 'assigned', 'done')), ('product_id.sku_shatha', '=', 'None'),
+            ('product_id.is_pack', '!=', True)
+        ])
         product_ids = stock_moves.product_id.ids
 
         return list(set(product_ids))
