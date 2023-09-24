@@ -63,11 +63,15 @@
         <xpath expr="//table[hasclass('table','table-sm', 'o_main_table')]/thead/tr/th[@name='th_description']"
                position="after">
             <th name="th_image" class="text-left">Product Image</th>
+            <th name="th_barcode" class="text-left">Barcode</th>
+            <th name="th_location" class="text-left">Location</th>
         </xpath>
         <xpath expr="//tbody//td[@name='td_name']" position="after">
             <td name="td_image">
                 <div t-field="line.product_id.image_128" t-options="{'widget': 'image'}"/>
             </td>
+            <td name="td_barcode"><span t-field="line.barcode"/></td>
+            <td name="td_location"><span t-field="line.location"/></td>
         </xpath>
     </template>
     <template id="wk_list_view_image_purchaseorder_inherit" inherit_id="purchase.report_purchaseorder_document">

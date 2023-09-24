@@ -32,7 +32,7 @@ class SaleOrderLine(models.Model):
             if record.product_id.sku_shatha:
                 if eval(record.product_id.sku_shatha) is None:
                     quants = record.product_id.stock_quant_ids.filtered(lambda quant: quant.inventory_date)
-                    record.location = ', '.join(val[-1] for val in quants.location_id.name_get())
+                    record.location = ', '.join(quants.location_id.mapped('name'))
                 else:
                     record.location = False
             else:
