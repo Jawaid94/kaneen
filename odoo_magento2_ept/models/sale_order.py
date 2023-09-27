@@ -536,7 +536,7 @@ class SaleOrder(models.Model):
                     'to_date': kwargs['to_date'],
                     'order_nos': ', '.join(order_nos)
                 })
-                instance.last_cancel_order_import_date = kwargs['to_date']
+                instance.last_cancel_order_import_date = comment_val['created_at']
         # return True jawaid 20/8/2023
 
     def cancel_order_in_magento(self):
