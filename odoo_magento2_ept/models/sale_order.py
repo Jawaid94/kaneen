@@ -530,6 +530,10 @@ class SaleOrder(models.Model):
                         purchase_orders = sale_order._get_purchase_orders()
                         purchase_orders.sh_cancel()
                     sale_order.sudo().cancel_order_from_magento()
+                    invoices = sale_order.invoice_ids.filtered(lambda invoice: invoice.state != 'cancel')
+                    if invoices:
+                        for invoice in invoices:
+                            invoice.sudo().sh_cancel()
             if orders['total_count'] > 0 and order_nos:
                 self.env['order.cancelled.log'].create({
                     'from_date': kwargs['from_date'],
