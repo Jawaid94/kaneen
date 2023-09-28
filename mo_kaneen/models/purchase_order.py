@@ -10,8 +10,8 @@ def get_standard_price(self, sku_shatha):
     password = self.env['ir.config_parameter'].sudo().get_param('mo_kaneen.xml_password')
     uid, models = connect(url, db, username, password)
     shatha_standard_price = \
-    models.execute_kw(db, uid, password, 'product.product', 'search_read', [[['default_code', '=', sku_shatha]]],
-                      {'fields': ['standard_price']})[-1]['standard_price']
+        models.execute_kw(db, uid, password, 'product.product', 'search_read', [[['default_code', '=', sku_shatha]]],
+                          {'fields': ['standard_price']})[-1]['standard_price']
     return shatha_standard_price
 
 
@@ -234,6 +234,15 @@ class Purchase(models.Model):
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
+
+    @api.onchange('product_qty', 'product_uom', 'company_id')
+    def _onchange_quantity(self):
+        super(PurchaseOrderLine, self)._onchange_quantity()
+        if not self.product_id:
+            return
+        if eval(self.product_id.sku_shatha):
+            shatha_standard_price = get_standard_price(self, self.product_id.sku_shatha)
+            self.price_unit = shatha_standard_price + 5
 
     @api.model
     def _prepare_purchase_order_line(self, product_id, product_qty, product_uom, company_id, supplier, po):
