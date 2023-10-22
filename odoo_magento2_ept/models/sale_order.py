@@ -507,7 +507,7 @@ class SaleOrder(models.Model):
         order_queue = self.env['magento.order.data.queue.ept']
         kwargs.update(
             {'fields': [
-                'items[increment_id,entity_id,status,status_histories[status,created_at,comment]],total_count'
+                'items[increment_id,entity_id,status,status_histories[status,created_at,comment],created_at],total_count'
             ]})
         orders = order_queue._get_order_response(instance, kwargs, False)
         if orders['items'] is not None:
@@ -540,7 +540,8 @@ class SaleOrder(models.Model):
                     'to_date': kwargs['to_date'],
                     'order_nos': ', '.join(order_nos)
                 })
-                instance.last_cancel_order_import_date = comment_val['created_at']
+                instance.last_cancel_order_import_date = comment_val['created_at'] if order['status_histories'] else \
+                order['created_at']
         # return True jawaid 20/8/2023
 
     def cancel_order_in_magento(self):
