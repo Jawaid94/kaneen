@@ -549,7 +549,6 @@ class SaleOrder(models.Model):
         This method use for cancel order in magento.
         @return: result
         """
-        result = super(SaleOrder, self).action_cancel()
         magento_order_id = self.magento_order_id
         if magento_order_id:
             magento_instance = self.magento_instance_id
@@ -563,7 +562,7 @@ class SaleOrder(models.Model):
                     self.magento_order_status = 'canceled'
                     payload = {
                         "statusHistory": {
-                            "comment": f"Order status updated by {self.env.user.name} from Odoo.",
+                            "comment": f"{self.sale_cancel_reason} .-> .-> .-> Order status updated by {self.env.user.name} from Odoo.",
                             "entity_name": "order",
                             "is_customer_notified": 0,
                             "is_visible_on_front": 0,
@@ -574,7 +573,7 @@ class SaleOrder(models.Model):
                     req(magento_instance, f'/all/V1/orders/{magento_order_id}/comments', 'POST', payload, is_raise=True)
             except Exception:
                 raise UserError("Error while requesting cancel order")
-        return result
+        return
 
     def _prepare_invoice(self):
         """
