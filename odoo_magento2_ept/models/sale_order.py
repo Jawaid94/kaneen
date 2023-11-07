@@ -512,6 +512,8 @@ class SaleOrder(models.Model):
         orders = order_queue._get_order_response(instance, kwargs, False)
         if orders['items'] is not None:
             order_nos = []
+            comment_val = order = dict()
+            sale_order = self.env['sale.order']
             for order in orders['items']:
                 order_id = order.get('entity_id', 0)
                 sale_order = self.search(
@@ -529,7 +531,8 @@ class SaleOrder(models.Model):
                     if sale_order.purchase_order_count:
                         purchase_orders = sale_order._get_purchase_orders()
                         purchase_orders.sh_cancel()
-                    sale_order.sudo().cancel_order_from_magento()
+                    # sale_order.sudo().cancel_order_from_magento() jawaid 7/11/2023
+                    sale_order._sh_cancel()
                     invoices = sale_order.invoice_ids.filtered(lambda invoice: invoice.state != 'cancel')
                     if invoices:
                         for invoice in invoices:
@@ -540,8 +543,9 @@ class SaleOrder(models.Model):
                     'to_date': kwargs['to_date'],
                     'order_nos': ', '.join(order_nos)
                 })
-                instance.last_cancel_order_import_date = comment_val['created_at'] if order['status_histories'] else \
-                order['created_at']
+                sale_order.sale_cancel_reason = comment_val['comment'] if comment_val else False
+                instance.last_cancel_order_import_date = comment_val['created_at'] if comment_val else order[
+                    'created_at']
         # return True jawaid 20/8/2023
 
     def cancel_order_in_magento(self):
