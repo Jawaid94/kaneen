@@ -70,8 +70,12 @@
             <td name="td_image">
                 <div t-field="line.product_id.image_128" t-options="{'widget': 'image'}"/>
             </td>
-            <td name="td_barcode"><span t-field="line.barcode"/></td>
-            <td name="td_location"><span t-field="line.location"/></td>
+            <td name="td_barcode">
+                <span t-field="line.barcode"/>
+            </td>
+            <td name="td_location">
+                <span t-field="line.location"/>
+            </td>
         </xpath>
     </template>
     <template id="wk_list_view_image_purchaseorder_inherit" inherit_id="purchase.report_purchaseorder_document">
@@ -95,4 +99,14 @@
             </td>
         </xpath>
     </template>
+    <record id="stock_picking_view_tree_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.tree.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="sale_id" readonly="True"/>
+            </field>
+        </field>
+    </record>
 </odoo>
