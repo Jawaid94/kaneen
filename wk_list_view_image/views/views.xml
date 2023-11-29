@@ -32,16 +32,16 @@
             </field>
         </field>
     </record>
-    <record id="wk_purchase_order_image_added" model="ir.ui.view">
-        <field name="name">purchase.order.wk_purchase_order_image_added</field>
-        <field name="model">purchase.order</field>
-        <field name="inherit_id" ref="purchase.purchase_order_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_id']" position="after">
-                <field name="image_256" widget="image" class="wk_img" readonly="1"/>
-            </xpath>
-        </field>
-    </record>
+    <!--    <record id="wk_purchase_order_image_added" model="ir.ui.view">-->
+    <!--        <field name="name">purchase.order.wk_purchase_order_image_added</field>-->
+    <!--        <field name="model">purchase.order</field>-->
+    <!--        <field name="inherit_id" ref="purchase.purchase_order_form"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_id']" position="after">-->
+    <!--                <field name="image_256" widget="image" class="wk_img" readonly="1"/>-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--    </record>-->
     <record id="wk_sale_order_image_added" model="ir.ui.view">
         <field name="name">sale.order.wk_sale_order_image_added</field>
         <field name="model">sale.order</field>
@@ -64,7 +64,44 @@
                position="after">
             <th name="th_image" class="text-left">Product Image</th>
             <th name="th_barcode" class="text-left">Barcode</th>
-            <th name="th_location" class="text-left">Location</th>
+            <th name="th_location" class="text-left" width="76px">Location</th>
+        </xpath>
+        <xpath expr="//tbody//tr" position="after">
+            <t t-if="line.product_id.is_pack">
+                <tr t-foreach="line.product_id.pack_ids" t-as="pack_id" style="font-weight: bold; font-style: italic;">
+
+                    <td name="td_name">
+                        <span t-field="pack_id.product_id"/>
+                    </td>
+                    <td name="td_image">
+                        <div t-field="pack_id.product_id.image_128" t-options="{'widget': 'image'}"/>
+                    </td>
+                    <td name="td_barcode">
+                        <t t-set="barcodes" t-value="', '.join(pack_id.product_id.barcode_ids.mapped('name'))"/>
+                        <t t-if="barcodes">
+                            <span t-esc="'{}, {}'.format(barcodes, pack_id.product_id.barcode)"/>
+                        </t>
+                        <t t-else="">
+                            <span t-esc="pack_id.product_id.barcode"/>
+                        </t>
+                    </td>
+                    <td name="td_location">
+                        <t t-if="pack_id.product_id.sku_shatha == 'None'">
+                            <t t-set="quants"
+                               t-value="pack_id.product_id.stock_quant_ids.filtered(lambda quant: quant.inventory_date)"/>
+                            <span t-esc="', '.join(quants.location_id.mapped('name'))"/>
+                        </t>
+                    </td>
+                    <td name="td_quantity" class="text-right">
+                        <span t-esc="line.product_uom_qty * pack_id.qty_uom"/>
+                        <span t-field="pack_id.uom_id"/>
+                    </td>
+                    <td/>
+                    <td/>
+                    <td/>
+
+                </tr>
+            </t>
         </xpath>
         <xpath expr="//tbody//td[@name='td_name']" position="after">
             <td name="td_image">
