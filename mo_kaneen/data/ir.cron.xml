@@ -29,7 +29,7 @@
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>
-        <field name="active">True</field>
+        <field name="active">False</field>
     </record>
 
     <record id="ir_cron_order_confirm_message" model="ir.cron">

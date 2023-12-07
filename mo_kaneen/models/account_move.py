@@ -32,14 +32,18 @@ class Move(models.Model):
                 raise ValidationError(
                     _("Return picking {} for refund {} is not done!").format(move.return_picking_id.name, move.name))
 
-        res = super(Move, self).action_post()
-        if self:
-            # template = self.env.ref('account.email_template_edi_invoice', raise_if_not_found=False)
-            template = self.env.ref('mo_kaneen.mo_mail_template_invoice_confirm', raise_if_not_found=False)
-            for move in self:
-                if self.move_type != 'out_refund':
-                    template.sudo().send_mail(move.id, force_send=False)
-        return res
+        super(Move, self).action_post()
+        # template = self.env.ref('account.email_template_edi_invoice', raise_if_not_found=False)
+        for invoice in self:
+            if invoice.move_type != 'out_refund':
+                email_template_obj = self.env.ref('mo_kaneen.mo_mail_template_invoice_confirm',
+                                                  raise_if_not_found=False)
+                msg_id = email_template_obj.send_mail(invoice.id)
+
+                mail_mail_obj = self.env['mail.mail'].browse(msg_id)
+
+                if msg_id:
+                    mail_mail_obj.send()
 
 
 class MoveLine(models.Model):
@@ -47,7 +51,7 @@ class MoveLine(models.Model):
 
     taxable_amount = fields.Monetary(string="Taxable Amount", compute="_compute_amount_taxable", store='True', help="")
 
-    @api.depends('quantity',  'price_unit')
+    @api.depends('quantity', 'price_unit')
     def _compute_amount_taxable(self):
         for r in self:
             r.taxable_amount = r.quantity * r.price_unit
