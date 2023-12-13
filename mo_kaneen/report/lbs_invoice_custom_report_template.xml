@@ -386,7 +386,7 @@
                                             <td class="s4" dir="ltr">تخفيض</td>
                                             <td class="s4" dir="ltr">معدل الضريبة</td>
                                             <td class="s4" dir="ltr">قيمة الضريبة</td>
-                                            <td class="s4" dir="ltr">المجموع الفرعي للبند (متضمنًا ضريبة القيمة المضافة)
+                                            <td class="s4" dir="ltr">(المجموع الفرعي للبند (متضمنًا ضريبة القيمة المضافة
                                             </td>
                                         </tr>
                                         <tr style="height: 20px">
@@ -456,7 +456,7 @@
                                         </tr>
                                         <tr style="height: 20px">
                                             <td class="s13" dir="ltr">Discount</td>
-                                            <td class="s14" dir="rtl" style="padding-left: 40px;">مالي الخصومات</td>
+                                            <td class="s14" dir="rtl" style="padding-left: 40px;">الخصومات</td>
                                             <td class="s13" style="padding-left: 40px;">
                                                 <span t-field="o.einv_amount_discount_total"/>
                                             </td>
