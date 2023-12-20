@@ -1,0 +1,1439 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mo_kaneen
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-17 08:24+0000\n"
+"PO-Revision-Date: 2023-12-17 08:24+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mo_kaneen
+#: model:ir.actions.report,print_report_name:mo_kaneen.lbs_report_invoice_custom_document_action
+msgid "'Invoice-%s' % object.name"
+msgstr "'الفاتورة-%s' % object.name"
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "(المجموع الفرعي للبند (متضمنًا ضريبة القيمة المضافة"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:mail.template,body_html:mo_kaneen.mail_template_shata_order_confirm
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                    <tr>\n"
+"                        <td align=\"center\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                                <tbody>\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                        <div>\n"
+"                                                            Order\n"
+"                                                            <t t-out=\"object.name\"/>\n"
+"                                                            confirmed by Shatha\n"
+"                                                            You can check the order, use the following link:\n"
+"                                                            <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                                                                <a t-attf-href=\"/web#id={{object.id}}&amp;model=purchase.order&amp;view_type=form\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                                                    Order\n"
+"                                                                </a>\n"
+"                                                            </div>\n"
+"\n"
+"                                                        </div>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"\n"
+"                                </tbody>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"            "
+msgstr ""
+
+#. module: mo_kaneen
+#: model:mail.template,body_html:mo_kaneen.mail_template_user_send_to_shatha_error
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                    <tr>\n"
+"                        <td align=\"center\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                                <tbody>\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                        <div>\n"
+"                                                            There was a problem exporting the document\n"
+"                                                            <t t-out=\"object.name\"/>\n"
+"                                                            to Shatha\n"
+"                                                            Please check the order, you can use the following link:\n"
+"                                                            <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                                                                <a t-attf-href=\"/web#id={{object.id}}&amp;model=purchase.order&amp;view_type=form\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                                                    Order\n"
+"                                                                </a>\n"
+"                                                            </div>\n"
+"\n"
+"                                                        </div>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"\n"
+"                                </tbody>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"            "
+msgstr ""
+
+#. module: mo_kaneen
+#: model:mail.template,body_html:mo_kaneen.mo_mail_template_invoice_confirm
+msgid ""
+"<table class=\"wrapper\" width=\"100%\" style=\"border-collapse:collapse;margin:0 auto; background-color: #f5f5f5\">\n"
+"                    <tbody>\n"
+"                        <tr>\n"
+"                            <td class=\"wrapper-inner\" align=\"center\" style=\"font-family:'hacenMaghreb', 'Helvetica Neue', Helvetica, Arial, sans-serif;vertical-align:top;width:100%;\">\n"
+"                                <table class=\"main\" align=\"center\" style=\"border-collapse:collapse;margin:0 auto;text-align:left;width:600px; background-color: #f5f5f5\">\n"
+"                                    <tbody>\n"
+"                                        <tr>\n"
+"                                            <td class=\"header\" style=\"font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;vertical-align:top;padding:10px 10px 0;text-align:center;\">\n"
+"                                                <a class=\"logo\" href=\"https://kaneen.com/\" style=\"color:#1979c3;text-decoration:none;\">\n"
+"                                                    <img width=\"200\" height=\"80\" src=\"https://kaneen.com/media/logo/stores/4/Kaneen_Logo-02_1_.png\" alt=\"logo\" border=\"0\" style=\"border:0;height:auto;line-height:100%;text-decoration:none;\"/>\n"
+"                                                </a>\n"
+"                                            </td>\n"
+"                                        </tr>\n"
+"                                        <tr>\n"
+"                                            <td class=\"main-content\" style=\"font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;vertical-align:top;background-color:#f5f5f5;padding:10px;\">\n"
+"\n"
+"\n"
+"                                                <div style=\"margin-top:10px;font-weight:bold;text-align:center;font-family:sans-serif;\">\n"
+"                                                    <h3 style=\"font-weight:300;line-height:1.1;font-size:18px;margin-top:15px;margin-bottom:10px;padding:10px;background-color:#d5897c;\">\n"
+"                                                        INVOICE NOTIFICATION EMAIL\n"
+"                                                    </h3>\n"
+"                                                </div>\n"
+"\n"
+"                                                <div style=\"margin: 0px; padding: 0px;margin-top:30px\">\n"
+"                                                    <p style=\"box-sizing:border-box;margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                                                        Dear\n"
+"                                                        <t t-out=\"object.partner_id.name or ''\"/>,\n"
+"                                                        <br/>\n"
+"                                                        <br/>\n"
+"                                                        Thank you for shopping at Kaneen\n"
+"\n"
+"                                                        <br/>\n"
+"                                                        <br/>\n"
+"                                                        Please find attached your Tax Invoice<br/><br/>\n"
+"\n"
+"                                                        Invoice Number: <t t-out=\"object.name\"/><br/>\n"
+"                                                        Reference Number: <t t-out=\"object.invoice_origin\"/><br/>\n"
+"                                                        Invoice Date: <t t-out=\"format_date(object.invoice_date)\"/><br/>\n"
+"                                                        Grand Total (Incl. Tax): <t t-out=\"format_amount(object.amount_total, object.currency_id)\"/>\n"
+"\n"
+"                                                        <br/>\n"
+"                                                        <br/>\n"
+"\n"
+"                                                        This invoice is already paid.\n"
+"\n"
+"                                                        <br/>\n"
+"                                                        <br/>\n"
+"\n"
+"                                                        For all your inquiries please feel free to call us on 9200 06204 or contact us on\n"
+"                                                        <br/><t t-out=\"object.company_id.customer_service_email\"/>\n"
+"\n"
+"                                                        <br/>\n"
+"                                                        <br/>\n"
+"\n"
+"                                                        See you soon!\n"
+"\n"
+"                                                        <br/>\n"
+"                                                        <br/>\n"
+"\n"
+"                                                        Kaneen Team\n"
+"                                                    </p>\n"
+"                                                </div>\n"
+"\n"
+"                                            </td>\n"
+"                                        </tr>\n"
+"                                    </tbody>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"\n"
+"\n"
+"                <div>\n"
+"                    <hr style=\"height:2px;background-color:#d5897c;\"/>\n"
+"                    <div style=\"background-color:#38245f;\">\n"
+"                        <div style=\"text-align:center;padding:15px;\">\n"
+"                            <p style=\"color:#fff;\">join us on social media</p>\n"
+"                            <div>\n"
+"                                <a style=\"margin-right:0.5em;\" href=\"https://www.linkedin.com/company/kaneen-investment/\">\n"
+"                                    <img src=\"https://kaneen.com/media/wysiwyg/email/social-icons/linkedin.png\" height=\"20\" width=\"20\" alt=\"linkedin.png\"/>\n"
+"                                </a>\n"
+"                                <a style=\"margin-right:0.5em;\" href=\"https://twitter.com/kaneenksa\">\n"
+"                                    <img src=\"https://kaneen.com/media/wysiwyg/email/social-icons/twitter_icon_x.png\" height=\"20\" width=\"20\" alt=\"twitter.png\"/>\n"
+"                                </a>\n"
+"                                <a style=\"margin-right:0.5em;\" href=\"https://www.tiktok.com/@kaneenksa\">\n"
+"                                    <img src=\"https://kaneen.com/media/wysiwyg/email/social-icons/tiktok.png\" height=\"20\" width=\"20\" alt=\"tiktok.png\"/>\n"
+"                                </a>\n"
+"                                <a style=\"margin-right:0.5em;\" href=\"https://instagram.com/kaneenksa\" title=\"Instagram\">\n"
+"                                    <img src=\"https://kaneen.com/media/wysiwyg/email/social-icons/instagram.png\" height=\"20\" width=\"20\" alt=\"instagram.png\"/>\n"
+"                                </a>\n"
+"                            </div>\n"
+"                            <div style=\"margin-top:10px;\">\n"
+"                                <img src=\"https://kaneen.com/media/wysiwyg/email/social-icons/kaneen.png\" height=\"20\" width=\"20\" alt=\"kaneen.png\"/>\n"
+"                            </div>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"\n"
+"            "
+msgstr ""
+"<table class=\"wrapper\" width=\"100%\" style=\"border-collapse:collapse;margin:0 auto;text-align:right; background-color: #f5f5f5\">\n"
+"                    <tbody>\n"
+"                        <tr>\n"
+"                            <td class=\"wrapper-inner\" align=\"center\" style=\"font-family:'hacenMaghreb', 'Helvetica Neue', Helvetica, Arial, sans-serif;vertical-align:top;width:100%;\">\n"
+"                                <table class=\"main\" align=\"center\" style=\"border-collapse:collapse;margin:0 auto;text-align:left;width:600px; background-color: #f5f5f5\">\n"
+"                                    <tbody>\n"
+"                                        <tr>\n"
+"                                            <td class=\"header\" style=\"font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;vertical-align:top;padding:10px 10px 0;text-align:center;\">\n"
+"                                                <a class=\"logo\" href=\"https://kaneen.com/\" style=\"color:#1979c3;text-decoration:none;\">\n"
+"                                                    <img width=\"200\" height=\"80\" src=\"https://kaneen.com/media/logo/stores/4/Kaneen_Logo-02_1_.png\" alt=\"logo\" border=\"0\" style=\"border:0;height:auto;line-height:100%;text-decoration:none;\"/>\n"
+"                                                </a>\n"
+"                                            </td>\n"
+"                                        </tr>\n"
+"                                        <tr>\n"
+"                                            <td class=\"main-content\" style=\"font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;vertical-align:top;background-color:#f5f5f5;padding:10px;\">\n"
+"\n"
+"\n"
+"                                                <div style=\"margin-top:10px;font-weight:bold;text-align:center;font-family:sans-serif;\">\n"
+"                                                    <h3 style=\"font-weight:300;line-height:1.1;font-size:18px;margin-top:15px;margin-bottom:10px;padding:10px;background-color:#d5897c;\">\n"
+"                                                        فاتورة طلبك من متجر كنين\n"
+"                                                    </h3>\n"
+"                                                </div>\n"
+"\n"
+"                                                <div style=\"margin: 0px; padding: 0px;margin-top:30px\">\n"
+"                                                    <p style=\"box-sizing:border-box;margin: 0px; padding: 0px; text-align: right; direction: rtl; font-size: 13px;\">\n"
+"                                                        عزيزي\n"
+"                                                        <t t-out=\"object.partner_id.name or ''\"/>,\n"
+"                                                        <br/>\n"
+"                                                        <br/>\n"
+"                                                        شكرا لتسوقك  من متجر كنين\n"
+"\n"
+"                                                        <br/>\n"
+"                                                        <br/>\n"
+"                                                        مرفق أدناه الفاتورة الضريبية لطلبك.<br/><br/>\n"
+"\n"
+"                                                        رقم الفاتورة : <t t-out=\"object.name\"/><br/>\n"
+"                                                        المرجع: <t t-out=\"object.invoice_origin\"/><br/>\n"
+"                                                        تاريخ الفاتورة: <t t-out=\"format_date(object.invoice_date)\"/><br/>\n"
+"                                                        الاجمالي (شامل الضريبة): <t t-out=\"object.get_arabic_currency_symbol()\"/>\n"
+"\n"
+"                                                        <br/>\n"
+"                                                        <br/>\n"
+"\n"
+"                                                        هذه الفاتورة مدفوعة مسبقاً.\n"
+"\n"
+"                                                        <br/>\n"
+"                                                        <br/>\n"
+"\n"
+"                                                        في حال لديك أي استفسارات حول طلبك لا تتردد في التواصل معنا على الرقم 920006204 أو مراسلتنا عبر البريد الإلكتروني على "
+"                                                        <br/><t t-out=\"object.company_id.customer_service_email\"/>"
+"\n"
+"                                                        <br/>\n"
+"                                                        <br/>\n"
+"\n"
+"                                                      نراك قريباً.\n"
+"\n"
+"                                                        <br/>\n"
+"                                                        <br/>\n"
+"\n"
+"                                                        فريق كنين\n"
+"                                                    </p>\n"
+"                                                </div>\n"
+"\n"
+"                                            </td>\n"
+"                                        </tr>\n"
+"                                    </tbody>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"\n"
+"\n"
+"                <div>\n"
+"                    <hr style=\"height:2px;background-color:#d5897c;\"/>\n"
+"                    <div style=\"background-color:#38245f;\">\n"
+"                        <div style=\"text-align:center;padding:15px;\">\n"
+"                            <p style=\"color:#fff;\">شاركنا عبر حساباتنا في التواصل الاجتماعي</p>\n"
+"                            <div>\n"
+"                                <a style=\"margin-right:0.5em;\" href=\"https://www.linkedin.com/company/kaneen-investment/\">\n"
+"                                    <img src=\"https://kaneen.com/media/wysiwyg/email/social-icons/linkedin.png\" height=\"20\" width=\"20\" alt=\"linkedin.png\"/>\n"
+"                                </a>\n"
+"                                <a style=\"margin-right:0.5em;\" href=\"https://twitter.com/kaneenksa\">\n"
+"                                    <img src=\"https://kaneen.com/media/wysiwyg/email/social-icons/twitter_icon_x.png\" height=\"20\" width=\"20\" alt=\"twitter.png\"/>\n"
+"                                </a>\n"
+"                                <a style=\"margin-right:0.5em;\" href=\"https://www.tiktok.com/@kaneenksa\">\n"
+"                                    <img src=\"https://kaneen.com/media/wysiwyg/email/social-icons/tiktok.png\" height=\"20\" width=\"20\" alt=\"tiktok.png\"/>\n"
+"                                </a>\n"
+"                                <a style=\"margin-right:0.5em;\" href=\"https://instagram.com/kaneenksa\" title=\"Instagram\">\n"
+"                                    <img src=\"https://kaneen.com/media/wysiwyg/email/social-icons/instagram.png\" height=\"20\" width=\"20\" alt=\"instagram.png\"/>\n"
+"                                </a>\n"
+"                            </div>\n"
+"                            <div style=\"margin-top:10px;\">\n"
+"                                <img src=\"https://kaneen.com/media/wysiwyg/email/social-icons/kaneen.png\" height=\"20\" width=\"20\" alt=\"kaneen.png\"/>\n"
+"                            </div>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"\n"
+"            "
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Address"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.bulk_purchase_export_view_form
+msgid "Are you sure want export purchase Orders"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Bill From"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Bill to"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "CR No."
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.bulk_purchase_export_view_form
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.import_product_wizard_form
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.return_validation_wizard_form
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.return_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__state__cancel
+msgid "Cancelled"
+msgstr "ملغي"
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_product_quality_comment__name
+msgid "Comment"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_res_company
+msgid "Companies"
+msgstr "شركات"
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__state__complete
+msgid "Complete"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_res_config_settings
+msgid "Config Settings"
+msgstr "ضبط الاعدادات"
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_res_partner
+msgid "Contact"
+msgstr "جهة الاتصال"
+
+#. module: mo_kaneen
+#: model_terms:ir.actions.act_window,help:mo_kaneen.mo_product_quality_comment_action
+msgid "Create a new product quality comment"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_bulk_purchase_export__create_uid
+#: model:ir.model.fields,field_description:mo_kaneen.field_import_product__create_uid
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__create_uid
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_product_quality_comment__create_uid
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation__create_uid
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__create_uid
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_wizard__create_uid
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Created by"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_bulk_purchase_export__create_date
+#: model:ir.model.fields,field_description:mo_kaneen.field_import_product__create_date
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__create_date
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_product_quality_comment__create_date
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation__create_date
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__create_date
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_res_company__customer_service_email
+msgid "Customer Service Email"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__mo_damaged_item__product_quality__damaged
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__return_validation_line__product_quality__damaged
+msgid "Damaged"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__state__damaged_item
+msgid "Damaged Item"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_sale_order__damage_count
+#: model:ir.model.fields,field_description:mo_kaneen.field_stock_move__damaged_items
+msgid "Damaged Items"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_res_config_settings_view
+msgid "Data for Shatha"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_res_config_settings_view
+msgid "DataBase Name"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_res_config_settings_view
+msgid "DataBase Password"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_res_config_settings_view
+msgid "DataBase User"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_res_partner__default_dest_loc_id
+#: model:ir.model.fields,field_description:mo_kaneen.field_res_users__default_dest_loc_id
+msgid "Default Destination"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__state__delivered
+msgid "Delivered"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Discount"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_bulk_purchase_export__display_name
+#: model:ir.model.fields,field_description:mo_kaneen.field_import_product__display_name
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__display_name
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_product_quality_comment__display_name
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation__display_name
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__display_name
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__purchase_order__send_status__error
+msgid "Error"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:mail.template,subject:mo_kaneen.mail_template_user_send_to_shatha_error
+msgid "Export Error {{ object.name }}!"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.actions.act_window,name:mo_kaneen.action_export_purchase_order
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.bulk_purchase_export_view_form
+msgid "Export To Shatha"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.actions.server,name:mo_kaneen.ir_cron_orders_to_shatha_ir_actions_server
+#: model:ir.cron,cron_name:mo_kaneen.ir_cron_orders_to_shatha
+#: model:ir.cron,name:mo_kaneen.ir_cron_orders_to_shatha
+msgid "Export order to Shatha"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_inherit_purchase_order_form
+msgid "Export to Shatha"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_product_quality_comment__external_id
+msgid "External ID"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_import_product__file
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_wizard__file
+msgid "File"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_damaged_item_filter
+msgid "Group By"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_stock_move__has_damaged_item
+msgid "Has Damaged Item"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_bulk_purchase_export__id
+#: model:ir.model.fields,field_description:mo_kaneen.field_import_product__id
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__id
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_product_quality_comment__id
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation__id
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__id
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_account_bank_statement_import
+msgid "Import Bank Statement"
+msgstr "استيراد كشف حساب بنكي"
+
+#. module: mo_kaneen
+#: model:ir.actions.server,name:mo_kaneen.ir_cron_import_product_shatha_ir_actions_server
+#: model:ir.cron,cron_name:mo_kaneen.ir_cron_import_product_shatha
+#: model:ir.cron,name:mo_kaneen.ir_cron_import_product_shatha
+msgid "Import Products from Shatha"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.actions.server,name:mo_kaneen.action_import_quant_from_shatha
+#: model:ir.ui.menu,name:mo_kaneen.menu_import_quant_from_shatha
+msgid "Import Quants From Shatha"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.actions.server,name:mo_kaneen.ir_cron_import_quant_shatha_ir_actions_server
+#: model:ir.cron,cron_name:mo_kaneen.ir_cron_import_quant_shatha
+#: model:ir.cron,name:mo_kaneen.ir_cron_import_quant_shatha
+msgid "Import Quants from Shatha"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.actions.act_window,name:mo_kaneen.action_open_import_product_wizard_form
+msgid "Import product"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.ui.menu,name:mo_kaneen.stock_import_product
+msgid "Import products"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Invoice Date"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Invoice Number"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.actions.report,name:mo_kaneen.lbs_report_invoice_custom_document_action
+msgid "Invoice custom"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:mail.template,name:mo_kaneen.mo_mail_template_invoice_confirm
+msgid "Invoice: Send by email custom"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:mail.template,report_name:mo_kaneen.mo_mail_template_invoice_confirm
+msgid "Invoice_{{ (object.name or '').replace('/','_') }}"
+msgstr "الفاتورة_{{ (object.name or '').replace('/','_') }}"
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__state__item_returned
+msgid "Item Returned"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Item Subtotal (Including VAT)"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_account_move
+msgid "Journal Entry"
+msgstr "قيد اليومية"
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_account_move_line
+msgid "Journal Item"
+msgstr "عنصر اليومية"
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_bulk_purchase_export____last_update
+#: model:ir.model.fields,field_description:mo_kaneen.field_import_product____last_update
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item____last_update
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_product_quality_comment____last_update
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation____last_update
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line____last_update
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_bulk_purchase_export__write_uid
+#: model:ir.model.fields,field_description:mo_kaneen.field_import_product__write_uid
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__write_uid
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_product_quality_comment__write_uid
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation__write_uid
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__write_uid
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_bulk_purchase_export__write_date
+#: model:ir.model.fields,field_description:mo_kaneen.field_import_product__write_date
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__write_date
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_product_quality_comment__write_date
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation__write_date
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__write_date
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation__line_ids
+msgid "Line"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__state__done
+msgid "Locked"
+msgstr "مقفل"
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_purchase_order__message_send
+msgid "Message Send"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__move_id
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__move_id
+msgid "Move"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Name"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Nature of Goods or Services"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__state__draft
+msgid "New"
+msgstr ""
+
+#. module: mo_kaneen
+#: code:addons/mo_kaneen/models/stock_picking.py:0
+#, python-format
+msgid "No %s ready for this product"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.actions.act_window,help:mo_kaneen.mo_damaged_item_action
+msgid "No damaged items"
+msgstr ""
+
+#. module: mo_kaneen
+#: code:addons/mo_kaneen/models/stock_picking.py:0
+#, python-format
+msgid "No product found for barcode %s"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__payment_status__not_paid
+msgid "Not Paid"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__purchase_order__send_status__not_sent
+msgid "Not Sent"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_stock_picking_type__picking_type_for_putaway
+msgid "Operation Type For Return Putaway"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.actions.server,name:mo_kaneen.ir_cron_order_confirm_message_ir_actions_server
+#: model:ir.cron,cron_name:mo_kaneen.ir_cron_order_confirm_message
+#: model:ir.cron,name:mo_kaneen.ir_cron_order_confirm_message
+msgid "Order Confirm Message"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__sale_id
+msgid "Order Reference"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:mail.template,subject:mo_kaneen.mail_template_shata_order_confirm
+msgid "Order confirmed {{ object.name }}!"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__mo_damaged_item__product_quality__original
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__return_validation_line__product_quality__original
+msgid "Original"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_mail_mail
+msgid "Outgoing Mails"
+msgstr "رسائل البريد الإلكتروني الصادرة "
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.external_layout_custom
+msgid ""
+"Page:<span class=\"page\"/>/\n"
+"                        <span class=\"topage\"/>"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__payment_status__paid
+msgid "Paid"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__payment_status__paid_and_refund
+msgid "Paid and Refund"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__payment_status__partial
+msgid "Partially Paid"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_sale_order__payment_status
+msgid "Payment State"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__state__sale
+msgid "Pending"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation__picking_id
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__picking_id
+msgid "Picking"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_stock_picking_type
+msgid "Picking Type"
+msgstr "نوع الاستلام"
+
+#. module: mo_kaneen
+#: code:addons/mo_kaneen/models/purchase_order.py:0
+#, python-format
+msgid ""
+"Please select atleast two purchase orders to perform the Export Operation."
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_import_product__pricelist_id
+msgid "Pricelist"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__state__processing
+msgid "Processing"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_product_product
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__product_id
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__product_id
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_damaged_item_filter
+msgid "Product"
+msgstr "المنتج"
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "تحركات المنتج (بند حركة المخزون) "
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_damaged_item_filter
+msgid "Product Quality"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.actions.act_window,name:mo_kaneen.mo_product_quality_comment_action
+#: model:ir.model,name:mo_kaneen.model_mo_product_quality_comment
+#: model:ir.ui.menu,name:mo_kaneen.quality_comment_menu
+msgid "Product Quality Comment"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_damaged_item_filter
+msgid "Product Quality: Damaged"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_damaged_item_filter
+msgid "Product Quality: Semi-Damaged"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_product_template
+msgid "Product Template"
+msgstr "قالب المنتج"
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__product_quality
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__product_quality
+msgid "Product quality"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__product_quality_comment_id
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__product_quality_comment_id
+msgid "Product quality comment"
+msgstr ""
+
+#. module: mo_kaneen
+#: code:addons/mo_kaneen/models/product_template.py:0
+#: code:addons/mo_kaneen/models/product_template.py:0
+#, python-format
+msgid "Products successfully updated"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_purchase_order
+msgid "Purchase Order"
+msgstr "أمر شراء"
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "بند أمر الشراء"
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_import_product__purchase_tax_id
+msgid "Purchase Tax"
+msgstr ""
+
+#. module: mo_kaneen
+#: code:addons/mo_kaneen/models/purchase_order.py:0
+#, python-format
+msgid "Purchase order successfully exported"
+msgstr ""
+
+#. module: mo_kaneen
+#: code:addons/mo_kaneen/models/purchase_order.py:0
+#, python-format
+msgid "Purchase order successfully reexported"
+msgstr ""
+
+#. module: mo_kaneen
+#: code:addons/mo_kaneen/models/purchase_order.py:0
+#, python-format
+msgid "Purchase order was confirmed in Shatha or not created"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__qty
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__qty
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Quantity"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_stock_quant
+msgid "Quants"
+msgstr "الدفعات"
+
+#. module: mo_kaneen
+#: code:addons/mo_kaneen/models/stock_quant.py:0
+#, python-format
+msgid "Quants successfully updated"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__state__sent
+msgid "Quotation Sent"
+msgstr "تم إرسال عرض السعر"
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__state__ready_to_ship
+msgid "Ready To Ship"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_inherit_purchase_order_form
+msgid "Recount Price"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_inherit_purchase_order_form
+msgid "Reexport to Shatha"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_res_config_settings_view
+msgid "Responsible"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_res_config_settings__responsible_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_stock_return_picking_line__return_comment
+msgid "Return Comment"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_stock_move__return_comments
+msgid "Return Comments"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_stock_return_picking
+#: model:ir.model.fields,field_description:mo_kaneen.field_account_bank_statement_line__return_picking_id
+#: model:ir.model.fields,field_description:mo_kaneen.field_account_move__return_picking_id
+#: model:ir.model.fields,field_description:mo_kaneen.field_account_payment__return_picking_id
+msgid "Return Picking"
+msgstr "استلام الشحنة المرجعة "
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_stock_return_picking_line
+msgid "Return Picking Line"
+msgstr "بند استلام الشحنة المعادة"
+
+#. module: mo_kaneen
+#: code:addons/mo_kaneen/models/stock_picking.py:0
+#: model:ir.model,name:mo_kaneen.model_return_validation
+#, python-format
+msgid "Return Validation"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_return_validation_line
+msgid "Return Validation Line"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__return_comment
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__return_comment
+msgid "Return comment"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.ui.menu,name:mo_kaneen.stock_return_wizard
+msgid "Return orders"
+msgstr ""
+
+#. module: mo_kaneen
+#: code:addons/mo_kaneen/models/account_move.py:0
+#, python-format
+msgid "Return picking {} for refund {} is not done!"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.actions.act_window,name:mo_kaneen.action_open_return_validation_wizard_form
+msgid "Return validation wizard"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.actions.act_window,name:mo_kaneen.action_open_return_wizard_form
+msgid "Return wizard"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_mo_damaged_item
+msgid "Returned Item"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.actions.act_window,name:mo_kaneen.mo_damaged_item_action
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.sale_order_form_view_kaneen
+msgid "Returned Items"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.ui.menu,name:mo_kaneen.menu_returned_items_sale
+#: model:ir.ui.menu,name:mo_kaneen.menu_returned_items_stock
+msgid "Returned items"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.ui.menu,name:mo_kaneen.return_root
+msgid "Returns"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_damaged_item_filter
+msgid "Sale"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_mo_damaged_item__sale_line_id
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__sale_line_id
+msgid "Sale Line"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_import_product__sale_tax_id
+msgid "Sale Tax"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_sale_order
+msgid "Sales Order"
+msgstr "أمر البيع"
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "بند أمر المبيعات"
+
+#. module: mo_kaneen
+#: code:addons/mo_kaneen/models/stock_picking.py:0
+#, python-format
+msgid "Scan a product to filter the transfers."
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__mo_damaged_item__product_quality__semi-damaged
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__return_validation_line__product_quality__semi-damaged
+msgid "Semi-Damaged"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_purchase_order__send_status
+msgid "Send Status"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_purchase_order__visible_order_send_to_shatha
+msgid "Send order to shatha visible?"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__purchase_order__send_status__sent
+msgid "Sent"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.import_product_wizard_form
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.return_wizard_form
+msgid "Set"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_res_config_settings_view
+msgid "Shatha"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:mail.template,name:mo_kaneen.mail_template_user_send_to_shatha_error
+msgid "Shatha Error Mail"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_res_config_settings__shatha_location_id
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_res_config_settings_view
+msgid "Shatha Location"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:mail.template,name:mo_kaneen.mail_template_shata_order_confirm
+msgid "Shatha Order Сonfirme Mail"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_res_config_settings__shatha_remote_contact_id
+msgid "Shatha Remote Contact"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_res_config_settings_view
+msgid "Shatha Remote Contact ID"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_res_config_settings__shatha_write_date_product
+msgid "Shatha Write Date Product"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_res_config_settings__shatha_write_date_quant
+msgid "Shatha Write Date Quant"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__state__shipped
+msgid "Shipped"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_stock_picking__show_in_purchase
+msgid "Show In Purchase"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_stock_picking__show_in_sale
+msgid "Show In Sale"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_product_product__sku_shatha
+#: model:ir.model.fields,field_description:mo_kaneen.field_product_template__sku_shatha
+msgid "Sku Shatha"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_import_product__start_date_for_price
+msgid "Start Date For Price"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_sale_order__state
+msgid "Status"
+msgstr "الحالة"
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_stock_move
+msgid "Stock Move"
+msgstr "حركة المخزون"
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_stock_picking
+msgid "Stock Picking"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_stock_rule
+msgid "Stock Rule"
+msgstr "قاعدة المخزون"
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Tax Amount"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Tax Invoice"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:mail.template,subject:mo_kaneen.mo_mail_template_invoice_confirm
+msgid "Tax Invoice from Kaneen"
+msgstr "فاتورة ضريبية لطلبك من كنين"
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Tax Rate"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_account_move_line__taxable_amount
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Taxable Amount"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_res_config_settings_view
+msgid "Test Connection"
+msgstr ""
+
+#. module: mo_kaneen
+#. openerp-web
+#: code:addons/mo_kaneen/static/src/models/message/message.js:0
+#, python-format
+msgid "Today"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Total (Excluding VAT)"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Total Amount Due"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Total Taxable Amount (Excluding VAT)"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Total VAT"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "Unit Price"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.actions.server,name:mo_kaneen.action_import_product_from_shatha
+#: model:ir.ui.menu,name:mo_kaneen.menu_import_product_from_shatha
+msgid "Update Products From Shatha"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.mo_res_config_settings_view
+msgid "Url"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "VAT No."
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.return_validation_wizard_form
+msgid "Validate"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_stock_picking_type__visible_putaway
+msgid "Visible Putaway"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__state__waiting_for_ret
+msgid "Waiting For Return"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields.selection,name:mo_kaneen.selection__sale_order__payment_status__waiting_for_refund
+msgid "Waiting for Refund"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__wiz_id
+msgid "Wiz"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_res_config_settings__xml_dbname
+msgid "Xml Dbname"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_res_config_settings__xml_password
+msgid "Xml Password"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_res_config_settings__xml_url
+msgid "Xml Url"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_res_config_settings__xml_username
+msgid "Xml Username"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_bulk_purchase_export
+msgid "bulk.purchase.export"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_import_product
+msgid "import.product"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.bulk_purchase_export_view_form
+msgid "or"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model.fields,field_description:mo_kaneen.field_return_validation_line__original_qty
+msgid "original Quantity"
+msgstr ""
+
+#. module: mo_kaneen
+#: model:ir.model,name:mo_kaneen.model_return_wizard
+msgid "return.wizard"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid ""
+"إجمالي\n"
+"                                                    المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "إجمالي الضريبة"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "إجمالي المبلغ المستحق"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "الإجمالي (باستثناء ضريبة القيمة المضافة)"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "الاسم"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "الخصومات"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "الرقم الضريبي"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "السجل التجاري"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "العنوان"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "الكمية"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "المبلغ الخاضع للضريبة"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "تاريخ الفاتورة"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "تخفيض"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "تم الإنشاء بواسطة"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "رقم الفاتورة"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "سعر الوحدة"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "طبيعة السلع أو الخدمات"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "فاتورة الى"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "فاتورة ضريبية"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "فاتورة من"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "قيمة الضريبة"
+msgstr ""
+
+#. module: mo_kaneen
+#: model_terms:ir.ui.view,arch_db:mo_kaneen.lbs_report_invoice_custom_document
+msgid "معدل الضريبة"
+msgstr ""

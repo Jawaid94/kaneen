@@ -1,11 +1,17 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from odoo.tools import format_amount
 
 
 class Move(models.Model):
     _inherit = 'account.move'
 
     return_picking_id = fields.Many2one('stock.picking', string="Return Picking")
+
+    def get_arabic_currency_symbol(self):
+        value = format_amount(self.env, self.amount_total, self.currency_id)
+        value = value.replace(self.currency_id.symbol, 'ريال سعودي')
+        return value
 
     def _post(self, soft=True):
         res = super()._post(soft)

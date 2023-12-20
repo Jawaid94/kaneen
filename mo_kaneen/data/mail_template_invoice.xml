@@ -5,8 +5,8 @@
         <record id="mo_mail_template_invoice_confirm" model="mail.template">
             <field name="name">Invoice: Send by email custom</field>
             <field name="model_id" ref="account.model_account_move"/>
-            <field name="subject">{{ object.company_id.name }} Invoice (Ref {{ object.name or 'n/a' }})</field>
-<!--            <field name="email_from">{{ (object.invoice_user_id.email_formatted or user.email_formatted) }}</field> jawaid 7/12/2023-->
+            <field name="subject">Tax Invoice from Kaneen</field>
+            <!--            <field name="email_from">{{ (object.invoice_user_id.email_formatted or user.email_formatted) }}</field> jawaid 7/12/2023-->
             <field name="email_from">{{ object.company_id.email_formatted }}</field>
             <field name="email_to">{{ object.partner_id.email_formatted }}</field>
             <field name="body_html" type="html">
@@ -15,17 +15,17 @@
                     <tbody>
                         <tr>
                             <td class="wrapper-inner" align="center"
-                                style="font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;vertical-align:top;padding-bottom:30px;width:100%;">
+                                style="font-family:'hacenMaghreb', 'Helvetica Neue', Helvetica, Arial, sans-serif;vertical-align:top;width:100%;">
                                 <table class="main" align="center"
                                        style="border-collapse:collapse;margin:0 auto;text-align:left;width:600px; background-color: #f5f5f5">
                                     <tbody>
                                         <tr>
                                             <td class="header"
                                                 style="font-family:'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;vertical-align:top;padding:10px 10px 0;text-align:center;">
-                                                <a class="logo" href="https://stg.kaneen.com/"
+                                                <a class="logo" href="https://kaneen.com/"
                                                    style="color:#1979c3;text-decoration:none;">
                                                     <img width="200" height="80"
-                                                         src="https://stg.kaneen.com/media/email/logo/stores/4/Kaneen_Logo-02_1_.png"
+                                                         src="https://kaneen.com/media/logo/stores/4/Kaneen_Logo-02_1_.png"
                                                          alt="logo" border="0"
                                                          style="border:0;height:auto;line-height:100%;text-decoration:none;"/>
                                                 </a>
@@ -45,65 +45,51 @@
                                                 <div style="margin: 0px; padding: 0px;margin-top:30px">
                                                     <p style="box-sizing:border-box;margin: 0px; padding: 0px; font-size: 13px;">
                                                         Dear
-                                                        <t t-if="object.partner_id.parent_id">
-                                                            <t t-out="object.partner_id.name or ''">Brandon
-                                                                Freeman
-                                                            </t>
-                                                            (<t t-out="object.partner_id.parent_id.name or ''">Azure
-                                                            Interior</t>),
-                                                        </t>
-                                                        <t t-else="">
-                                                            <t t-out="object.partner_id.name or ''">Brandon
-                                                                Freeman</t>,
-                                                        </t>
+                                                        <t t-out="object.partner_id.name or ''"/>,
                                                         <br/>
                                                         <br/>
-                                                        Here is your
-                                                        <t t-if="object.name">
-                                                            invoice
-                                                            <strong t-out="object.name or ''"
-                                                                    style="box-sizing:border-box;font-weight:500;"
-                                                            >INV/2021/05/0005
-                                                            </strong>
-                                                        </t>
-                                                        <t t-else="">
-                                                            invoice
-                                                        </t>
-                                                        <t t-if="object.invoice_origin">
-                                                            (with reference: <t t-out="object.invoice_origin or ''"
-                                                        >SUB003</t>)
-                                                        </t>
-                                                        amounting in
-                                                        <strong t-out="format_amount(object.amount_total, object.currency_id) or ''"
-                                                                style="box-sizing:border-box;font-weight:500;"
-                                                        >$ 143,750.00
-                                                        </strong>
-                                                        from <t t-out="object.company_id.name or ''"
-                                                    >
-                                                        YourCompany</t>.
-                                                        <t t-if="object.payment_state in ('paid', 'in_payment')">
-                                                            This invoice is already paid.
-                                                        </t>
-                                                        <t t-else="">
-                                                            Please remit payment at your earliest convenience.
-                                                            <t t-if="object.payment_reference">
-                                                                <br/>
-                                                                <br/>
-                                                                Please use the following communication for your payment: <strong
-                                                                    t-out="object.payment_reference or ''">
-                                                                INV/2021/05/0005</strong>.
-                                                            </t>
-                                                        </t>
+                                                        Thank you for shopping at Kaneen
+
                                                         <br/>
                                                         <br/>
-                                                        Do not hesitate to contact us if you have any questions.
-                                                        <t t-if="object.invoice_user_id.signature">
-                                                            <br/>
-                                                            <t t-out="object.invoice_user_id.signature or ''">--
-                                                                <br/>
-                                                                Mitchell Admin
-                                                            </t>
-                                                        </t>
+                                                        Please find attached your Tax Invoice
+                                                        <br/>
+                                                        <br/>
+
+                                                        Invoice Number:
+                                                        <t t-out="object.name"/>
+                                                        <br/>
+                                                        Reference Number:
+                                                        <t t-out="object.invoice_origin"/>
+                                                        <br/>
+                                                        Invoice Date:
+                                                        <t t-out="format_date(object.invoice_date)"/>
+                                                        <br/>
+                                                        Grand Total (Incl. Tax):
+                                                        <t t-out="format_amount(object.amount_total, object.currency_id)"/>
+
+                                                        <br/>
+                                                        <br/>
+
+                                                        This invoice is already paid.
+
+                                                        <br/>
+                                                        <br/>
+
+                                                        For all your inquiries please feel free to call us on 9200 06204
+                                                        or contact us on
+                                                        <br/>
+                                                        <t t-out="object.company_id.customer_service_email"/>
+
+                                                        <br/>
+                                                        <br/>
+
+                                                        See you soon!
+
+                                                        <br/>
+                                                        <br/>
+
+                                                        Kaneen Team
                                                     </p>
                                                 </div>
 
@@ -120,30 +106,30 @@
                 <div>
                     <hr style="height:2px;background-color:#d5897c;"/>
                     <div style="background-color:#38245f;">
-                        <div style="text-align:center;padding:30px;">
+                        <div style="text-align:center;padding:15px;">
                             <p style="color:#fff;">join us on social media</p>
                             <div>
                                 <a style="margin-right:0.5em;"
                                    href="https://www.linkedin.com/company/kaneen-investment/">
-                                    <img src="https://stg.kaneen.com/media/wysiwyg/email/social-icons/linkedin.png"
-                                         height="20" width="20" alt="linkedin.png"/>
+                                    <img src="https://kaneen.com/media/wysiwyg/email/social-icons/linkedin.png" height="20" width="20"
+                                         alt="linkedin.png"/>
                                 </a>
                                 <a style="margin-right:0.5em;" href="https://twitter.com/kaneenksa">
-                                    <img src="https://stg.kaneen.com/media/wysiwyg/email/social-icons/twitter.png"
-                                         height="20" width="20" alt="twitter.png"/>
+                                    <img src="https://kaneen.com/media/wysiwyg/email/social-icons/twitter_icon_x.png" height="20" width="20"
+                                         alt="twitter.png"/>
                                 </a>
                                 <a style="margin-right:0.5em;" href="https://www.tiktok.com/@kaneenksa">
-                                    <img src="https://stg.kaneen.com/media/wysiwyg/email/social-icons/tiktok.png"
-                                         height="20" width="20" alt="tiktok.png"/>
+                                    <img src="https://kaneen.com/media/wysiwyg/email/social-icons/tiktok.png" height="20" width="20"
+                                         alt="tiktok.png"/>
                                 </a>
                                 <a style="margin-right:0.5em;" href="https://instagram.com/kaneenksa" title="Instagram">
-                                    <img src="https://stg.kaneen.com/media/wysiwyg/email/social-icons/instagram.png"
-                                         height="20" width="20" alt="instagram.png"/>
+                                    <img src="https://kaneen.com/media/wysiwyg/email/social-icons/instagram.png" height="20" width="20"
+                                         alt="instagram.png"/>
                                 </a>
                             </div>
                             <div style="margin-top:10px;">
-                                <img src="https://stg.kaneen.com/media/wysiwyg/email/social-icons/kaneen.png"
-                                     height="20" width="20" alt="kaneen.png"/>
+                                <img src="https://kaneen.com/media/wysiwyg/email/social-icons/kaneen.png" height="20" width="20"
+                                     alt="kaneen.png"/>
                             </div>
                         </div>
                     </div>
@@ -152,7 +138,7 @@
             </field>
             <field name="report_template" ref="lbs_report_invoice_custom_document_action"/>
             <field name="report_name">Invoice_{{ (object.name or '').replace('/','_') }}</field>
-            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="lang">{{ object.partner_id.lang or 'ar_001' }}</field>
             <field name="auto_delete" eval="True"/>
         </record>
     </data>
