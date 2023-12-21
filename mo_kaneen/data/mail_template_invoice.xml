@@ -138,7 +138,7 @@
             </field>
             <field name="report_template" ref="lbs_report_invoice_custom_document_action"/>
             <field name="report_name">Invoice_{{ (object.name or '').replace('/','_') }}</field>
-            <field name="lang">{{ object.partner_id.lang or 'ar_001' }}</field>
+            <field name="lang">{{ object.partner_id.lang if object.partner_id.lang else object.partner_id.parent_id.lang or 'ar_001' }}</field>
             <field name="auto_delete" eval="True"/>
         </record>
     </data>
