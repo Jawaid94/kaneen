@@ -5,7 +5,7 @@ class ResUsers(models.Model):
     _inherit = "res.users"
 
     report_preview = fields.Boolean(string="Report Preview", default=True)
-    report_automatic_printing = fields.Boolean(srting="Report Automatic printing")
+    report_automatic_printing = fields.Boolean(string="Report Automatic printing")
 
     def __init__(self, pool, cr):
         init_res = super(ResUsers, self).__init__(pool, cr)

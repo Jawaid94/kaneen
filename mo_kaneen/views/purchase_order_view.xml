@@ -27,8 +27,34 @@
             <xpath expr="//field[@name='state']" position="after">
                 <field name="send_status" widget="badge"/>
             </xpath>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="decoration-danger">send_status == 'error'</attribute>
+                <attribute name="decoration-success">send_status == 'sent'</attribute>
+            </xpath>
         </field>
     </record>
 
+    <record id="bulk_purchase_export_view_form" model="ir.ui.view">
+        <field name="name">bulk.purchase.export.view.form</field>
+        <field name="model">bulk.purchase.export</field>
+        <field name="arch" type="xml">
+            <form>
+                Are you sure want export purchase Orders
+                <footer>
+                    <button name="purchase_button_export" string="Export To Shatha" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_export_purchase_order"
+                name="Export To Shatha"
+                binding_model="purchase.order"
+                res_model="bulk.purchase.export"
+                view_id="bulk_purchase_export_view_form"
+                target="new"
+    />
 
 </odoo>

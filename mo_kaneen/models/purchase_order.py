@@ -1,6 +1,7 @@
-from odoo import models, fields, api, _
+from odoo import models, fields, api
+from odoo.tools.translate import _
 from .xml_rpc_request import connect
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 
 def get_standard_price(self, sku_shatha):
@@ -9,9 +10,14 @@ def get_standard_price(self, sku_shatha):
     db = self.env['ir.config_parameter'].sudo().get_param('mo_kaneen.xml_dbname')
     password = self.env['ir.config_parameter'].sudo().get_param('mo_kaneen.xml_password')
     uid, models = connect(url, db, username, password)
-    shatha_standard_price = \
-        models.execute_kw(db, uid, password, 'product.product', 'search_read', [[['default_code', '=', sku_shatha]]],
-                          {'fields': ['standard_price']})[-1]['standard_price']
+    try:
+        product_arr = models.execute_kw(db, uid, password, 'product.product', 'search_read',
+                                        [[['default_code', '=', sku_shatha]]], {'fields': ['standard_price']})
+        shatha_standard_price = product_arr[-1]['standard_price']
+    except IndexError:
+        raise UserError(_(f'\'{self.product_id.name}\' is not found!'))
+    except Exception:
+        raise UserError(_('Credentials not correct'))
     return shatha_standard_price
 
 
@@ -55,7 +61,7 @@ class Purchase(models.Model):
 
         if len(partner) > 1:
             raise ValidationError("Can not identify remote Kaneen buyer")
-
+        # self.order_line purchase.order.line(12014,)
         for line in self.order_line.filtered(lambda pol: pol.display_type not in ('line_section', 'line_note')):
             barcodes = []
             if line.product_id.barcode:
@@ -65,13 +71,15 @@ class Purchase(models.Model):
 
             product = models.execute_kw(db, uid, password, 'product.template', 'search_read',
                                         [[['default_code', '=', line.product_id.default_code]]],
-                                        {'fields': ['name', 'id', 'product_variant_id']})
+                                        {'fields': ['name', 'id',
+                                                    'product_variant_id']})  # ye chale ga hi nh product = []
             if not product:
                 # try shata sku
                 if line.product_id.sku_shatha:
                     product = models.execute_kw(db, uid, password, 'product.template', 'search_read',
                                                 [[['default_code', '=', line.product_id.sku_shatha]]],
-                                                {'fields': ['name', 'id', 'product_variant_id']})
+                                                {'fields': ['name', 'id',
+                                                            'product_variant_id']})  # [{'id': 32790, 'name': 'CHRISTIAN DIOR AMBRE NUIT (U) EDP 125 ml', 'product_variant_id': [32778, '[11990] CHRISTIAN DIOR AMBRE NUIT (U) EDP 125 ml']}]
                 if not product and barcodes:
                     # try barcodes
                     product = models.execute_kw(db, uid, password, 'product.template', 'search_read',
@@ -84,10 +92,10 @@ class Purchase(models.Model):
                 'product_id': product[0]['product_variant_id'][0],
                 'product_uom_qty': line.product_qty,
             }))
-        create_data['order_line'] = products
-        create_data['client_order_ref'] = self.name
+        create_data['order_line'] = products  # [(0, 0, {'product_id': 31206, 'product_uom_qty': 1.0})]
+        create_data['client_order_ref'] = self.name  # purchase.order(3093,)
         try:
-            sale_order = models.execute_kw(db, uid, password, 'sale.order', 'create', [create_data])
+            models.execute_kw(db, uid, password, 'sale.order', 'create', [create_data])
             self.send_status = 'sent'
             return {
                 'type': 'ir.actions.client',
@@ -252,3 +260,130 @@ class PurchaseOrderLine(models.Model):
             shatha_standard_price = get_standard_price(self, product_id.sku_shatha)
             res['price_unit'] = shatha_standard_price + 5
         return res
+
+
+class BulkPurchaseExport(models.TransientModel):
+    _name = 'bulk.purchase.export'
+
+    def purchase_button_export(self):
+        purchase_orders = self.env['purchase.order'].browse(self._context.get('active_ids', []))
+
+        if len(purchase_orders) < 2:
+            raise UserError(
+                _('Please select atleast two purchase orders to perform '
+                  'the Export Operation.'))
+
+        # if any(not purchase_order.sale_order_count for purchase_order in purchase_orders):
+        #     raise UserError(
+        #         _(f'''Please select Purchase orders against which the sale order exists
+        #         to perform the Export Operation.
+        #         ***Unselect these orders {", ".join(purchase_order.name for purchase_order in purchase_orders if not purchase_order.sale_order_count)}'''))
+
+        # if any(purchase_order._get_sale_orders().state != 'processing' for purchase_order in purchase_orders):
+        #     raise UserError(
+        #         _('Please select Purchase orders against which the sale order state is Processing state '
+        #           'to perform the Export Operation.'))
+
+        if any(purchase_order.send_status in ['sent'] for purchase_order in purchase_orders):
+            raise UserError(
+                _('Please unselect Purchase orders which are already exported '
+                  'to perform the Export Operation.'))
+
+        create_data = {}
+        products = []
+        url, db, username, password, responsible_partner_id = self.env['purchase.order'].get_rpc_params()
+
+        uid, models = connect(url, db, username, password)
+
+        shata_contact_id = self.env['ir.config_parameter'].sudo().get_param('mo_kaneen.shatha_remote_contact_id')
+
+        partner = models.execute_kw(db, uid, password, 'res.partner', 'search_read', [[['id', '=', shata_contact_id]]],
+                                    {'fields': ['name', 'id']})
+        create_data['partner_id'] = partner[0]['id']
+
+        if len(partner) > 1:
+            raise ValidationError("Can not identify remote Kaneen buyer")
+
+        product_list = []
+
+        for obj in purchase_orders['order_line']:
+            if obj['product_id'] not in product_list:
+                product_list.append(obj['product_id'])
+
+        for product in product_list:  # 1st product
+
+            count = 0
+            qty = 0
+
+            for element in purchase_orders['order_line']:
+                if product == element['product_id']:
+                    qty += element['product_uom_qty']
+
+            for purchase_line in purchase_orders['order_line']:
+                if product == purchase_line['product_id']:
+                    count += 1
+                    if count == 1:
+
+                        for line in purchase_line.filtered(
+                                lambda pol: pol.display_type not in ('line_section', 'line_note')):
+                            barcodes = []
+                            if line.product_id.barcode:
+                                barcodes.append(line.product_id.barcode)
+                            if line.product_id.barcode_ids:
+                                barcodes.extend(line.product_id.barcode_ids.mapped('name'))
+
+                            product_template = models.execute_kw(db, uid, password, 'product.template', 'search_read',
+                                                                 [[['default_code', '=',
+                                                                    line.product_id.default_code]]],
+                                                                 {'fields': ['name', 'id',
+                                                                             'product_variant_id']})
+                            if not product_template:
+                                # try shata sku
+                                if line.product_id.sku_shatha:
+                                    product_template = models.execute_kw(db, uid, password, 'product.template',
+                                                                         'search_read',
+                                                                         [[['default_code', '=',
+                                                                            line.product_id.sku_shatha]]],
+                                                                         {'fields': ['name', 'id',
+                                                                                     'product_variant_id']})  # [{'id': 32790, 'name': 'CHRISTIAN DIOR AMBRE NUIT (U) EDP 125 ml', 'product_variant_id': [32778, '[11990] CHRISTIAN DIOR AMBRE NUIT (U) EDP 125 ml']}]
+                                if not product_template and barcodes:
+                                    # try barcodes
+                                    product_template = models.execute_kw(db, uid, password, 'product.template',
+                                                                         'search_read',
+                                                                         [[['barcode', 'in', barcodes]]],
+                                                                         {'fields': ['name', 'id',
+                                                                                     'product_variant_id']})
+                                    if not product_template:
+                                        continue
+
+                            products.append((0, 0, {
+                                'product_id': product_template[0]['product_variant_id'][0],
+                                'product_uom_qty': qty,
+                            }))
+
+                        break
+
+        create_data['order_line'] = products  # [(0, 0, {'product_id': 31206, 'product_uom_qty': 1.0})]
+        create_data['client_order_ref'] = ', '.join(purchase_orders.mapped('name'))  # purchase.order(3093,)
+        try:
+            models.execute_kw(db, uid, password, 'sale.order', 'create', [create_data])
+            purchase_orders.send_status = 'sent'
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'success',
+                    'message': _("Purchase order successfully exported"),
+                    'next': {'type': 'ir.actions.act_window_close'},
+                }
+            }
+        except Exception as e:
+            self.send_status = 'error'
+            self.message_post(body=str(e))
+            template = self.env.ref('mo_kaneen.mail_template_user_send_to_shatha_error',
+                                    raise_if_not_found=False)
+            if template:
+                email_values = {
+                    'email_to': responsible_partner_id.email
+                }
+                template.send_mail(self.id, force_send=True, email_values=email_values)
