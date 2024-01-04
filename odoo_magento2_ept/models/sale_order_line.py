@@ -3,8 +3,10 @@
 """For Odoo Magento2 Connector Module"""
 from odoo import models, fields, api, _
 from datetime import datetime
+
 MAGENTO_DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 import json
+
 
 class SaleOrderLine(models.Model):
     """
@@ -111,12 +113,14 @@ class SaleOrderLine(models.Model):
         sale_order = item.get('sale_order_id')
         magento_analytic_tag_ids = sale_order.magento_instance_id.magento_analytic_tag_ids and sale_order.magento_instance_id.magento_analytic_tag_ids.ids or []
         order_line_ref = line.get('parent_item_id') or line.get('item_id')
+        discount_product = sale_order.magento_instance_id.discount_product_id
         line_vals = {
             'order_id': sale_order.id,
             'product_id': product.id,
             'company_id': sale_order.company_id.id,
-            'name': item.get('name'),
-            'description': product.name or (sale_order and sale_order.name),
+            'description': item['discount_description'] if product == discount_product else product.name or (
+                        sale_order and sale_order.name),
+            'discount_line': True if product == discount_product else False,
             'product_uom': product.uom_id.id,
             'order_qty': order_qty,
             'price_unit': price,
@@ -169,7 +173,7 @@ class SaleOrderLine(models.Model):
                 'invoice_repartition_line_ids': [
                     (6, 0, {'account_id': instance.magento_invoice_tax_account_id.id})],
                 'refund_repartition_line_ids': [
-                    (6, 0, {'account_id': instance.magento_credit_tax_account_id.id,})],
+                    (6, 0, {'account_id': instance.magento_credit_tax_account_id.id, })],
             })
         return tax_dict
 

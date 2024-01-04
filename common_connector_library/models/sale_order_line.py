@@ -32,4 +32,6 @@ class SaleOrderLine(models.Model):
             'discount': vals.get('discount', 0.0),
             'state': 'draft',
         })
+        if vals.get('discount_line', False):
+            order_line['name'] = vals.get('description', '')
         return order_line

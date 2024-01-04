@@ -66,7 +66,7 @@ class MagentoOrderDataQueueEpt(models.Model):
             # if record.total_count == record.done_count + record.cancel_count:
             #     record.state = "completed"
             # jawaid 16/9/2023
-            if len(self.line_ids) == record.done_count:
+            if record.total_count == record.done_count:
                 record.state = "completed"
             elif record.total_count == record.draft_record:
                 record.state = "draft"

@@ -253,7 +253,7 @@ class StockPicking(models.Model):
 
                 outgoing_picking = sale_order.picking_ids.filtered(
                     lambda p: p.state not in ['cancel'] and p.picking_type_code == 'outgoing')
-                is_pickings_validated = all(picking.state == 'done' for picking in outgoing_picking)
+                is_pickings_validated = all(pick.state == 'done' for pick in outgoing_picking)
                 if is_pickings_validated:
                     sale_order.sudo().write({
                         'state': 'shipped'
