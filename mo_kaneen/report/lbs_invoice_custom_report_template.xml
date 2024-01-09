@@ -302,9 +302,13 @@
                                             <td class="s01" dir="ltr" style="vertical-align: top;">العنوان</td>
                                         </tr>
                                         <tr style="height: 20px">
-                                            <td class="s0" dir="ltr"></td>
+                                            <td class="s0" dir="ltr">
+                                                <t t-if="o.partner_id.company_type == 'company'">VAT No.</t>
+                                            </td>
                                             <td class="s0" dir="ltr" style="text-align: center">
-                                                <!--                                                <span t-field="o.partner_id.vat"/>-->
+                                                <t t-if="o.partner_id.company_type == 'company'">
+                                                    <span t-field="o.partner_id.vat"/>
+                                                </t>
                                             </td>
                                             <td class="s01" dir="ltr"></td>
                                             <td class="s99"/>
