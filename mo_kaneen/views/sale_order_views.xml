@@ -41,7 +41,7 @@
             <!--                       attrs="{'readonly': [('product_quality', '=', 'original')]}"/>-->
             <!--            </xpath>-->
             <xpath expr="//field[@name='order_line']" position="attributes">
-                <attribute name="attrs">{'readonly': [('state', 'in', ('done','sale','cancel','processing','shipped','complete'))]}</attribute>
+                <attribute name="attrs">{'readonly': [('state', 'in', ('done','sale','cancel','processing','complete'))]}</attribute>
             </xpath>
         </field>
     </record>
@@ -69,9 +69,11 @@
             </field>
             <field name="state" position="attributes">
                 <attribute name="decoration-danger">state == 'cancel'</attribute>
-                <attribute name="decoration-success">state == 'shipped' or state == 'complete'</attribute>
+                <attribute name="decoration-success">state == 'complete'</attribute>
+                <attribute name="decoration-it">state == 'shipped'</attribute>
                 <attribute name="decoration-primary">state == 'processing'</attribute>
-                <attribute name="decoration-warning">state == 'sale'</attribute>
+                <attribute name="decoration-info">state == 'sale'</attribute>
+                <attribute name="decoration-warning">state == 'closed'</attribute>
             </field>
         </field>
     </record>

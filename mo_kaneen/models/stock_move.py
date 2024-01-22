@@ -1,5 +1,5 @@
 from odoo import models, fields, _
-from odoo.tools import OrderedSet, groupby
+from odoo.tools import groupby
 
 
 class StockMove(models.Model):
@@ -27,15 +27,6 @@ class StockMove(models.Model):
 
 class StockMoveLine(models.Model):
     _inherit = 'stock.move.line'
-
-    def _action_done(self):
-        super()._action_done()
-
-        pickings = self.mapped('picking_id')
-        if not pickings:
-            return
-
-        # pickings._update_reserve_from_customer()
 
     def _apply_putaway_strategy(self):
         super()._apply_putaway_strategy()

@@ -54,6 +54,7 @@ class Sale(models.Model):
         ('damaged_item', 'Damaged Item'),
         ('done', 'Locked'),
         ('cancel', 'Cancelled'),
+        ('closed', 'Closed'),
     ], string='Status', readonly=True, copy=False, index=True, tracking=3, default='draft')
 
     damage_count = fields.Integer(string='Damaged Items', compute='_compute_damaged_ids')
