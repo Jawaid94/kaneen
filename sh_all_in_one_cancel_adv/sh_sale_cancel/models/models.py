@@ -10,7 +10,6 @@ class SaleOrder(models.Model):
     sale_cancel_reason = fields.Text(
         string="Reason for cancellation",
         readonly=True,
-        ondelete="restrict",
         tracking=True,
         copy=False,
     )
