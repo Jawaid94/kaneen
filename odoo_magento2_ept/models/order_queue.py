@@ -186,7 +186,7 @@ class MagentoOrderDataQueueEpt(models.Model):
                 'to': to_date
             },
             'state': {
-                'in': kwargs.get('status')
+                'in': kwargs.get('status').split(',')
             }
         }
         if kwargs.get('status') != 'canceled':

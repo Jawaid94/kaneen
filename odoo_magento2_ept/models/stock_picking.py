@@ -247,7 +247,8 @@ class StockPicking(models.Model):
         super(StockPicking, self)._action_done()
         for picking in self:
             sale_order = picking.sale_id
-            if sale_order:
+            if sale_order and not (picking.picking_type_code == 'incoming' and picking.location_id == self.env.ref(
+                    'stock.stock_location_customers')):
                 if sale_order.state in ['damaged_item', 'item_returned']:
                     continue
 

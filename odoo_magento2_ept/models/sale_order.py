@@ -24,6 +24,9 @@ class SaleOrder(models.Model):
     """
     _inherit = 'sale.order'
 
+    def action_complete(self):
+        self.state = 'complete'
+
     def _get_magento_order_status(self):
         """
         Compute updated_in_magento of order from the pickings.

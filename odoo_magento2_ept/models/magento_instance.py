@@ -782,7 +782,7 @@ class MagentoInstance(models.Model):
                 instance=instance,
                 from_date=from_date,
                 to_date=to_date,
-                status='complete',
+                status='complete,closed',
             )
             instance.last_order_import_date = to_date
 

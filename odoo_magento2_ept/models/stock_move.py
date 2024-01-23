@@ -4,6 +4,7 @@
 Describes methods for stock move.
 """
 from odoo import models
+from .api_request import req
 
 
 class StockMove(models.Model):
@@ -53,3 +54,27 @@ class StockMove(models.Model):
                 })
         return res
 
+
+class StockMoveLine(models.Model):
+    _inherit = 'stock.move.line'
+
+    def _action_done(self):
+        super(StockMoveLine, self)._action_done()
+        payload = {
+            "skuData": [
+            ]
+        }
+        for ml in self:
+            if ml.picking_code == 'incoming' and eval(ml.product_id.sku_shatha) is None:
+                available_qty = self.env['stock.quant']._get_available_quantity(ml.product_id, ml.location_dest_id,
+                                                                                ml.lot_id, strict=True)
+                payload['skuData'].append(
+                    {
+                        "sku": ml.product_id.default_code,
+                        "qty": available_qty,
+                        "is_in_stock": 1,
+                    })
+        payload['skuData'] = [ele for index, ele in enumerate(payload['skuData']) if
+                              ele not in payload['skuData'][index + 1:]]
+        if payload['skuData']:
+            req(self.env['magento.instance'].browse(1), '/V1/product/updatestock', 'PUT', payload, is_raise=True)
