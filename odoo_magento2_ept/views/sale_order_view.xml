@@ -34,7 +34,7 @@
                             attrs="{'invisible' : ['|','|', ('magento_instance_id','=',False),('state','!=','cancel'),
                             ('is_cancel_order_exportable','=',True)]}"/>
                     <button name="action_complete" type="object" class="oe_highlight" string="Set To Complete"
-                        attrs="{'invisible': ['|', ('magento_instance_id', '!=', False), ('state', '!=', 'shipped')]}"/>
+                        attrs="{'invisible': ['|', ('magento_instance_id', '!=', False), ('state', '=', 'complete')]}"/>
                 </xpath>
             </field>
         </record>
