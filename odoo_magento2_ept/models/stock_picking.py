@@ -247,19 +247,15 @@ class StockPicking(models.Model):
         super(StockPicking, self)._action_done()
         for picking in self:
             sale_order = picking.sale_id
-            if sale_order and not (picking.picking_type_code == 'incoming' and picking.location_id == self.env.ref(
-                    'stock.stock_location_customers')):
-                if sale_order.state in ['damaged_item', 'item_returned']:
-                    continue
+            customer_location = self.env.ref('stock.stock_location_customers')
+            if sale_order and picking.picking_type_code == 'outgoing' and picking.location_dest_id == customer_location:
+                # if sale_order.state in ['damaged_item', 'item_returned']:
+                #     continue
 
-                outgoing_picking = sale_order.picking_ids.filtered(
-                    lambda p: p.state not in ['cancel'] and p.picking_type_code == 'outgoing')
-                is_pickings_validated = all(pick.state == 'done' for pick in outgoing_picking)
-                if is_pickings_validated:
-                    sale_order.sudo().write({
-                        'state': 'shipped'
-                    })
-                if sale_order.magento_order_id and is_pickings_validated:
+                sale_order.sudo().write({
+                    'state': 'shipped'
+                })
+                if sale_order.magento_order_id:
                     payload = {
                         "entity": {
                             "entity_id": sale_order.magento_order_id,
