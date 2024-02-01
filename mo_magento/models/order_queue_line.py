@@ -22,12 +22,15 @@ class MagentoOrderDataQueueLineEpt(models.Model):
             {
                 'location_id': picking.location_id.id, 'picking_id': picking.id,
             })
-        return_wizard._onchange_picking_id()
-        action = return_wizard.create_returns()
-        return_picking = self.env["stock.picking"].browse(action["res_id"])
-        wiz_act = return_picking.button_validate()
-        wiz = Form(self.env[wiz_act['res_model']].with_context(wiz_act['context'])).save()
-        wiz.process()
+        if picking.state == 'done':
+            return_wizard._onchange_picking_id()
+            action = return_wizard.create_returns()
+            return_picking = self.env["stock.picking"].browse(action["res_id"])
+            wiz_act = return_picking.button_validate()
+            wiz = Form(self.env[wiz_act['res_model']].with_context(wiz_act['context'])).save()
+            wiz.process()
+        else:
+            picking.sh_cancel()
 
     def process_order_queue_line(self, line, log):
         item = json.loads(line.data)
