@@ -782,7 +782,7 @@ class MagentoInstance(models.Model):
                 instance=instance,
                 from_date=from_date,
                 to_date=to_date,
-                status='complete,closed',
+                status=['closed'],
             )
             instance.last_order_import_date = to_date
 
@@ -800,7 +800,7 @@ class MagentoInstance(models.Model):
         magento_instance_id = args.get('magento_instance_id')
         if magento_instance_id:
             instance = magento_instance.browse(magento_instance_id)
-            order_status = ','.join(instance.import_magento_order_status_ids.mapped('status'))
+            order_status = instance.import_magento_order_status_ids.mapped('status')
             last_unshipped_order_import_date = instance.last_unshipped_order_import_date
             if not last_unshipped_order_import_date:
                 last_unshipped_order_import_date = ''
