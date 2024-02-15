@@ -43,6 +43,9 @@
             <xpath expr="//field[@name='order_line']" position="attributes">
                 <attribute name="attrs">{'readonly': [('state', 'in', ('done','sale','cancel','processing','complete'))]}</attribute>
             </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='tax_id']" position="after">
+                <field name="price_tax" optional="show"/>
+            </xpath>
         </field>
     </record>
 

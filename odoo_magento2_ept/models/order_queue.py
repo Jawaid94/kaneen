@@ -250,8 +250,8 @@ class MagentoOrderDataQueueEpt(models.Model):
                 log.write({'res_id': queue.id})
                 queue.write({'log_book_id': log.id})
             queue.write({'process_count': queue.process_count + 1})
-            if not is_manual and queue.process_count >= 3:
-                note = "Attention {} Order Queue is processed 3 times and it failed. " \
+            if not is_manual and queue.process_count >= 5:
+                note = "Attention {} Order Queue is processed 5 times and it failed. " \
                        "\nYou need to process it manually".format(queue.name)
                 queue.instance_id.create_schedule_activity(queue=queue, note=note)
                 domain.remove('failed')

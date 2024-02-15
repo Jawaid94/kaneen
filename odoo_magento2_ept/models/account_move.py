@@ -7,6 +7,7 @@ import logging
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 from .api_request import req, create_search_criteria
+from ..python_library.php import Php
 
 _logger = logging.getLogger("MagentoAccountMove")
 ACCOUNT_MOVE = 'account.move'
@@ -350,7 +351,8 @@ class AccountInvoice(models.Model):
         :return: Magento Invoice Id
         """
         filters = create_search_criteria({'order_id': magento_id})
-        path = f"/V1/invoices?{filters}"
+        query_string = Php.http_build_query(filters)
+        path = f"/V1/invoices?{query_string}"
         result = req(instance, path, 'GET')
         invoice_id = False
         if result and result.get('items'):

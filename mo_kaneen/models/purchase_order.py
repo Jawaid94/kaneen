@@ -46,6 +46,11 @@ class Purchase(models.Model):
         responsible_partner_id = self.env['res.users'].browse(int(responsible_partner)).partner_id
         return url, db, username, password, responsible_partner_id
 
+    def action_multi_confirm(self):
+        for order in self.env['purchase.order'].browse(self.env.context.get('active_ids')).filtered(
+                lambda o: o.state in ['draft', 'sent']):
+            order.button_confirm()
+
     def send_order_to_shatha(self):
         create_data = {}
         products = []

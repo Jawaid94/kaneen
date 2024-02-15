@@ -6,6 +6,8 @@ Describes methods for Export shipment information.
 import logging
 from odoo import models, fields, _
 from odoo.exceptions import UserError
+from odoo.tests import Form
+# from odoo.fields import Date
 from .api_request import req
 
 _logger = logging.getLogger("MagentoEPT")
@@ -282,3 +284,87 @@ class StockPicking(models.Model):
                     sale_order.sudo().write({
                         'export_shipped': True
                     })
+
+
+class ReturnPicking(models.TransientModel):
+    _inherit = 'stock.return.picking'
+
+    def create_returns(self):
+        action = super(ReturnPicking, self).create_returns()
+
+        # payload = {
+        #     "notify": False,
+        #     "appendComment": True,
+        #     "comment": {
+        #         "comment": "Refund Created by Odoo",
+        #         "is_visible_on_front": 0
+        #     }
+        # }
+
+        return_picking = self.env['stock.picking'].browse(action['res_id'])
+        # so = return_picking.sale_id
+        wiz_act = return_picking.button_validate()
+        wiz = Form(self.env[wiz_act['res_model']].with_context(wiz_act['context'])).save()
+        wiz.process()
+
+        # payload['items'] = []
+        #
+        # for move in return_picking.move_lines:
+        #
+        #     payload['items'].append(
+        #         {
+        #             "order_item_id": int(move.sale_line_id.magento_sale_order_line_ref),
+        #             "qty": move.quantity_done
+        #         }
+        #     )
+        #
+        # shipping_product = self.env.ref('odoo_magento2_ept.product_product_shipping')
+        #
+        # payload['arguments'] = {
+        #     "shipping_amount": 20.00 if shipping_product in so.order_line.mapped('product_id') else 0.00,
+        #     "adjustment_positive": 0,
+        #     "adjustment_negative": 0,
+        #     "extension_attributes": {
+        #         "return_to_stock_items": [
+        #             list(map(int, return_picking.move_lines.mapped('sale_line_id.magento_sale_order_line_ref')))
+        #         ]
+        #     }
+        # }
+        #
+        # so = return_picking.sale_id
+        #
+        # invoice_id = self.env['account.move']._get_magento_invoice_id(int(so.magento_order_id), so.magento_instance_id)
+        #
+        # request_path = '/V1/invoice/{}/refund'.format(invoice_id)
+        # req(so.magento_instance_id, request_path, 'POST', payload, is_raise=True)
+
+        # invoices = return_picking.sale_id.invoice_ids.filtered(
+        #     lambda invoice: invoice.state != 'cancel' and invoice.move_type == 'out_invoice')
+        #
+        # # Refund the invoice
+        # wiz_context = {
+        #     'active_model': 'account.move',
+        #     'active_ids': invoices.ids,
+        #     'default_journal_id': invoices.journal_id.id
+        # }
+        #
+        # refund_invoice_wiz = self.env['account.move.reversal'].with_context(wiz_context).create({
+        #     'refund_method': 'refund',
+        #     'date': Date.context_today(self.env.user),
+        # })
+        # refund_invoice = self.env['account.move'].browse(refund_invoice_wiz.reverse_moves()['res_id'])
+        #
+        # refund_invoice.invoice_line_ids.with_context(check_move_validity=False).unlink()
+        #
+        # for move in return_picking.move_lines:
+        #     values = move.sale_line_id._prepare_invoice_line()
+        #     values.update(
+        #         {
+        #             'quantity': move.quantity_done,
+        #             'move_id': refund_invoice.id,
+        #             'account_id': move.product_id.property_account_income_id.id if move.product_id.property_account_income_id else move.product_id.categ_id.property_account_income_categ_id.id
+        #         }
+        #     )
+        #     self.env['account.move.line'].with_context(check_move_validity=False).create(values)
+
+        return action
