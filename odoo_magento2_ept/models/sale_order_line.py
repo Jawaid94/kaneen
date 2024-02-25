@@ -118,8 +118,8 @@ class SaleOrderLine(models.Model):
             'order_id': sale_order.id,
             'product_id': product.id,
             'company_id': sale_order.company_id.id,
-            'description': item['discount_description'] if product == discount_product else product.name or (
-                        sale_order and sale_order.name),
+            'description': item.get('discount_description', product.name) if product == discount_product else product.name
+                                                                                                             or (sale_order and sale_order.name),
             'discount_line': True if product == discount_product else False,
             'product_uom': product.uom_id.id,
             'order_qty': order_qty,
