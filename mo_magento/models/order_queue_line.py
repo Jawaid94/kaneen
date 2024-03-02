@@ -80,7 +80,7 @@ class MagentoOrderDataQueueLineEpt(models.Model):
                     comment_vals = sorted(comment_vals, key=lambda comment_val: comment_val['created_at'])
 
                 refund_invoice_wiz = self.env['account.move.reversal'].with_context(wiz_context).create({
-                    'reason': comment_vals[0]['comment'],
+                    'reason': comment_vals[0]['comment'] if comment_vals else False,
                     'refund_method': 'refund',
                     'date': Date.context_today(self.env.user),
                 })
