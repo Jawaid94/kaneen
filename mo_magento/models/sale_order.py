@@ -65,7 +65,8 @@ class SaleOrderLine(models.Model):
             order_line = self.create(line_vals)
             order_line.with_context(round=rounding)._compute_amount()
             self.__create_line_desc_note(customer_option, item.get('sale_order_id'))
-            gift_values = line['extension_attributes']['mp_gift_wrap']
+            gift_values = line['extension_attributes']['mp_gift_wrap'] if 'mp_gift_wrap' in line.get(
+                'extension_attributes', []) else False
             if gift_values:
                 product = self.env['product.product'].search([('default_code', '=', 'GIFT_FEE')])
                 if product:
