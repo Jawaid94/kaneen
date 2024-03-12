@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "List View Manager",
+	'name': 'List View Manager',
 
-    'summary': """
-        This app will allow app to manage the List Views on the fly and endeavour a quick and effortless way to 
-        view/manage the desired data, where you’ve multifarious options to slice and dice your List View easily
-        on a click.
-         """,
+	'summary': """
+List view search,Global Search,Quick Search,Search engine,advance filter,Field Search,
+        advanced search,Tree view,document management system,Resize columns,Export Current View,
+        auto suggestion,Hide column,show column,rename column,reorder column
+""",
 
-    'description': """
-	List View ,
+	'description': """
+List View ,
 	Advance Search ,
 	Read/Edit Mode ,
 	Dynamic List ,
@@ -48,53 +48,56 @@
         top app, 
         best app, 
         best apps
-    """,
-    'author': "Ksolves India Ltd.",
-    'sequence': 1,
-    'website': "https://www.ksolves.com/",
-    'live_test_url': 'https://listview14.kappso.com/web/demo_login',
-    'category': 'Tools',
-    'version': '1.0.9',
-    # any module necessary for this one to work correctly
-    'depends': ['base', 'base_setup', 'web'],
-    # always loaded
-    'license': 'OPL-1',
-    'currency': 'EUR',
-    'price': 118.0,
-    'maintainer': 'Ksolves India Ltd.',
-    'support': 'sales@ksolves.com',
-    'images': ['static/description/LVM-V14-new.gif'],
-    'assets': {
-        'web.assets_backend': [
-            'ks_list_view_manager/static/src/css/spectrum.css',
-            'ks_list_view_manager/static/lib/spectrum/spectrum.js',
-            'ks_list_view_manager/static/lib/stickytableheaders/jquery.stickytableheaders.js',
-            'ks_list_view_manager/static/lib/resizableColumns/jQuery.ksResizableColumns.js',
-            'ks_list_view_manager/static/src/css/ks_list_view_manager.scss',
-            'ks_list_view_manager/static/src/js/ks_lvm_view.js',
-            'ks_list_view_manager/static/src/js/ks_list_view_manager_controller.js',
-            'ks_list_view_manager/static/src/js/ks_list_view_manager_renderer.js',
-            'ks_list_view_manager/static/src/js/ks_color_picker.js',
-            'ks_list_view_manager/static/src/js/ks_inventory_controller.js',
-            'ks_list_view_manager/static/src/js/ks_account_conroller.js',
-        ],
-'web.assets_qweb': [
-            'ks_list_view_manager/static/src/xml/**/*',
-        ],
-    },
-    'data': [
-        # 'views/ks_list_view_manager_assets.xml', -- not necessary to call in template, already added in manifest
-        'views/ks_res_config_settings.xml',
-        'security/ir.model.access.csv',
-        'security/ks_security_groups.xml',
-    ],
+""",
 
-    'qweb': [
-        'static/src/xml/ks_list_templates.xml',
-        'static/src/xml/ks_advance_search.xml',
-        'static/src/xml/ks_cancel_edit_template.xml',
-        'static/src/xml/ks_lvm_button.xml',
-    ],
-    'post_init_hook': 'post_install_hook',
-    'uninstall_hook': 'uninstall_hook',
+	'author': 'Ksolves India Ltd.',
+
+	'sequence': 1,
+
+	'website': 'https://store.ksolves.com',
+
+	'live_test_url': 'https://kslistview16.kappso.in/web',
+
+	'category': 'Tools',
+
+	'version': '15.0.1.1.6',
+
+	'depends': ['base', 'base_setup'],
+
+	'license': 'OPL-1',
+
+	'currency': 'EUR',
+
+	'price': 136.8,
+
+	'maintainer': 'Ksolves India Ltd.',
+
+	'support': 'sales@ksolves.com',
+
+	'images': ['static/description/Financial_Year_sale.gif'],
+
+	'data': ['views/ks_res_config_settings.xml', 'security/ir.model.access.csv', 'security/ks_security_groups.xml'],
+
+	'assets': {
+		'web.assets_backend': [
+			'ks_list_view_manager/static/lib/spectrum/spectrum.css',
+			'ks_list_view_manager/static/lib/spectrum/spectrum.js',
+			'ks_list_view_manager/static/lib/stickytableheaders/jquery.stickytableheaders.js',
+			'ks_list_view_manager/static/lib/resizableColumns/jQuery.ksResizableColumns.js',
+			'ks_list_view_manager/static/src/css/ks_list_view_manager.scss',
+			'ks_list_view_manager/static/src/js/ks_lvm_view.js',
+			'ks_list_view_manager/static/src/js/ks_list_view_manager_controller.js',
+			'ks_list_view_manager/static/src/js/ks_list_view_manager_renderer.js',
+			'ks_list_view_manager/static/src/js/ks_color_picker.js',
+			'ks_list_view_manager/static/src/js/ks_inventory_controller.js',
+			'ks_list_view_manager/static/src/js/ks_account_conroller.js',
+			'ks_list_view_manager/static/src/js/ks_basic_renderer.js'
+		],
+		'web.assets_qweb': [
+			'ks_list_view_manager/static/src/xml/**/*']
+	},
+
+	'post_init_hook': 'post_install_hook',
+
+	'uninstall_hook': 'uninstall_hook',
 }

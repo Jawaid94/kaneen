@@ -281,9 +281,9 @@ input:checked + .slider:before {
     overflow: hidden;
 }
 
-.ks_lvm_o_content{
-    z-index: 100;
-}
+// .ks_lvm_o_content{
+//     z-index: 100;
+// }
 .ui-corner-all {
     z-index: 1000 !important;
 }
@@ -511,3 +511,106 @@ table.ks_resize tbody {
 // .o_list_view .o_list_table .o_column_sortable:not(.o_handle_cell).o-sort-up, .o_list_view .o_list_table .o_column_sortable:not(.o_handle_cell).o-sort-down {
 //     color: white !important;
 // }
+
+.ks_lvm_o_content .o_list_view.o_renderer_with_searchpanel .o_list_table thead.tableFloatingHeaderOriginal{
+    top: 0px !important;
+    position: sticky !important;
+    left: 0px !important;
+}
+.ks_lvm_o_content .o_list_view.o_renderer_with_searchpanel .o_list_table thead.tableFloatingHeader{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 0;
+}
+
+.ks_show_o_optional {
+    width: 10px;
+    right: 3px !important;
+    z-index: 10 !important;
+    height: 32px;
+    color: #000 !important;
+    display: inline-block !important;
+    font-family: FontAwesome;
+
+}
+
+
+@media (max-width: 767px){
+    .ks_custom_column{
+      flex-wrap: wrap;
+      .o_cp_top_left .o_cp_bottom_right{
+        width: 100%;
+        .o_cp_buttons{
+          .o_list_buttons{
+            flex-wrap: wrap;
+            button{
+              margin-bottom: 4px;
+            }
+            #ks_dropdown{
+                order: 1;
+            }
+            .o_list_button_add{
+              order: 2;
+            }
+            .o_button_import{ order: 3; }
+            .refresh_button{ order:4; }
+            .copy_button{ order: 5; }
+            .mode_button{ order: 6; }
+          }
+        }
+      }
+    }
+}
+@media (max-width: 767.98px){
+    .o_controller_with_searchpanel{
+      .o_renderer_with_searchpanel.o_list_view {
+        width: 100%;
+      }
+    }
+  }
+
+.ks_lvm_o_content{
+ .o_search_panel{
+   position: sticky;
+   top: 0px;
+  }
+}
+
+.ks_z_index {
+    z-index: 20 !important;
+}
+
+.ks_set_width {
+    width: 40px !important;
+}
+
+.o_content > .o_list_view > .table-responsive > .table:not(.o_list_table_grouped) > thead > tr > :not(:empty) {
+    max-width: none !important;
+}
+
+// .modal.o_legacy_dialog.o_technical_modal.show.ks_lvm_index_content {
+// z-index: 10000;
+// }
+//
+// .ui-widget.ui-autocomplete {
+// z-index: 10001
+// }
+//
+// .daterangepicker {
+// z-index: 10002;
+// }
+
+
+.o_inactive_modal {
+z-index: 0 !important;
+}
+button.btn.btn-primary.o_button_at_date {
+    margin-right: 3px !important;
+}
+
+.o_list_view .o_list_table tbody > tr > td:not(.o_list_record_selector):not(.o_handle_cell):not(.o_list_button):not(.o_state_selection_cell){
+    white-space:normal !important
+    }
+
+

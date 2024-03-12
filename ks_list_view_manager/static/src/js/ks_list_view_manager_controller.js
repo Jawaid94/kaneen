@@ -105,6 +105,10 @@ odoo.define('ks_list_view_manager.controller', function (require) {
               this.ks_is_restore_flag = false;
               this.ks_editable = this.mode === "edit";
               this.ks_autocomplete_data = {};
+              if(this.renderer.arch.attrs.js_class == "lazy_column_list"){
+                this.editable=false;
+                this.ks_editable = false;
+              }
               this.ks_autocomplete_data_result = {};
               this.ks_field_filter = {};
               this.ks_list_default_domain = false;
@@ -786,6 +790,10 @@ odoo.define('ks_list_view_manager.controller', function (require) {
                 this.ks_editable = this.mode === "edit";
                 this.$el.find("#mode").prop('checked', this.ks_editable);
                 this.editable = this.mode === "edit" ? "top" : false;
+                if(this.renderer.arch.attrs.js_class == "lazy_column_list"){
+                    this.editable=false;
+                    this.ks_editable = false;
+              }
             }
         },
 

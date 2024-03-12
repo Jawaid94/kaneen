@@ -115,6 +115,11 @@ class LvmController(DataSet, http.Controller):
 
         parser = etree.XMLParser(remove_comments=True)
         node = etree.fromstring(list_view_data['arch'], parser=parser)
+        ks_node_dict = {}
+        for ks_node in range(len(node.getchildren())):
+            if node.getchildren()[ks_node].tag == 'button':
+                ks_node_dict.update({ks_node: node.getchildren()[ks_node]})
+
         ks_field_list = list_view_data['ks_lvm_user_data']['ks_lvm_user_table_result']['ks_fields_data']
         LvmController.check_fields(self,
                                    list_view_data['ks_lvm_user_data']['ks_lvm_user_table_result']['ks_table_data'][
@@ -127,57 +132,62 @@ class LvmController(DataSet, http.Controller):
             elif node.get("editable"):
                 node.attrib.pop("editable")
 
+        ks_has_dynamic_list_access = request.env.user.has_group(
+            'ks_list_view_manager.ks_list_view_manager_dynamic_list')
+        if ks_has_dynamic_list_access:
         # Setting all fields to invisible
-        for field_node in node.getchildren():
-            field_node.set('invisible', '1')
-            if field_node.get('modifiers'):
-                modifiers = json.loads(field_node.get('modifiers'))
-                if not modifiers.get('column_invisible'):
-                    modifiers.update({'column_invisible': True})
-                    field_node.set('modifiers', json.dumps(modifiers))
-            if field_node.get("name") in ks_field_list:
-                if field_node.get("name") and not ks_field_list[field_node.get("name")]['ksShowField'] and field_node.tag != "field":
-                    node.remove(field_node)
-            elif field_node.get("name"):
-                ks_field_list[field_node.get("name")] = val = {
-                    "ks_columns_name": field_node.attrib['name'],
-                    "ksShowField": False,
-                    "field_name": field_node.get("name"),
-                    "ks_width": 0,
-                    "ks_field_order": len(ks_field_list)
-                }
-                for i in field_node:
-                    if node.getchildren[i].tag != "button":
-                        rec_id = request.env['user.fields'].create(val)
-                        ks_field_list[field_node.get("name")]['id'] = rec_id.id
+            for field_node in node.getchildren():
+                field_node.set('invisible', '1')
+                if field_node.get('modifiers') and field_node.tag == 'field':
+                    modifiers = json.loads(field_node.get('modifiers'))
+                    if not modifiers.get('column_invisible'):
+                        modifiers.update({'column_invisible': True})
+                        field_node.set('modifiers', json.dumps(modifiers))
+                if field_node.get("name") in ks_field_list and field_node.tag == 'field':
+                    if field_node.get("name") and not ks_field_list[field_node.get("name")]['ksShowField'] and field_node.tag != "field":
+                        node.remove(field_node)
+                elif field_node.get("name") and field_node.tag == 'field':
+                    ks_field_list[field_node.get("name")] = val = {
+                        "ks_columns_name": field_node.attrib['name'],
+                        "ksShowField": False,
+                        "field_name": field_node.get("name"),
+                        "ks_width": 0,
+                        "ks_field_order": len(ks_field_list)
+                    }
+                    for i in field_node:
+                        if node.getchildren[i].tag != "button":
+                            rec_id = request.env['user.fields'].create(val)
+                            ks_field_list[field_node.get("name")]['id'] = rec_id.id
 
-        # Only showing selected fields to visible
-        for field_name in [x['field_name'] for x in ks_field_list.values() if x['ksShowField']]:
-            if list(filter(lambda x: x.get('name') == field_name, node.getchildren())):
-                for field_node in list(filter(lambda x: x.get('name') == field_name, node.getchildren())):
-                    field_node.set('invisible', '0')
-                    field_node.set('string', ks_field_list[field_name]['ks_columns_name'])
+            # Only showing selected fields to visible
+            for field_name in [x['field_name'] for x in ks_field_list.values() if x['ksShowField']]:
+                if list(filter(lambda x: x.get('name') == field_name, node.getchildren())):
+                    for field_node in list(filter(lambda x: x.get('name') == field_name, node.getchildren())):
+                        field_node.set('invisible', '0')
+                        field_node.set('string', ks_field_list[field_name]['ks_columns_name'])
 
-                    if field_node.get('modifiers'):
-                        modifiers = json.loads(field_node.get('modifiers'))
-                        if modifiers.get('column_invisible'):
-                            modifiers.update({'column_invisible': False})
-                            field_node.set('modifiers', json.dumps(modifiers))
+                        if field_node.get('modifiers'):
+                            modifiers = json.loads(field_node.get('modifiers'))
+                            if modifiers.get('column_invisible'):
+                                modifiers.update({'column_invisible': False})
+                                field_node.set('modifiers', json.dumps(modifiers))
 
-                    if field_node.get('optional'):
-                        field_node.attrib.pop('optional')
+                        if field_node.get('optional'):
+                            field_node.attrib.pop('optional')
 
-            else:
-                field_node = etree.Element('field', attrib={'name': field_name, 'invisible': '0',
-                                                            'string': ks_field_list[field_name]['ks_columns_name']})
-                node.append(field_node)
-                list_view_data['fields'][field_name] = fields_list[field_name]
+                else:
+                    field_node = etree.Element('field', attrib={'name': field_name, 'invisible': '0',
+                                                                'string': ks_field_list[field_name]['ks_columns_name']})
+                    node.append(field_node)
+                    list_view_data['fields'][field_name] = fields_list[field_name]
 
-        # Sorting Process : Remove Old Nodes -> Insert Sorted Nodes again
-        sorted_node_fields = sorted([x for x in node.getchildren() if x.get('name')], key=lambda x:ks_field_list[x.get('name')]['ks_field_order'])
+        sorted_node_fields = sorted([x for x in node.getchildren() if x.get('name') and x.tag == 'field'], key=lambda x:ks_field_list[x.get('name')]['ks_field_order'])
 
-        for field_node in node.getchildren():
-            node.remove(field_node)
+        # for field_node in node.getchildren():
+        #     node.remove(field_node)
+        for ks_node in node.getchildren():
+            if ks_node.tag == 'button':
+                node.remove(ks_node)
 
         for field_node in sorted_node_fields:
             # Updating Default fields to readonly.
@@ -191,6 +201,8 @@ class LvmController(DataSet, http.Controller):
 
             if field_node.get("name") not in ks_reject_field_list:
                 node.append(field_node)
+        for ks_node in ks_node_dict:
+            node.insert(ks_node,ks_node_dict.get(ks_node))
 
         list_view_data['arch'] = etree.tostring(node, pretty_print=True, encoding='unicode')
 

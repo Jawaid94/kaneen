@@ -98,6 +98,11 @@ odoo.define('ks_list_view_manager.renderer', function (require) {
 
             this.ks_count = 0;
             this.ks_mode_count = 0;
+            this.ks_params = params;
+
+            if(params.arch.attrs.js_class === 'lazy_column_list'){
+                this.editable = false;
+            }
         },
 
         _renderBodyCell: function (record, node, colIndex, options) {
@@ -139,14 +144,15 @@ odoo.define('ks_list_view_manager.renderer', function (require) {
                             }
                         }
                     }
-                    if(this.getParent() && this.getParent().$el) {
-                        if ((this.getParent().$el.hasClass("o_field_one2many") || this.getParent().$el.hasClass("o_field_many2many"))){
-                            if (this.$el.parents().find(".o_modal_header").length === 0) {
-                                $ks_header.find("tr").addClass("bg-primary");
-
-                            }
-                        }
-                    }
+//                    if(this.getParent() && this.getParent().$el) {
+//                        if ((this.getParent().$el.hasClass("o_field_one2many") || this.getParent().$el.hasClass("o_field_many2many"))){
+//                            if (this.$el.parents().find(".o_modal_header").length === 0) {
+////                                $ks_header.find("tr").addClass("bg-primary");
+//
+//
+//                            }
+//                        }
+//                    }
                 }
     	//$header.find("tr").prepend($('<th>').html('#'));
     	    return $ks_header;
@@ -669,7 +675,6 @@ odoo.define('ks_list_view_manager.renderer', function (require) {
          */
 
          focusCell: function (recordId, column) {
-         debugger;
             var $row = this._getRow(recordId);
             var cellIndex = this.columns.indexOf(column) + 1;
             $row.find('.o_data_cell')[cellIndex].focus();
@@ -1008,6 +1013,12 @@ odoo.define('ks_list_view_manager.renderer', function (require) {
             self._onRendererDomReady();
             self.decorateBadgeUI();
             if (session.ks_header_color) this._ks_set_list_view_color(session.ks_header_color);
+            if(self.ks_params.arch.attrs.js_class === 'lazy_column_list'){
+                $(".mode_button").addClass("d-none");
+                $('#mode').prop('checked', false);
+                self.is_ks_editable_on = false;
+                self.getParent().editable = false;
+            }
 
             if ($(".modal").length === 0) {
                 if (self.ks_list_view_data.ks_can_edit === true && $('#mode').length) {
@@ -1131,7 +1142,8 @@ odoo.define('ks_list_view_manager.renderer', function (require) {
         _ks_set_list_view_color: function (ks_color) {
             if ($("tr[class='bg-primary']")) {
                 for (var i = 0; i < $("tr[class='bg-primary']").length; i++) {
-                    $("tr[class='bg-primary']")[i].style.setProperty("background-color", session.ks_header_color, "important");
+                    $("tr[class='bg-primary']")[i].style.setProperty("background-color", '#eee', "important");
+                    $("tr[class='bg-primary']")[i].style.setProperty("color", '#495057', "important");
                 }
             }
 

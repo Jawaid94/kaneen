@@ -1,6 +1,5 @@
-/*! Copyright (c) Jonas Mosbech - https://github.com/jmosbech/StickyTableHeaders
+/*! Copyright (c) 2011 by Jonas Mosbech - https://github.com/jmosbech/StickyTableHeaders
 	MIT license info: https://github.com/jmosbech/StickyTableHeaders/blob/master/license.txt */
-
 ;(function ($, window, undefined) {
 	'use strict';
 
@@ -14,8 +13,7 @@
 			objHead: 'head',
 			objWindow: window,
 			scrollableArea: window,
-			cacheHeaderHeight: false,
-			zIndex: 3
+			cacheHeaderHeight: false
 		};
 
 	function Plugin (el, options) {
@@ -71,8 +69,6 @@
 					'</style>');
 				base.$head.append(base.$printStyle);
 			});
-
-			base.$clonedHeader.find("input, select").attr("disabled", true);
 
 			base.updateWidth();
 			base.toggleHeaders();
@@ -146,29 +142,23 @@
 						offset = $this.offset(),
 
 						scrollTop = base.$scrollableArea.scrollTop() + newTopOffset,
-						scrollLeft = base.$scrollableArea.scrollLeft(),
+						scrollLeft = 0,
 
-						headerHeight,
+						headerHeight = base.options.cacheHeaderHeight ? base.cachedHeaderHeight : base.$clonedHeader.height(),
 
 						scrolledPastTop = base.isWindowScrolling ?
 								scrollTop > offset.top :
 								newTopOffset > offset.top,
-						notScrolledPastBottom;
-
-					if (scrolledPastTop) {
-						headerHeight = base.options.cacheHeaderHeight ? base.cachedHeaderHeight : base.$clonedHeader.height();
 						notScrolledPastBottom = (base.isWindowScrolling ? scrollTop : 0) <
 							(offset.top + $this.height() - headerHeight - (base.isWindowScrolling ? 0 : newTopOffset));
-					}
 
 					if (scrolledPastTop && notScrolledPastBottom) {
 						newLeft = offset.left - scrollLeft + base.options.leftOffset;
 						base.$originalHeader.css({
 							'position': 'fixed',
 							'margin-top': base.options.marginTop,
-                                                        'top': 0,
 							'left': newLeft,
-							'z-index': base.options.zIndex
+							'z-index': 3 // #18: opacity bug
 						});
 						base.leftOffset = newLeft;
 						base.topOffset = newTopOffset;
@@ -188,6 +178,13 @@
 						$this.trigger('disabledStickiness.' + name);
 					}
 				});
+			// fix in case header is not scrolling if horizontally.
+			var offset = $('.table-responsive').offset();
+            var offset_left = offset && offset.left || 0;
+            $('.table-responsive').scroll(function(){
+                let scroll = offset_left - $('.table-responsive').scrollLeft();
+                $('.tableFloatingHeaderOriginal').css({ left: scroll });
+            });
 			}
 		}, 0);
 
@@ -267,8 +264,8 @@
 			$clonedHeaders.each(function (index) {
 				var width = widths[index];
 				$origHeaders.eq(index).css({
-					'min-width': width,
-					'max-width': width
+//					'min-width': width,
+					'width': width
 				});
 			});
 		};
@@ -277,8 +274,8 @@
 			$clonedHeaders.each(function (index) {
 				var $this = $(this);
 				$origHeaders.eq(index).css({
-					'min-width': $this.css('min-width'),
-					'max-width': $this.css('max-width')
+//					'min-width': $this.css('min-width'),
+//					'width': $this.css('max-width')
 				});
 			});
 		};

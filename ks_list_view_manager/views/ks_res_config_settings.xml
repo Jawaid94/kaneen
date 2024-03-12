@@ -58,6 +58,21 @@
 
                             <div class="o_setting_right_pane">
                                 <label for = "ks_serial_number" String = "Serial Number" />
+                                <div class="text-muted" id="ks_serial_number_live">
+                                        Enable the serial number in list view.
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="ks_o2m_serial_number"  class="oe_inline"/>
+                            </div>
+
+                            <div class="o_setting_right_pane">
+                                <label for = "ks_o2m_serial_number" String ="One2Many List Serial Number" />
+                                <div class="text-muted" id="ks_o2m_serial_number_live">
+                                        Enable the serial number in one2many list view.
+                                    </div>
                             </div>
                         </div>
                     </div>

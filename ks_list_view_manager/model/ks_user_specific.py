@@ -28,7 +28,7 @@ class UserSpecific(models.Model):
 
         if user_exists:
             ks_user_table_result['ks_fields_data'] = dict([(x['field_name'], x) for x in user_exists.fields.read(
-                ['ksShowField', 'field_name', 'ks_invisible', 'ks_field_order', 'ks_columns_name', 'ks_width'])])
+                ['ksShowField', 'field_name', 'ks_invisible', 'ks_field_order', 'ks_columns_name', 'ks_width', 'ks_tag'])])
             ks_user_table_result['ks_table_data'] = user_exists.read(['ks_table_width', 'ks_editable'])[0]
 
         return ks_user_table_result
@@ -77,6 +77,15 @@ class UserSpecific(models.Model):
             user_exists.fields.unlink()
             user_exists.unlink()
 
+    @classmethod
+    def clear_caches(self):
+        """ Clear the caches
+
+        This clears the caches associated to methods decorated with
+        ``tools.ormcache`` or ``tools.ormcache_multi``.
+        """
+        self.pool._clear_cache()
+
 
 class Userfields(models.Model):
     _name = "user.fields"
@@ -85,12 +94,12 @@ class Userfields(models.Model):
     ksShowField = fields.Boolean(default=True, string="Show Field in list")
     ks_field_order = fields.Integer(string="Name")
     ks_invisible = fields.Boolean(default=False, string="Show invisible columns")
+    ks_tag = fields.Char(default=False, string="Tag")
     # ks_required = fields.Boolean(default=False, string="Show required Columns")
     # ks_readonly = fields.Boolean(default=False, string="Show readonly Columns")
     fields_list = fields.Many2one(
         'user.specific', "User Specific Fields"
     )
-    ks_tag = fields.Char()
     ks_columns_name = fields.Char(string="Columns Name")
     ks_width = fields.Char(string="Field Width")
 
@@ -122,6 +131,7 @@ class KsUserStandardSpecific(models.Model):
         ], limit=1)
         if user_exists:
             # 'ks_required','ks_readonly'
+            self.clear_caches()
             return user_exists.fields.read(
                 ['ksShowField', 'field_name', 'ks_invisible', 'ks_columns_name', 'ks_width', ]) + user_exists.read(
                 ['ks_table_width'])
@@ -218,6 +228,8 @@ class UserMode(models.Model):
         else:
             ks_list_view_data['list_view_data'] = False
 
+        self.clear_caches()
+
         return ks_list_view_data
 
     @api.model
@@ -234,9 +246,11 @@ class UserMode(models.Model):
             'ks_action_id': ks_action_id,
         }
         if not view:
+            self.clear_caches()
             self.create(vals)
 
         else:
+            self.clear_caches()
             view.write(vals)
 
     @api.model
@@ -259,6 +273,8 @@ class KsHttp(models.AbstractModel):
         rec['ks_header_color'] = self.env['ir.config_parameter'].sudo().get_param('ks_header_color_field_change')
         rec['ks_header_text_color'] = self.env['ir.config_parameter'].sudo().get_param('ks_header_text_color_field_change')
         rec['ks_serial_number'] = self.env['ir.config_parameter'].sudo().get_param('ks_serial_number')
+        rec['ks_o2m_serial_number'] = self.env['ir.config_parameter'].sudo().get_param('ks_o2m_serial_number')
+        self.clear_caches()
         return rec
 
 
@@ -274,3 +290,38 @@ class KsResConfigSettings(models.TransientModel):
                                                config_parameter='ks_header_text_color_field_change')
 
     ks_serial_number = fields.Boolean(string="Serial Number", config_parameter='ks_serial_number')
+    ks_o2m_serial_number = fields.Boolean(string="One2Many List Serial Number", config_parameter='ks_o2m_serial_number')
+
+
+class KsPartnerCategory(models.Model):
+
+    _inherit = 'res.partner.category'
+
+
+    def name_get(self):
+
+        """ Return the categories' display name, including their direct
+            parent by default.
+
+            If ``context['partner_category_display']`` is ``'short'``, the short
+            version of the category name (without the direct parent) is used.
+            The default is the long version.
+        """
+        if self._context.get('partner_category_display') == 'short':
+            return super(KsPartnerCategory, self).name_get()
+
+        res = []
+        for category in self:
+            names = []
+            current = category
+            if current.name:
+                while current:
+                    names.append(current.name)
+                    current = current.parent_id
+                # if not names:
+                #     continue
+                # else:
+                res.append((category.id, ' / '.join(reversed(names))))
+        return res
+
+
