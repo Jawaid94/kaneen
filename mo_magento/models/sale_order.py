@@ -41,7 +41,7 @@ class SaleOrder(models.Model):
                         magento_order = self.create(vals)
                         item.update({'sale_order_id': magento_order})
                         order_line.create_order_line(item, instance, log, line_id)
-                        self.__create_discount_order_line(item)
+                        # self.__create_discount_order_line(item)17/3/2023
                         self.__create_shipping_order_line(item)
 
                         # self.__process_order_workflow(item, log)
@@ -70,17 +70,13 @@ class SaleOrderLine(models.Model):
             if gift_values:
                 product = self.env['product.product'].search([('default_code', '=', 'GIFT_FEE')])
                 if product:
-                    total = item.get('base_total_due') - item['extension_attributes'].get('mp_gift_wrap_amount', 0) if \
-                        item.get('base_total_due') != 0 else item.get('base_total_paid')
-                    discount = item.get('base_discount_amount', 0) * -1
                     self.create({
                         'order_id': item.get('sale_order_id').id,
                         'product_id': product.id,
                         'name': f"Gift Wrap: {gift_values['name']}" + (
                             f"\nGift Note: {gift_values['gift_message']}" if gift_values['gift_message'] else ''),
                         'company_id': item.get('sale_order_id').company_id.id,
-                        'price_unit': total - item.get('base_subtotal_incl_tax', 0) - item.get(
-                            'base_shipping_incl_tax', 0) + discount,
+                        'price_unit': gift_values.get('amount', 0),
                     })
         if item.get('sale_order_id').magento_payment_method_id.payment_method_code == 'cashondelivery':
             product = self.env['product.product'].search(

@@ -121,6 +121,7 @@ class SaleOrderLine(models.Model):
             'description': item.get('discount_description', product.name) if product == discount_product else product.name
                                                                                                              or (sale_order and sale_order.name),
             'discount_line': True if product == discount_product else False,
+            'discount': line.get('discount_percent', 0),
             'product_uom': product.uom_id.id,
             'order_qty': order_qty,
             'price_unit': price,

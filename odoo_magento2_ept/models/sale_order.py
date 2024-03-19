@@ -24,6 +24,8 @@ class SaleOrder(models.Model):
     """
     _inherit = 'sale.order'
 
+    coupon_description = fields.Char(readonly=True)
+
     def action_complete(self):
         self.state = 'complete'
 
@@ -291,7 +293,8 @@ class SaleOrder(models.Model):
             'team_id': store_view and store_view.team_id and store_view.team_id.id or False,
             'payment_term_id': item.get('payment_term_id').id,
             'carrier_id': item.get('delivery_carrier_id'),
-            'client_order_ref': item.get('increment_id')
+            'client_order_ref': item.get('increment_id'),
+            'coupon_description': item.get('discount_description', False)
         }
         order_vals = self.create_sales_order_vals_ept(order_vals)
         order_vals = self.__update_order_dict(item, instance, order_vals)

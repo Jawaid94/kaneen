@@ -36,6 +36,7 @@ class SaleOrder(models.Model):
             'partner_invoice_id': vals.get('partner_invoice_id', False),
             'partner_shipping_id': vals.get('partner_shipping_id', False),
             'warehouse_id': vals.get('warehouse_id', False),
+            'coupon_description': vals['coupon_description']
         }
 
         new_record = sale_order.new(order_vals)
