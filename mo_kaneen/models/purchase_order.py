@@ -364,6 +364,7 @@ class BulkPurchaseExport(models.TransientModel):
                             products.append((0, 0, {
                                 'product_id': product_template[0]['product_variant_id'][0],
                                 'product_uom_qty': qty,
+                                'price_unit': line.price_unit,
                             }))
 
                         break
