@@ -547,7 +547,10 @@ class SaleOrder(models.Model):
 
     def sh_cancel(self):
 
-        return self.action_cancel()
+        if self.env.user.has_group('base.group_no_one'):
+            return self._sh_cancel()
+        else:
+            return self.action_cancel()
 
 
 class SaleOrderCancel(models.TransientModel):
