@@ -64,8 +64,11 @@ class StockMoveLine(models.Model):
             "skuData": [
             ]
         }
+        picking = self.picking_id
         for ml in self:
-            if ml.picking_code in ('incoming', 'internal') and eval(ml.product_id.sku_shatha) is None:
+            if picking.picking_type_code == 'outgoing' and picking.sale_id.magento_order_id is not False:
+                break
+            if eval(ml.product_id.sku_shatha) is None:
                 available_qty = self.env['stock.quant']._get_available_quantity(ml.product_id, ml.location_dest_id,
                                                                                 ml.lot_id, strict=True)
                 payload['skuData'].append(
