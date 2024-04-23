@@ -96,6 +96,7 @@ class Purchase(models.Model):
             products.append((0, 0, {
                 'product_id': product[0]['product_variant_id'][0],
                 'product_uom_qty': line.product_qty,
+                'price_unit': line.price_unit,
             }))
         create_data['order_line'] = products  # [(0, 0, {'product_id': 31206, 'product_uom_qty': 1.0})]
         create_data['client_order_ref'] = self.name  # purchase.order(3093,)
