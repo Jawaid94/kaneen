@@ -81,8 +81,8 @@ class AccountMove(models.Model):
             if record.country_code == 'SA' and record.move_type in ('out_invoice', 'out_refund'):
                 if not record.einv_sa_show_delivery_date:
                     raise UserError(_('Delivery Date cannot be empty'))
-                if record.einv_sa_delivery_date < record.invoice_date:
-                    raise UserError(_('Delivery Date cannot be before Invoice Date'))
+                # if record.einv_sa_delivery_date < record.invoice_date:
+                #     raise UserError(_('Delivery Date cannot be before Invoice Date'))jawaid 24/4/2024
                 self.write({
                     'einv_sa_confirmation_datetime': fields.Datetime.now()
                 })
