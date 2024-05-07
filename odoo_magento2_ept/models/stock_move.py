@@ -69,12 +69,11 @@ class StockMoveLine(models.Model):
                 picking = ml.picking_id
                 if picking.picking_type_code == 'outgoing' and picking.sale_id.magento_order_id is not False:
                     continue
-                stock_location = ml.location_id if ml.location_dest_id.scrap_location or ml.location_dest_id.usage == 'supplier' else ml.location_dest_id
-                available_qty = self.env['stock.quant']._get_available_quantity(ml.product_id, stock_location,
-                                                                                ml.lot_id, strict=True)
+                product = ml.product_id
+                available_qty = product._get_only_qty_available()[product.id]
                 payload['skuData'].append(
                     {
-                        "sku": ml.product_id.default_code,
+                        "sku": product.default_code,
                         "qty": available_qty,
                         "is_in_stock": 1 if available_qty > 0 else 0,
                     })
