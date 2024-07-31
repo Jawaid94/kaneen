@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sh_trello_credentials,access_sh_trello_credentials,model_sh_trello_credentials,sh_trello_connector.sh_trello_base_user,1,1,1,1
+access_sh_trello_log,access_sh_trello_log,model_sh_trello_log,sh_trello_connector.sh_trello_base_user,1,1,1,1
+access_project_specific,access_project_specific,model_project_specific,sh_trello_connector.sh_trello_base_user,1,1,1,1

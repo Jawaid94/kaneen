@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sh_trello_creds_form" model="ir.ui.view">
+        <field name="name">sh.trello.creds.form</field>
+        <field name="model">sh.trello.credentials</field>
+        <field name="arch" type="xml">
+            <form string="Authorize">
+                <sheet>
+                    <h1>
+                        <field name="name" default_focus="1" placeholder="Name" required="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="last_sync" readonly="True"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <h2 class="text-primary">Credentials</h2>
+                            <field name="api_key" password="True"/>
+                            <field name="token" password="True"/>
+                            <field name="no_of_task"/>
+                            <field name="no_of_task_export"/>
+                            <button type="object" name="submit" string="Import" class="btn 
+                            btn-primary"/>
+                            <button type="object" name="export_trello" string="Export" class="btn btn-primary"/>
+                        </group>
+                        <group>
+                            <h2 class="text-primary">Auto Schedule</h2>
+                            <field name="auto_import"/>
+                            <field name="auto_export"/>
+                        </group>
+                    </group>
+                    <h2 class="text-primary">Refresh</h2>
+                    <group>
+                        <field name="refresh_import"/>
+                        <field name="refresh_export"/>
+                    </group>
+                    <h2 class="text-primary mb-2">Log History</h2>
+                    <field name="trello_history" readonly="1">
+                        <tree decoration-success="state=='success'" decoration-danger="state=='error'">
+                            <field name="state"/>
+                            <field name="datetime"/>
+                            <field name="error"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id='sh_trello_creds_tree' model='ir.ui.view'>
+        <field name="name">sh.trello.creds.tree</field>
+        <field name="model">sh.trello.credentials</field>
+        <field name="arch" type="xml">
+            <tree string="Authorize">
+                <field name="name"/>
+                <field name="last_sync"/>
+            </tree>
+        </field>
+    </record>
+    <record id="sh_trello_creds_action" model="ir.actions.act_window">
+        <field name="name">Authorize</field>
+        <field name="res_model">sh.trello.credentials</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Authorize
+            </p>
+        </field>
+    </record>
+    <menuitem name="Trello Connector" id="sh_trello_connector_base"
+              web_icon="sh_trello_connector,static/description/icon.png"/>
+
+    <menuitem name="Authorize" action="sh_trello_creds_action" id="sh_trello_creds_item"
+              parent="sh_trello_connector_base" sequence="1"/>
+</odoo>

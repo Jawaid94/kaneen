@@ -1,0 +1,455 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_trello_connector
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.1alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-02 09:53+0000\n"
+"PO-Revision-Date: 2021-10-02 09:53+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_project__task_sync_all
+msgid "All Tasks"
+msgstr "Todas las tareas"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__api_key
+msgid "Api Key"
+msgstr "Clave API"
+
+#. module: sh_trello_connector
+#: model:ir.model,name:sh_trello_connector.model_ir_attachment
+msgid "Attachment"
+msgstr "Adjunto"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_ir_attachment__trello_attachment_id
+msgid "Attachment Id"
+msgstr "ID de ADJUNTO"
+
+#. module: sh_trello_connector
+#: model:ir.actions.act_window,name:sh_trello_connector.sh_trello_creds_action
+#: model:ir.ui.menu,name:sh_trello_connector.sh_trello_creds_item
+#: model_terms:ir.actions.act_window,help:sh_trello_connector.sh_trello_creds_action
+#: model_terms:ir.ui.view,arch_db:sh_trello_connector.sh_trello_creds_form
+#: model_terms:ir.ui.view,arch_db:sh_trello_connector.sh_trello_creds_tree
+msgid "Authorize"
+msgstr "Autorizar"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__auto_export
+msgid "Auto Export"
+msgstr "Exportación automática"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__auto_import
+msgid "Auto Import"
+msgstr "Importación automática"
+
+#. module: sh_trello_connector
+#: model_terms:ir.ui.view,arch_db:sh_trello_connector.sh_trello_creds_form
+msgid "Auto Schedule"
+msgstr "Programa automático"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_project__board_id
+msgid "Board ID"
+msgstr "ID de la tarjeta"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_task__card_id
+msgid "Card ID"
+msgstr "Tarjeta de identificacion"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_specific__create_uid
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__create_uid
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_log__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_specific__create_date
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__create_date
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_log__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: sh_trello_connector
+#: model_terms:ir.ui.view,arch_db:sh_trello_connector.sh_trello_creds_form
+msgid "Credentials"
+msgstr "Cartas credenciales"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_log__datetime
+msgid "Date & Time"
+msgstr "Fecha y hora"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_specific__display_name
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__display_name
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_log__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: sh_trello_connector
+#: model_terms:ir.ui.view,arch_db:sh_trello_connector.sh_trello_creds_form
+msgid "Export"
+msgstr "Exportar"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__no_of_task_export
+msgid "Export Limit"
+msgstr "Límite de exportación"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_project__export_to_trello
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_task__specific_export
+msgid "Export To Trello"
+msgstr "Exportar a trello"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__refresh_export
+msgid "Export on Refresh"
+msgstr "Exportar en la actualización"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields.selection,name:sh_trello_connector.selection__sh_trello_log__state__error
+msgid "Failed"
+msgstr "Fallido"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__final_count
+msgid "Final Count"
+msgstr "Cuenta final"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__first_time
+msgid "First Time"
+msgstr "Primera vez"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__first_time_export
+msgid "First Time Export"
+msgstr "Primera vez exportación"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__first_time_import
+msgid "First Time Import"
+msgstr "Importación por primera vez"
+
+#. module: sh_trello_connector
+#: model:ir.model,name:sh_trello_connector.model_sh_trello_log
+msgid "Helps you to maintain the activity done"
+msgstr "Te ayuda a mantener la actividad realizada."
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_specific__id
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__id
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_log__id
+msgid "ID"
+msgstr "IDENTIFICACIÓN"
+
+#. module: sh_trello_connector
+#: model_terms:ir.ui.view,arch_db:sh_trello_connector.sh_trello_creds_form
+msgid "Import"
+msgstr "Importar"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__no_of_task
+msgid "Import Limit"
+msgstr "Límite de importación"
+
+#. module: sh_trello_connector
+#: model:ir.actions.server,name:sh_trello_connector.sh_import_trello_cron_ir_actions_server
+#: model:ir.cron,cron_name:sh_trello_connector.sh_import_trello_cron
+#: model:ir.cron,name:sh_trello_connector.sh_import_trello_cron
+msgid "Import Trello"
+msgstr "Importar Trello"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__refresh_import
+msgid "Import on Refresh"
+msgstr "Importar en actualizar"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_specific____last_update
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials____last_update
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_log____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_task__task_sync_specific
+msgid "Last Sync"
+msgstr "Última sincronización"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__last_sync_export
+msgid "Last Sync Export"
+msgstr "Última sincronización de exportación"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__last_sync
+msgid "Last Sync Import"
+msgstr "Última importación de sincronización"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_specific__write_uid
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__write_uid
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_log__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_specific__write_date
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__write_date
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_log__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualización en"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_task__task_sync_all
+msgid "Last sync all"
+msgstr "Última sincronización de todos"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__length_card
+msgid "Length Card"
+msgstr "Tarjeta de longitud"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__length_card_export
+msgid "Length Card Export"
+msgstr "Tarjeta de longitud exportación"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__trello_history
+#: model_terms:ir.ui.view,arch_db:sh_trello_connector.sh_trello_creds_form
+msgid "Log History"
+msgstr "Historia de registro"
+
+#. module: sh_trello_connector
+#: model:ir.actions.act_window,name:sh_trello_connector.sh_trello_log_action
+#: model:ir.ui.menu,name:sh_trello_connector.sh_trello_logger_item
+#: model_terms:ir.actions.act_window,help:sh_trello_connector.sh_trello_log_action
+msgid "Logger"
+msgstr "Registrador"
+
+#. module: sh_trello_connector
+#: model:res.groups,name:sh_trello_connector.sh_trello_base_manager
+msgid "Manager"
+msgstr "Gerente"
+
+#. module: sh_trello_connector
+#: model:ir.model,name:sh_trello_connector.model_mail_message
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_log__error
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__name
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_log__name
+#: model_terms:ir.ui.view,arch_db:sh_trello_connector.sh_trello_creds_form
+msgid "Name"
+msgstr "Nombre"
+
+#. module: sh_trello_connector
+#: code:addons/sh_trello_connector/models/sh_trello_creds.py:0
+#, python-format
+msgid "No Board/Project To Export"
+msgstr "No hay junta / proyecto para exportar"
+
+#. module: sh_trello_connector
+#: code:addons/sh_trello_connector/models/sh_trello_creds.py:0
+#: code:addons/sh_trello_connector/models/sh_trello_creds.py:0
+#, python-format
+msgid "No Boards/Project To Import"
+msgstr "No hay tableros / proyecto para importar"
+
+#. module: sh_trello_connector
+#: code:addons/sh_trello_connector/models/sh_trello_creds.py:0
+#, python-format
+msgid "Pelase Enter Proper Credentials"
+msgstr "Pelase Ingrese las credenciales adecuadas"
+
+#. module: sh_trello_connector
+#: code:addons/sh_trello_connector/models/sh_trello_creds.py:0
+#, python-format
+msgid "Please Enter Proper Credentials"
+msgstr "Por favor ingrese las credenciales adecuadas"
+
+#. module: sh_trello_connector
+#: model:ir.model,name:sh_trello_connector.model_project_project
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_project__project_ref
+msgid "Project Ref"
+msgstr "Proyecto ref"
+
+#. module: sh_trello_connector
+#: model:ir.model,name:sh_trello_connector.model_project_tags
+msgid "Project Tags"
+msgstr "Etiquetas del proyecto"
+
+#. module: sh_trello_connector
+#. openerp-web
+#: code:addons/sh_trello_connector/static/src/xml/sh_refresh_button.xml:0
+#: model_terms:ir.ui.view,arch_db:sh_trello_connector.sh_trello_creds_form
+#, python-format
+msgid "Refresh"
+msgstr "Actualizar"
+
+#. module: sh_trello_connector
+#: model:res.groups,name:sh_trello_connector.sh_featch_latest_task
+msgid "Refresh Trello Task"
+msgstr "Actualizar tarea en trello"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_specific__sh_project_id
+msgid "Sh Project"
+msgstr "SH Project"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_specific__sh_tag_id
+msgid "Sh Tag"
+msgstr "Shag sh"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_log__sh_trello_id
+msgid "Sh Trello"
+msgstr "Sh trello"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__final_count_export
+msgid "Some Count"
+msgstr "Algunos cuentan"
+
+#. module: sh_trello_connector
+#: code:addons/sh_trello_connector/models/sh_trello_creds.py:0
+#, python-format
+msgid "Something went Wrong, try again later"
+msgstr "Algo salió mal, inténtalo de nuevo más tarde."
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_project__task_sync_specific
+msgid "Specific Tasks"
+msgstr "Tareas específicas"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_log__state
+msgid "State"
+msgstr "Estado"
+
+#. module: sh_trello_connector
+#: model:ir.model,name:sh_trello_connector.model_sh_trello_credentials
+msgid "Stores Your Trello Creds"
+msgstr "Almacena tus credos de trello"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields.selection,name:sh_trello_connector.selection__sh_trello_log__state__success
+msgid "Success"
+msgstr "Éxito"
+
+#. module: sh_trello_connector
+#: model:ir.model,name:sh_trello_connector.model_project_task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: sh_trello_connector
+#: model:ir.model,name:sh_trello_connector.model_project_task_type
+msgid "Task Stage"
+msgstr "Etapa de tarea"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__token
+msgid "Token"
+msgstr "Simbólico"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_tags__trello_id
+msgid "Trello"
+msgstr "Trello"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_mail_mail__trello_comment_id
+#: model:ir.model.fields,field_description:sh_trello_connector.field_mail_message__trello_comment_id
+msgid "Trello Comment Id"
+msgstr "TRELLO ID DE COMENTARIO"
+
+#. module: sh_trello_connector
+#: model:ir.module.category,name:sh_trello_connector.sh_trello_base_category
+#: model:ir.ui.menu,name:sh_trello_connector.sh_trello_connector_base
+msgid "Trello Connector"
+msgstr "Conector de Trello"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_task__card_creation
+msgid "Trello Creation Date"
+msgstr "Fecha de creación de Trello"
+
+#. module: sh_trello_connector
+#: model:ir.actions.server,name:sh_trello_connector.sh_export_trello_multi
+msgid "Trello Export"
+msgstr "Trello Export"
+
+#. module: sh_trello_connector
+#: model:ir.actions.server,name:sh_trello_connector.sh_import_trello_multi
+msgid "Trello Import"
+msgstr "Trello Import"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_task__last_comment_done
+msgid "Trello Last Comment Date"
+msgstr "Trello Último comentario Fecha"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_task__last_modified_date
+msgid "Trello Modified Date"
+msgstr "Trello modificado fecha"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_project__sh_creds_id
+msgid "Trello Sync :"
+msgstr "Sincronización de trello:"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_specific__trello_tag
+msgid "Trello Tag"
+msgstr "Etiqueta de trello"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__unique
+msgid "Unique"
+msgstr "Único"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_sh_trello_credentials__user_id
+#: model:res.groups,name:sh_trello_connector.sh_trello_base_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_task__non_trello_tags
+msgid "project.project"
+msgstr "proyecto.project"
+
+#. module: sh_trello_connector
+#: model:ir.model.fields,field_description:sh_trello_connector.field_project_task_type__sstage_id
+msgid "stage id"
+msgstr "ID de la etapa"
+
+#. module: sh_trello_connector
+#: model:ir.model,name:sh_trello_connector.model_project_specific
+msgid "strores Project Tags"
+msgstr "Etiquetas de proyectos de Strores"
