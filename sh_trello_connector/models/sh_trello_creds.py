@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Softhealer Technologies.
 from odoo import fields, models, _
+from odoo.tools import plaintext2html
 import requests
 from datetime import datetime
 import base64
@@ -175,7 +176,7 @@ class TrelloCreds(models.Model):
                 last_modified = datetime.strptime(last_syncs, '%Y-%m-%d %H:%M:%S')
 
                 card_board_id = res_json_cards['idBoard']
-                desc = res_json_cards['desc']
+                desc = plaintext2html(res_json_cards['desc'])
                 name = res_json_cards['name']
                 badges = res_json_cards['badges']
                 comment = badges['comments']
@@ -380,8 +381,9 @@ class TrelloCreds(models.Model):
                                 if find_attachment:
                                     continue
                                 else:
+                                    attach_info = [record for record in res_json_attach if record['url'] == url][0]
                                     ir_vals = {
-                                        'name': "Attachment",
+                                        'name': attach_info['fileName'],
                                         'type': 'url',
                                         'url': url,
                                         'res_model': 'project.task',
@@ -408,7 +410,6 @@ class TrelloCreds(models.Model):
                                 'last_modified_date': last_modified,
                                 'card_creation': creation_time,
                                 'sequence': sequence_card,
-                                'sequence': sequence_card,
                                 'specific_export': True,
                             }
                             create_task = self.env['project.task'].create(vals)
@@ -418,8 +419,9 @@ class TrelloCreds(models.Model):
                                 if find_attachment:
                                     continue
                                 else:
+                                    attach_info = [record for record in res_json_attach if record['url'] == url][0]
                                     ir_vals = {
-                                        'name': "Attachment",
+                                        'name': attach_info['name'],
                                         'type': 'url',
                                         'url': url,
                                         'res_model': 'project.task',
@@ -447,6 +449,16 @@ class TrelloCreds(models.Model):
                         domain = [('email', '=', user)]
                         dates = x['date']
                         find_user = self.env['res.partner'].search(domain, limit=1)
+                        if user == 'saira297':
+                            find_user = self.env['res.partner'].search([('email', '=', 'saira@kaneen.com')], limit=1)
+                        if user == 'abu_nasser':
+                            find_user = self.env['res.partner'].search([('email', '=', 'Mohammed@kaneen.com')], limit=1)
+                        if user == 'haris842':
+                            find_user = self.env['res.partner'].search([('email', '=', 'haris@kaneen.com')], limit=1)
+                        if user == 'jawaid8':
+                            find_user = self.env['res.partner'].search([('email', '=', 'jawaid@kaneen.com')], limit=1)
+                        if user == 'amjadmahmoud1':
+                            find_user = self.env['res.partner'].search([('email', '=', 'amjad@kaneen.com')], limit=1)
                         domain = [('card_id', '=', card_id)]
                         find_task_id = self.env['project.task'].search(domain, limit=1)
                         domain = [('trello_comment_id', '=', comment_id)]
@@ -528,7 +540,7 @@ class TrelloCreds(models.Model):
                         "name": self.name,
                         "sh_trello_id": self.id,
                         "state": "success",
-                        "error": "Impoted Successfully",
+                        "error": "Imported Successfully",
                         "datetime": datetime.now()
                     }
                     self.env['sh.trello.log'].create(vals)
