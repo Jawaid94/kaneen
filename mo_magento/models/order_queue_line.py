@@ -55,6 +55,11 @@ class MagentoOrderDataQueueLineEpt(models.Model):
 
             if item.get('status') == 'closed':
 
+                if is_exists.state == 'draft':
+                    is_exists.validate_order_ept()
+
+                    is_exists._create_order_invoice(item)
+
                 incoming_picking = is_exists.picking_ids.filtered(
                     lambda pick: pick.picking_type_code == 'incoming' and pick.state != 'cancel')
 
