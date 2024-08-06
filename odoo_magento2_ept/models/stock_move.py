@@ -66,9 +66,9 @@ class StockMoveLine(models.Model):
         }
         for ml in self:
             if eval(ml.product_id.sku_shatha) is None:
-                picking = ml.picking_id
-                if picking.picking_type_code == 'outgoing' and picking.sale_id.magento_order_id is not False:
-                    continue
+                # picking = ml.picking_id
+                # if picking.picking_type_code == 'outgoing' and picking.sale_id.magento_order_id is not False:
+                #     continue
                 product = ml.product_id
                 available_qty = product._get_only_qty_available()[product.id]
                 payload['skuData'].append(
