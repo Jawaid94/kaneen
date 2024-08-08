@@ -177,6 +177,7 @@ class ProductTemplate(models.Model):
     is_pack = fields.Boolean(string='Is Product Pack')
     cal_pack_price = fields.Boolean(string='Calculate Pack Price')
     pack_ids = fields.One2many(comodel_name='product.pack', inverse_name='bi_product_template', string='Product pack')
+    is_backorder = fields.Boolean('Is Backorder')
 
     @api.model
     def create(self, vals):
