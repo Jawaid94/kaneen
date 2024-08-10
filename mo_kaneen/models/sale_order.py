@@ -41,9 +41,8 @@ class Sale(models.Model):
     _inherit = 'sale.order'
 
     def action_confirm(self):
-        res = super(Sale, self).action_confirm()
         for order in self:
-            if any(sale_line.product_id.is_backorder for sale_line in order.order_line):
+            if any(sale_line.is_backorder_product for sale_line in order.order_line):
 
                 email_template_obj = self.env.ref('mo_kaneen.mail_template_backorder')
 
@@ -53,7 +52,8 @@ class Sale(models.Model):
 
                 if msg_id:
                     mail_mail_obj.send()
-        return res
+
+        return super(Sale, self).action_confirm()
 
     state = fields.Selection([
         ('draft', 'New'),
