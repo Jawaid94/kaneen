@@ -10,8 +10,6 @@
                 <xpath expr="//div[@name='options']" position="inside">
                     <field name="is_pack"/>
                     <label for="is_pack"/>
-                    <field name="is_backorder"/>
-                    <label for="is_backorder"/>
                 </xpath>
                 <field name="list_price" position="replace">
                     <field name="list_price" widget='monetary'
