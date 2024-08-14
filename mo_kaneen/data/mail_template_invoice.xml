@@ -59,7 +59,7 @@
                                                         Invoice Number:
                                                         <t t-out="object.name"/>
                                                         <br/>
-                                                        Reference Number:
+                                                        Order Number:
                                                         <t t-out="object.invoice_origin"/>
                                                         <br/>
                                                         Invoice Date:
