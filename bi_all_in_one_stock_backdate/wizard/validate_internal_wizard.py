@@ -11,7 +11,7 @@ class WizardInternalTransfer(models.TransientModel):
 	_description='Wizard Validate Internal Transfer'
 
 	transfer_date = fields.Datetime('BackDate',required=True)
-	transfer_remark = fields.Char('Remark',required=True)
+	transfer_remark = fields.Char('Remark')
 
 
 	def custom_backdate_button(self):
