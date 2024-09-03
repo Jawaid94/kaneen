@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sh_trello_base_category" model="ir.module.category">
+        <field name="name">Trello Connector</field>
+        <field name="sequence">60</field>
+    </record>
+    <record id="sh_trello_base_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="sh_trello_base_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="sh_trello_base_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="sh_trello_base_category"/>
+        <field name="implied_ids" eval="[(4, ref('sh_trello_base_user'))]"/>
+    </record>
+    <record id="sh_featch_latest_task" model="res.groups">
+        <field name="name">Refresh Trello Task</field>
+    </record>
+    <record id="sh_trello_base_user_rule" model="ir.rule">
+        <field name="name">Own Records</field>
+        <field name="model_id" ref="sh_trello_connector.model_sh_trello_credentials"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('sh_trello_connector.sh_trello_base_user'))]"/>
+    </record>
+    <record id="sh_trello_base_manager_rule" model="ir.rule">
+        <field name="name">All Records</field>
+        <field name="model_id" ref="sh_trello_connector.model_sh_trello_credentials"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('sh_trello_connector.sh_trello_base_manager'))]"/>
+    </record>
+    <record id="sh_import_trello_cron" model="ir.cron">
+        <field name="name">Import Trello</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model_id" ref="sh_trello_connector.model_sh_trello_credentials" />
+        <field name="code">model._trello_import_cron()</field>
+        <field name="state">code</field>
+    </record>
+    <record model="ir.actions.server" id="sh_import_trello_multi">
+        <field name="name">Trello Import</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="sh_trello_connector.model_sh_trello_credentials" />
+        <field name="binding_model_id" ref="sh_trello_connector.model_sh_trello_credentials" />
+        <field name="state">code</field>
+        <field name="code">
+            action = records.import_all()
+        </field>
+    </record>
+    <record model="ir.actions.server" id="sh_export_trello_multi">
+        <field name="name">Trello Export</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="sh_trello_connector.model_sh_trello_credentials" />
+        <field name="binding_model_id" ref="sh_trello_connector.model_sh_trello_credentials" />
+        <field name="state">code</field>
+        <field name="code">
+            action = records.export_all()
+        </field>
+    </record>
+</odoo>
