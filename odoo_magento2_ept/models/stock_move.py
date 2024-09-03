@@ -65,18 +65,19 @@ class StockMoveLine(models.Model):
             ]
         }
         for ml in self:
-            if eval(ml.product_id.sku_shatha) is None:
-                picking = ml.picking_id
-                if picking.picking_type_code == 'outgoing' and picking.sale_id.magento_order_id is not False:
-                    continue
-                product = ml.product_id
-                available_qty = product._get_only_qty_available()[product.id]
-                payload['skuData'].append(
-                    {
-                        "sku": product.default_code,
-                        "qty": available_qty,
-                        "is_in_stock": 1 if available_qty > 0 else 0,
-                    })
+            if ml.product_id.sku_shatha is not False:
+                if eval(ml.product_id.sku_shatha) is None:
+                    # picking = ml.picking_id
+                    # if picking.picking_type_code == 'outgoing' and picking.sale_id.magento_order_id is not False:
+                    #     continue
+                    product = ml.product_id
+                    available_qty = product._get_only_qty_available()[product.id]
+                    payload['skuData'].append(
+                        {
+                            "sku": product.default_code,
+                            "qty": available_qty,
+                            "is_in_stock": 1 if available_qty > 0 else 0,
+                        })
         payload['skuData'] = [ele for index, ele in enumerate(payload['skuData']) if
                               ele not in payload['skuData'][index + 1:]]
         if payload['skuData']:

@@ -18,6 +18,7 @@ class SaleOrderLine(models.Model):
         string="Magento Sale Order Line Reference",
         help="Magento Sale Order Line Reference"
     )
+    is_backorder_product = fields.Boolean('Is Backorder', readonly=True)
 
     def create_order_line(self, item, instance, log, line_id):
         order_lines = item.get('items')
@@ -118,14 +119,17 @@ class SaleOrderLine(models.Model):
             'order_id': sale_order.id,
             'product_id': product.id,
             'company_id': sale_order.company_id.id,
-            'description': item.get('discount_description', product.name) if product == discount_product else product.name
-                                                                                                             or (sale_order and sale_order.name),
+            'description': item.get('discount_description',
+                                    product.name) if product == discount_product else product.name
+                                                                                      or (
+                                                                                              sale_order and sale_order.name),
             'discount_line': True if product == discount_product else False,
             'discount': line['parent_item'].get('discount_percent', 0) if 'parent_item' in line else line.get(
                 'discount_percent', 0),
             'product_uom': product.uom_id.id,
             'order_qty': order_qty,
             'price_unit': price,
+            'is_backorder_product': True if 'qty_backordered' in line else False
         }
         line_vals = self.create_sale_order_line_ept(line_vals)
         line_vals.update({

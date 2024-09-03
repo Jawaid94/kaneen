@@ -18,7 +18,8 @@ class SaleOrderLine(models.Model):
             'company_id': vals.get('company_id', False),
             'name': vals.get('description', ''),
             'product_uom': vals.get('product_uom'),
-            'discount': vals.get('discount')
+            'discount': vals.get('discount'),
+            'is_backorder_product': vals.get('is_backorder_product')
         }
 
         new_order_line = sale_order_line.new(order_line)

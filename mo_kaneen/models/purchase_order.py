@@ -252,7 +252,7 @@ class PurchaseOrderLine(models.Model):
     @api.onchange('product_qty', 'product_uom', 'company_id')
     def _onchange_quantity(self):
         super(PurchaseOrderLine, self)._onchange_quantity()
-        if not self.product_id:
+        if not self.product_id or self.product_id.sku_shatha is False:
             return
         if eval(self.product_id.sku_shatha):
             shatha_standard_price = get_standard_price(self, self.product_id.sku_shatha)
