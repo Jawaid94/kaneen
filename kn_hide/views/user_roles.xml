@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    LIST OF CUSTOM ROLES MENU TREE AND FORM VIEW-->
+    <record id="list_of_custom_user_roles_action" model="ir.actions.act_window">
+        <field name="name">User Access</field>
+        <field name="res_model">user.roles</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a new Role.
+            </p>
+            <p>
+                User Role screen can easily find All User Roles;
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="custom_user_role_tree_view">
+        <field name="name">user.roles</field>
+        <field name="model">user.roles</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="List User Roles">
+                <header>
+                    <button string="Reset Menus" name="reset_menu_from_users" type="object"/>
+                </header>
+                <field name="name"/>
+                <field name="hide_menu_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="custom_user_role_form_view">
+        <field name="name">User Access</field>
+        <field name="model">user.roles</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="User Roles">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="hide_menu_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <menuitem action="list_of_custom_user_roles_action"
+              name="Users Access"
+              id="list_of_custom_user_role"
+              parent="base.menu_users"
+              sequence="1"/>
+</odoo>
