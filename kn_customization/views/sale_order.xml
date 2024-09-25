@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="kn_inherit_view_order_form" model="ir.ui.view">
+        <field name="name">kn.sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='automation_information']" position="after">
+                <page name="customer_happiness_information" string="Customer happiness Information">
+                    <group>
+                        <field name="cust_gender"/>
+                        <field name="remarks"/>
+                    </group>
+                    <group>
+                        <button name="open_order_in_magento" string="Open Order In Magento"
+                                class="fa fa-external-link btn btn-secondary o_external_button" type="object"
+                        />
+                    </group>
+
+                    <button name="create_cust_complaint" string="Create Customer Complaint Againts Order"
+                            type="object" class="oe_highlight"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

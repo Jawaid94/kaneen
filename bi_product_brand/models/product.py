@@ -8,11 +8,11 @@ import psycopg2
 import itertools
 from odoo.exceptions import ValidationError, except_orm
 
+
 class ProductBrand(models.Model):
     _inherit = 'product.template'
 
     brand_id = fields.Many2one('product.brand', 'Brand')
-    
 
     @api.model
     def create(self,vals):
@@ -21,7 +21,6 @@ class ProductBrand(models.Model):
             brand_brw = self.env['product.brand'].browse(vals.get('brand_id'))
             brand_brw.write({'product_ids': [(4, brand.id)]})
         return brand
-    
 
     def write(self,value):
         brand = super(ProductBrand, self).write(value)
@@ -40,7 +39,6 @@ class ProductBrand(models.Model):
             for product_variants in products:
                 product_variants.update({'brand_id': self.brand_id.id})
         return brand
-
 
     def _create_variant_ids(self):
         self.flush()
@@ -127,9 +125,5 @@ class ProductBrand(models.Model):
 
 class product_product(models.Model):
     _inherit = 'product.product'
-	
-    brand_id = fields.Many2one('product.brand', 'Brand')
-    
-       
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:    
+    brand_id = fields.Many2one('product.brand', 'Brand')

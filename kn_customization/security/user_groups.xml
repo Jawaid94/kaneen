@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="access_category_team" model="res.groups">
+        <field name="name">Category Team</field>
+         <field name="category_id" ref="base.module_category_inventory_inventory"/>
+    </record>
+
+        <record id="access_catalogue_team" model="res.groups">
+        <field name="name">Catalogue Team</field>
+         <field name="category_id" ref="base.module_category_inventory_inventory"/>
+    </record>
+
+       <record id="access_magento_team" model="res.groups">
+        <field name="name">Magento Team</field>
+   <field name="category_id" ref="base.module_category_inventory_inventory"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<record id="kn_inherit_view_picking_form" model="ir.ui.view">
+        <field name="name">kn.stock.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+                 <xpath expr="//field[@name='origin']" position="after">
+                 <field name="inv_attachment" widget="many2many_binary" attrs="{'required': [('state', 'in', ('assigned', 'done')),('picking_type_code','=','incoming')],'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

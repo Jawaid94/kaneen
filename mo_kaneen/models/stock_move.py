@@ -1,5 +1,6 @@
-from odoo import models, fields, api
+from odoo import models, fields, _
 from odoo.tools import groupby
+
 
 class StockMove(models.Model):
     _inherit = 'stock.move'
@@ -26,15 +27,6 @@ class StockMove(models.Model):
 
 class StockMoveLine(models.Model):
     _inherit = 'stock.move.line'
-
-    @api.depends('product_id', 'picking_type_use_create_lots', 'lot_id.expiration_date')
-    def _compute_expiration_date(self):
-        for move_line in self:
-            if move_line.lot_id.use_expiration_date:
-                if not move_line.expiration_date:
-                    move_line.expiration_date = move_line.lot_id.expiration_date
-            else:
-                move_line.expiration_date = False
 
     def _apply_putaway_strategy(self):
         super()._apply_putaway_strategy()
@@ -64,12 +56,3 @@ class StockRule(models.Model):
             shatha_standard_price = purchase_order.get_standard_price(self, product_id.sku_shatha)
             res['price_unit'] = shatha_standard_price + 5
         return res
-
-
-class StockProductionLot(models.Model):
-    _inherit = 'stock.production.lot'
-
-    use_expiration_date = fields.Boolean(related=False)
-
-    def _get_dates(self, product_id=None):
-        return {}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_category_xlsx_id" model="ir.actions.report">
+        <field name="name">Export Category Report</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">kn_customization.report_category_xlsx</field>
+        <field name="report_file">kn_customization.report_category_xlsx</field>
+    </record>
+    <menuitem id="report_category_xlsx_menu" parent="sale.menu_sale_report" name="Export Category Report"
+              action="report_category_xlsx_id"  sequence="5"/>
+</odoo>

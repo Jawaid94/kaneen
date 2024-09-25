@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="product_template_search_view_kn" model="ir.ui.view">
+        <field name="name">product.product.search.kn</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='type']" position="after">
+             <filter string="Status" name="state" context="{'group_by':'state'}"/>
+                    <filter string="Brand" name="brand_id" context="{'group_by':'brand_id'}"/>
+            </xpath>
+        </field>
+    </record>
+  <record id="kn_inherit_product_template_form" model="ir.ui.view">
+        <field name="name">kn.product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+                 <header>
+                        <button string="Catalogue Team" type="object" groups="kn_customization.access_category_team" name="confirm_category_team" attrs="{'invisible': [('state', 'in', ('catalogue','magento'))]}"
+                            />
+                         <button string="Magento Team" type="object" groups="kn_customization.access_catalogue_team" name="confirm_catalogue_team" attrs="{'invisible': [('state', 'in', ('ready','magento','publish'))]}"
+                             />
+                        <button string="Catalogue approval" type="object" groups="kn_customization.access_magento_team" name="confirm_magento_team" attrs="{'invisible': [('state', '=', 'ready')]}"
+                        />
+                      <button string="Published" type="object" groups="kn_customization.access_catalogue_team" name="publish_catalogue_team"
+                                confirm="This will publish the product to website. Do you want to proceed?" attrs="{'invisible': [('state', 'in', ('publish','magento'))]}"
+                        />
+                        <field name="state" widget="statusbar" />
+                    </header>
+<!--                 <xpath expr="//field[@name='taxes_id']" position="before">-->
+<!--                 <field name="gender" />-->
+<!--            </xpath>-->
+        </field>
+    </record>
+</odoo>

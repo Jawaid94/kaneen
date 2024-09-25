@@ -69,8 +69,8 @@ class MagentoOrderDataQueueLineEpt(models.Model):
                 if outgoing_picking:
                     self._generate_return_order(outgoing_picking)
 
-                if incoming_picking:
-                    self._generate_return_order(incoming_picking)
+                #if incoming_picking:
+                    #self._generate_return_order(incoming_picking)
 
                 # Refund the invoice
                 wiz_context = {

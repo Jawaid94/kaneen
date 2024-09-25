@@ -12,7 +12,7 @@ _logger = logging.getLogger(__name__)
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    sku_shatha = fields.Char()
+    sku_shatha = fields.Char(default='None')
 
     def import_product_from_shatha(self, rpc_connection=None, from_quant=False):
         url = self.env['ir.config_parameter'].sudo().get_param('mo_kaneen.xml_url')
