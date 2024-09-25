@@ -76,7 +76,7 @@ class SaleOrder(models.Model):
         string="Instance",
         help="This field relocates Magento Instance"
     )
-    magento_order_id = fields.Char(string="Magento order Ids", help="Magento Order Id")
+    magento_order_id = fields.Char(string="Magento order Ids", help="Magento Order Id", copy=False)
     magento_website_id = fields.Many2one(
         "magento.website",
         string="Magento Website",
@@ -84,7 +84,7 @@ class SaleOrder(models.Model):
     )
     magento_order_reference = fields.Char(
         string="Magento Orders Reference",
-        help="Magento Order Reference"
+        help="Magento Order Reference", copy=False
     )
     store_id = fields.Many2one(
         'magento.storeview',

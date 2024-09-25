@@ -10,6 +10,7 @@
                 'account_bank_statement_import'],
     # Views
     'data': [
+        'data/email_template.xml',
         'data/ir.cron.xml',
         'data/mail_template_data.xml',
         'data/report_paperformat.xml',
