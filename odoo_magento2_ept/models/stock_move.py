@@ -70,7 +70,11 @@ class StockMoveLine(models.Model):
                 # if picking.picking_type_code == 'outgoing' and picking.sale_id.magento_order_id is not False:
                 #     continue
                 product = ml.product_id
-                available_qty = product._get_only_qty_available()[product.id]
+                quant_data = self.env['stock.quant'].read_group([
+                    ('product_id', '=', product.id), ('location_id.usage', '=', 'internal'), ], ['available_quantity'],
+                    ['product_id']
+                )
+                available_qty = quant_data[0]['available_quantity']
                 payload['skuData'].append(
                     {
                         "sku": product.default_code,
